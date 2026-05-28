@@ -48,7 +48,7 @@
       background: var(--c-bg);
       color: var(--c-text);
       min-height: 100vh;
-      padding-bottom: calc(72px + var(--safe-b));
+      padding-bottom: calc(80px + var(--safe-b));
     }
 
     /* ── Header ───────────────────────────────────────────────── */
@@ -258,7 +258,7 @@
     /* ── Scroll-to-top FAB ────────────────────────────────────── */
     .fab {
       position: fixed;
-      bottom: calc(24px + var(--safe-b));
+      bottom: calc(74px + var(--safe-b));
       right: 18px;
       width: 44px;
       height: 44px;
@@ -283,10 +283,93 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ── Gate (блокировка вне Telegram) ──────────────────────── */
+    .gate {
+      position: fixed;
+      inset: 0;
+      background: var(--c-bg);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .gate.hidden { display: none; }
+
+    .gate__box { text-align: center; max-width: 260px; }
+
+    .gate__icon { font-size: 52px; margin-bottom: 20px; }
+
+    .gate__title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--c-text);
+      margin-bottom: 10px;
+    }
+
+    .gate__text {
+      font-size: 14px;
+      color: var(--c-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Channel bar (подписка) ───────────────────────────────── */
+    .channel-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+      background: var(--c-primary);
+      padding: 10px 16px calc(10px + var(--safe-b));
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .channel-bar__label {
+      flex: 1;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .channel-bar__btn {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s;
+    }
+
+    .channel-bar__btn:active { background: rgba(255,255,255,0.3); }
   </style>
 </head>
 
 <body>
+  <!-- ── Gate (не Telegram) ──────────────────────────────────── -->
+  <div class="gate hidden" id="gate">
+    <div class="gate__box">
+      <div class="gate__icon">📱</div>
+      <div class="gate__title">Откройте в Telegram</div>
+      <p class="gate__text">
+        Библиотека доступна только внутри Telegram.<br><br>
+        Отсканируйте QR-код из книги или перейдите по ссылке на бот.
+      </p>
+    </div>
+  </div>
+
   <!-- ── Header ──────────────────────────────────────────────── -->
   <header class="header">
     <div class="header__cover" id="coverWrap">📗</div>
@@ -310,6 +393,12 @@
 
   <!-- ── FAB ─────────────────────────────────────────────────── -->
   <button class="fab" id="fab" aria-label="Наверх">↑</button>
+
+  <!-- ── Channel bar ─────────────────────────────────────────── -->
+  <div class="channel-bar">
+    <span class="channel-bar__label">Канал Екатерины Яхонтовой</span>
+    <a class="channel-bar__btn" id="channelBtn">Подписаться</a>
+  </div>
 
   <script>
     const CATALOG = [
@@ -420,21 +509,38 @@
     ];
 
     /* ═══════════════════════════════════════════════════════════
-       TELEGRAM INIT
+       TELEGRAM INIT + GATE
        ═══════════════════════════════════════════════════════════ */
     const tg = window.Telegram?.WebApp;
+    const gate = document.getElementById("gate");
 
-    if (tg) {
+    if (tg && tg.initData && tg.initData !== "") {
+      // Пользователь внутри Telegram — показываем контент
+      gate.classList.add("hidden");
       tg.ready();
       tg.expand();
       applyScheme(tg.colorScheme);
       tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme));
+    } else {
+      // Прямой браузер — показываем заглушку, скрываем всё
+      gate.classList.remove("hidden");
+      document.querySelector("header").style.display = "none";
+      document.querySelector("main").style.display = "none";
+      document.querySelector(".channel-bar").style.display = "none";
+      document.getElementById("fab").style.display = "none";
     }
 
     function applyScheme(scheme) {
       document.documentElement.classList.toggle("dark", scheme === "dark");
       document.documentElement.classList.toggle("light", scheme === "light");
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       CHANNEL BUTTON
+       ═══════════════════════════════════════════════════════════ */
+    document.getElementById("channelBtn").addEventListener("click", () => {
+      openUrl("https://t.me/+lYQIg1GzM9owZWNi");
+    });
 
     /* ═══════════════════════════════════════════════════════════
        COVER IMAGE
