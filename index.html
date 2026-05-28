@@ -180,26 +180,65 @@
       line-height: 1.45;
     }
 
-    .card__video {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--c-accent);
-      margin-top: 6px;
-      text-decoration: none;
-      opacity: 0.8;
-    }
-
-    .card__video:active { opacity: 1; }
-
     .card__cta {
       font-size: 12px;
       font-weight: 600;
       color: var(--c-accent);
       flex-shrink: 0;
       padding-left: 6px;
+    }
+
+    /* ── Video card layout ────────────────────────────────────── */
+    .card--video {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .card__top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card__footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--c-border);
+    }
+
+    .card__btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 8px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.13s, opacity 0.13s;
+      user-select: none;
+    }
+
+    .card__btn:active {
+      transform: scale(0.96);
+      opacity: 0.8;
+    }
+
+    .card__btn--video {
+      background: var(--c-accent-tint);
+      color: var(--c-accent);
+      border: 1px solid rgba(46, 109, 164, 0.22);
+    }
+
+    .card__btn--open {
+      background: var(--c-accent);
+      color: #ffffff;
     }
 
     /* ── Ripple ───────────────────────────────────────────────── */
@@ -288,6 +327,12 @@
             hint: "Готовые ответы на «дорого» и «подумаю»",
             icon: "📊",
             url: "https://docs.google.com/spreadsheets/d/1EzW8xwVNCjXsqLOSwA4B5DT2d9vOsgV6-lQIGm8BLfk/edit?gid=0#gid=0",
+          },
+          {
+            name: "Шаблон коммерческого предложения",
+            hint: "Структура через боли, а не список услуг",
+            icon: "📋",
+            url: "https://docs.google.com/presentation/d/1yqE7_mhC_xRKFeNRcnoFCTSLNDKvozBh_7SVpT6ojk8/edit?usp=sharing",
           },
         ],
       },
@@ -404,6 +449,28 @@
     };
 
     /* ═══════════════════════════════════════════════════════════
+       HELPERS
+       ═══════════════════════════════════════════════════════════ */
+    function openUrl(url) {
+      if (!url) return;
+      if (tg) tg.openLink(url);
+      else window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    function addRipple(el, e) {
+      const rect = el.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const rip  = document.createElement("span");
+      rip.className = "ripple";
+      rip.style.cssText =
+        `width:${size}px;height:${size}px;` +
+        `left:${e.clientX - rect.left - size / 2}px;` +
+        `top:${e.clientY - rect.top - size / 2}px`;
+      el.appendChild(rip);
+      rip.addEventListener("animationend", () => rip.remove());
+    }
+
+    /* ═══════════════════════════════════════════════════════════
        RENDER
        ═══════════════════════════════════════════════════════════ */
     function render() {
@@ -423,77 +490,56 @@
         cardsEl.className = "cards";
 
         for (const item of section.items) {
-          const a = document.createElement("a");
-          a.className = "card";
-          a.href = item.url;
-          a.dataset.url = item.url;
+          const card = document.createElement("div");
 
-          const videoLine = item.video
-            ? `<a class="card__video" data-video="${item.video}" href="${item.video}">▶ Видео по настройке</a>`
-            : "";
-
-          a.innerHTML =
-            `<div class="card__icon">${item.icon || "📊"}</div>` +
-            `<div class="card__body">` +
-              `<div class="card__name">${item.name}</div>` +
-              `<div class="card__hint">${item.hint}</div>` +
-              videoLine +
-            `</div>` +
-            `<div class="card__cta">Открыть&nbsp;→</div>`;
-
-          a.addEventListener("click", onCardClick);
-
-          // Video link — separate click, doesn't open the spreadsheet
           if (item.video) {
-            a.querySelector(".card__video").addEventListener("click", onVideoClick);
+            // ── Карточка с видео: два явных button-a внизу ──
+            card.className = "card card--video";
+            card.innerHTML =
+              `<div class="card__top">` +
+                `<div class="card__icon">${item.icon || "📊"}</div>` +
+                `<div class="card__body">` +
+                  `<div class="card__name">${item.name}</div>` +
+                  `<div class="card__hint">${item.hint}</div>` +
+                `</div>` +
+              `</div>` +
+              `<div class="card__footer">` +
+                `<a class="card__btn card__btn--video">▶&nbsp;Видео</a>` +
+                `<a class="card__btn card__btn--open">Открыть таблицу&nbsp;→</a>` +
+              `</div>`;
+
+            card.querySelector(".card__btn--video").addEventListener("click", (e) => {
+              e.stopPropagation();
+              openUrl(item.video);
+            });
+            card.querySelector(".card__btn--open").addEventListener("click", (e) => {
+              e.stopPropagation();
+              addRipple(card, e);
+              openUrl(item.url);
+            });
+
+          } else {
+            // ── Простая карточка: вся кликабельна ──
+            card.className = "card";
+            card.innerHTML =
+              `<div class="card__icon">${item.icon || "📊"}</div>` +
+              `<div class="card__body">` +
+                `<div class="card__name">${item.name}</div>` +
+                `<div class="card__hint">${item.hint}</div>` +
+              `</div>` +
+              `<div class="card__cta">Открыть&nbsp;→</div>`;
+
+            card.addEventListener("click", (e) => {
+              addRipple(card, e);
+              openUrl(item.url);
+            });
           }
 
-          cardsEl.appendChild(a);
+          cardsEl.appendChild(card);
         }
 
         ch.appendChild(cardsEl);
         root.appendChild(ch);
-      }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       VIDEO CLICK
-       ═══════════════════════════════════════════════════════════ */
-    function onVideoClick(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const url = this.dataset.video;
-      if (tg) tg.openLink(url);
-      else window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       CARD CLICK
-       ═══════════════════════════════════════════════════════════ */
-    function onCardClick(e) {
-      // Don't fire when the video link is tapped
-      if (e.target.classList.contains("card__video")) return;
-      e.preventDefault();
-      const url = this.dataset.url;
-
-      // Ripple animation
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const rip  = document.createElement("span");
-      rip.className = "ripple";
-      rip.style.cssText =
-        `width:${size}px;height:${size}px;` +
-        `left:${e.clientX - rect.left - size / 2}px;` +
-        `top:${e.clientY - rect.top - size / 2}px`;
-      this.appendChild(rip);
-      rip.addEventListener("animationend", () => rip.remove());
-
-      if (!url || url === "PLACEHOLDER") return;
-
-      if (tg) {
-        tg.openLink(url);
-      } else {
-        window.open(url, "_blank", "noopener,noreferrer");
       }
     }
 
