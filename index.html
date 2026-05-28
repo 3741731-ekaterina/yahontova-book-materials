@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1B3A6B">
+  <title>Материалы к книге</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    /* ── Light tokens ─────────────────────────────────────────── */
+    :root {
+      --c-primary:     #1B3A6B;
+      --c-accent:      #2E6DA4;
+      --c-accent-tint: rgba(46, 109, 164, 0.10);
+      --c-bg:          #FFFFFF;
+      --c-card:        #F5F8FC;
+      --c-text:        #1A1A1A;
+      --c-muted:       #6B7280;
+      --c-border:      #E2E8F0;
+      --safe-b:        env(safe-area-inset-bottom, 0px);
+    }
+
+    /* ── Dark tokens ──────────────────────────────────────────── */
+    html.dark {
+      --c-accent-tint: rgba(46, 109, 164, 0.18);
+      --c-bg:          #0F1923;
+      --c-card:        #1A2636;
+      --c-text:        #EAEAEA;
+      --c-muted:       #8B95A3;
+      --c-border:      #253044;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.light) {
+        --c-accent-tint: rgba(46, 109, 164, 0.18);
+        --c-bg:          #0F1923;
+        --c-card:        #1A2636;
+        --c-text:        #EAEAEA;
+        --c-muted:       #8B95A3;
+        --c-border:      #253044;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
+      background: var(--c-bg);
+      color: var(--c-text);
+      min-height: 100vh;
+      padding-bottom: calc(72px + var(--safe-b));
+    }
+
+    /* ── Header ───────────────────────────────────────────────── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--c-primary);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header__cover {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .header__cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .header__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.3;
+    }
+
+    .header__sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    /* ── Main content ─────────────────────────────────────────── */
+    .content { padding: 16px; }
+
+    .tip {
+      background: var(--c-accent-tint);
+      border: 1px solid rgba(46, 109, 164, 0.2);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 13px;
+      color: var(--c-accent);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    /* ── Chapter section ──────────────────────────────────────── */
+    .chapter { margin-bottom: 24px; }
+
+    .chapter__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 8px;
+      padding: 0 2px;
+    }
+
+    /* ── Cards ────────────────────────────────────────────────── */
+    .cards { display: flex; flex-direction: column; gap: 8px; }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 12px;
+      padding: 14px 14px 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.13s ease, box-shadow 0.13s ease;
+      user-select: none;
+    }
+
+    .card:active {
+      transform: scale(0.964);
+    }
+
+    .card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--c-accent-tint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .card__body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card__name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-text);
+      line-height: 1.35;
+    }
+
+    .card__hint {
+      font-size: 12px;
+      color: var(--c-muted);
+      margin-top: 3px;
+      line-height: 1.45;
+    }
+
+    .card__cta {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--c-accent);
+      flex-shrink: 0;
+      padding-left: 6px;
+    }
+
+    /* ── Ripple ───────────────────────────────────────────────── */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(46, 109, 164, 0.20);
+      transform: scale(0);
+      animation: ripple-out 0.5s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-out {
+      to { transform: scale(5); opacity: 0; }
+    }
+
+    /* ── Scroll-to-top FAB ────────────────────────────────────── */
+    .fab {
+      position: fixed;
+      bottom: calc(24px + var(--safe-b));
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      background: var(--c-primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(27, 58, 107, 0.40);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 20;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .fab.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header__cover" id="coverWrap">📗</div>
+    <div>
+      <div class="header__title">Материалы к книге</div>
+      <div class="header__sub">
+        «Эксперт по оцифровке бизнеса»<br>
+        Екатерина Яхонтова
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Content ─────────────────────────────────────────────── -->
+  <main class="content">
+    <div class="tip">
+      💡 Нажмите на карточку — откроется таблица.<br>
+      Сохраните: <strong>Файл → Создать копию</strong>
+    </div>
+    <div id="catalog"></div>
+  </main>
+
+  <!-- ── FAB ─────────────────────────────────────────────────── -->
+  <button class="fab" id="fab" aria-label="Наверх">↑</button>
+
+  <script>
+    const CATALOG = [
+      {
+        chapter: "Глава 4. Работа с клиентом",
+        items: [
+          {
+            name: "Чек-лист диагностики клиента",
+            hint: "Используйте на первой встрече с клиентом",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1EzW8xwVNCjXsqLOSwA4B5DT2d9vOsgV6-lQIGm8BLfk/edit?usp=sharing",
+          },
+          {
+            name: "Шаблон коммерческого предложения",
+            hint: "Структура через боли, а не список услуг",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1C67x6fcpqTaykBKGUPpZJq3-PAzGN7jKMfMYKP_AgDw/edit?usp=sharing",
+          },
+          {
+            name: "Таблица отработки возражений",
+            hint: "Готовые ответы на «дорого» и «подумаю»",
+            icon: "📋",
+            url: "https://docs.google.com/presentation/d/1yqE7_mhC_xRKFeNRcnoFCTSLNDKvozBh_7SVpT6ojk8/edit?usp=drivesdk",
+          },
+        ],
+      },
+      {
+        chapter: "Глава 6. ДДС",
+        items: [
+          {
+            name: "Шаблон ДДС",
+            hint: "Адаптируйте справочник статей под клиента",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1EwE7n0ksLYIDulvZzYtOAigHbIiudvm1xbsMkES9nY8/edit?usp=drivesdk",
+          },
+        ],
+      },
+      {
+        chapter: "Глава 7. ОПиУ",
+        items: [
+          {
+            name: "Шаблон ОПиУ",
+            hint: "Логика расчёта от выручки до чистой прибыли",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1Y_n9asCbANZ8lem91Mhmw3CAcF6viQYiWcbHiQeeVp4/edit?usp=drivesdk",
+          },
+          {
+            name: "Шаблон учёта сделок",
+            hint: "Для сборки выручки по методу начисления",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1pKNhD6pME_yVdWYuU1V_D0HBJAmZWdW3ql2DMVVuJ60/edit?usp=drivesdk",
+          },
+          {
+            name: "Шаблон разделения кредита",
+            hint: "Тело и проценты — отдельно",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1K9Cy9Xiywr_7pu0bfP66iNnQsG8fHe2XKexaEavs0Rs/edit?usp=drivesdk",
+          },
+          {
+            name: "Реестр основных средств",
+            hint: "Активы и амортизация",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1zwsuhsVHn-iwZUXLMPsQyxShgl0aH1YCwEndrypc3sc/edit?usp=drivesdk",
+          },
+          {
+            name: "Шаблон учёта обязательств",
+            hint: "Для корректной сборки баланса",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1So1rbBYH7S-B0rej_nhFU91rL4tKUHuhRPn4wx0hpiM/edit?usp=drivesdk",
+          },
+        ],
+      },
+      {
+        chapter: "Глава 8. Баланс",
+        items: [
+          {
+            name: "Шаблон управленческого баланса",
+            hint: "Активы и пассивы с пояснениями",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1SovY46QC6AMiGKq2pMaRC_4D9XMSLfEp_VJSdmYUyr8/edit?usp=drivesdk",
+          },
+        ],
+      },
+      {
+        chapter: "Глава 12. Ценообразование",
+        items: [
+          {
+            name: "Калькулятор стоимости услуг",
+            hint: "Внутренний ориентир для ценообразования",
+            icon: "📊",
+            url: "https://docs.google.com/spreadsheets/d/1N06_6idJSHiTaLVxTrjkJh8IargP0zY0X-2hlR6oJjo/edit?usp=drivesdk",
+          },
+        ],
+      },
+    ];
+
+    /* ═══════════════════════════════════════════════════════════
+       TELEGRAM INIT
+       ═══════════════════════════════════════════════════════════ */
+    const tg = window.Telegram?.WebApp;
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      applyScheme(tg.colorScheme);
+      tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme));
+    }
+
+    function applyScheme(scheme) {
+      document.documentElement.classList.toggle("dark", scheme === "dark");
+      document.documentElement.classList.toggle("light", scheme === "light");
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       COVER IMAGE
+       ═══════════════════════════════════════════════════════════ */
+    const coverWrap = document.getElementById("coverWrap");
+    const img = new Image();
+    img.src = "cover.jpg";
+    img.alt = "Обложка книги";
+    img.onload = () => {
+      coverWrap.textContent = "";
+      coverWrap.appendChild(img);
+    };
+
+    /* ═══════════════════════════════════════════════════════════
+       RENDER
+       ═══════════════════════════════════════════════════════════ */
+    function render() {
+      const root = document.getElementById("catalog");
+      root.innerHTML = "";
+
+      for (const section of CATALOG) {
+        const ch = document.createElement("div");
+        ch.className = "chapter";
+
+        const label = document.createElement("div");
+        label.className = "chapter__label";
+        label.textContent = section.chapter;
+        ch.appendChild(label);
+
+        const cardsEl = document.createElement("div");
+        cardsEl.className = "cards";
+
+        for (const item of section.items) {
+          const a = document.createElement("a");
+          a.className = "card";
+          a.href = item.url;
+          a.dataset.url = item.url;
+          a.innerHTML =
+            `<div class="card__icon">${item.icon || "📊"}</div>` +
+            `<div class="card__body">` +
+              `<div class="card__name">${item.name}</div>` +
+              `<div class="card__hint">${item.hint}</div>` +
+            `</div>` +
+            `<div class="card__cta">Открыть&nbsp;→</div>`;
+
+          a.addEventListener("click", onCardClick);
+          cardsEl.appendChild(a);
+        }
+
+        ch.appendChild(cardsEl);
+        root.appendChild(ch);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CARD CLICK
+       ═══════════════════════════════════════════════════════════ */
+    function onCardClick(e) {
+      e.preventDefault();
+      const url = this.dataset.url;
+
+      // Ripple animation
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const rip  = document.createElement("span");
+      rip.className = "ripple";
+      rip.style.cssText =
+        `width:${size}px;height:${size}px;` +
+        `left:${e.clientX - rect.left - size / 2}px;` +
+        `top:${e.clientY - rect.top - size / 2}px`;
+      this.appendChild(rip);
+      rip.addEventListener("animationend", () => rip.remove());
+
+      if (!url || url === "PLACEHOLDER") return;
+
+      if (tg) {
+        tg.openLink(url);
+      } else {
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SCROLL-TO-TOP FAB
+       ═══════════════════════════════════════════════════════════ */
+    const fab = document.getElementById("fab");
+
+    window.addEventListener("scroll", () => {
+      fab.classList.toggle("visible", window.scrollY > 280);
+    }, { passive: true });
+
+    fab.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    /* ── GO ── */
+    render();
+  </script>
+</body>
+</html>
