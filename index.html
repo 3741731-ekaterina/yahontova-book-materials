@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#1B3A6B">
   <title>Материалы к книге</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://st.max.ru/js/max-web-app.js"></script>
   <style>
     /* ── Light tokens ─────────────────────────────────────────── */
     :root {
@@ -509,18 +510,27 @@
     ];
 
     /* ═══════════════════════════════════════════════════════════
-       TELEGRAM INIT + GATE
+       PLATFORM DETECTION + GATE
+       Поддержка: Telegram и MAX
        ═══════════════════════════════════════════════════════════ */
-    const tg = window.Telegram?.WebApp;
+    const tg  = window.Telegram?.WebApp;   // Telegram Bridge
+    const max = window.WebApp;             // MAX Bridge (автоинициализация)
     const gate = document.getElementById("gate");
 
-    if (tg && tg.initData && tg.initData !== "") {
-      // Пользователь внутри Telegram — показываем контент
+    // initData непустой только внутри соответствующего мессенджера
+    const inTelegram = Boolean(tg?.initData);
+    const inMax      = Boolean(max?.initData);
+
+    if (inTelegram || inMax) {
       gate.classList.add("hidden");
-      tg.ready();
-      tg.expand();
-      applyScheme(tg.colorScheme);
-      tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme));
+
+      if (inTelegram) {
+        tg.ready();
+        tg.expand();
+        applyScheme(tg.colorScheme);
+        tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme));
+      }
+      // MAX инициализируется сам; тему берём из системы (prefers-color-scheme)
     } else {
       // Прямой браузер — показываем заглушку, скрываем всё
       gate.classList.remove("hidden");
@@ -531,7 +541,7 @@
     }
 
     function applyScheme(scheme) {
-      document.documentElement.classList.toggle("dark", scheme === "dark");
+      document.documentElement.classList.toggle("dark",  scheme === "dark");
       document.documentElement.classList.toggle("light", scheme === "light");
     }
 
@@ -559,8 +569,9 @@
        ═══════════════════════════════════════════════════════════ */
     function openUrl(url) {
       if (!url) return;
-      if (tg) tg.openLink(url);
-      else window.open(url, "_blank", "noopener,noreferrer");
+      if (inTelegram) { tg.openLink(url);  return; }
+      if (inMax)      { max.openLink(url); return; }
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
     function addRipple(el, e) {
