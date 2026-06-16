@@ -144,13 +144,12 @@ p  { font-size: 16px; line-height: 1.75; }
   align-items: center;
   gap: 40px;
   padding: 120px 0 80px;
-  position: relative; overflow: clip;
+  position: relative; overflow: visible;
 }
 .hero::after {
   content: '';
   position: absolute; top: -200px; right: -300px;
   width: 900px; height: 900px;
-  max-width: 100vw;
   background: radial-gradient(circle, rgba(42,99,174,.06) 0%, transparent 65%);
   pointer-events: none;
 }
@@ -314,8 +313,8 @@ p  { font-size: 16px; line-height: 1.75; }
 
 .problem__body { position: relative; }
 .problem__visual {
-  position: absolute; right: -56px; bottom: -28px;
-  width: 280px; z-index: 1;
+  position: absolute; right: 8px; bottom: -16px;
+  width: 240px; z-index: 1;
   transform: rotate(-5deg);
   border-radius: 14px;
   box-shadow: 0 20px 50px rgba(15,27,45,.22), 0 6px 18px rgba(15,27,45,.1);
@@ -620,7 +619,7 @@ p  { font-size: 16px; line-height: 1.75; }
    PRICING
 =========================== */
 .pricing { background: var(--navy); text-align: center; }
-.pricing h2 { color: var(--white); max-width: 640px; margin: 0 auto 12px; }
+.pricing h2 { color: var(--white); max-width: 100%; margin: 0 auto 12px; }
 .pricing .label { color: var(--gold2); }
 .pricing__sub { color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 48px; font-size: 16px; }
 .price-card {
@@ -778,9 +777,10 @@ p  { font-size: 16px; line-height: 1.75; }
   background: radial-gradient(ellipse, rgba(196,154,60,.1) 0%, transparent 65%);
   pointer-events: none;
 }
-.final-cta h2 { color: var(--white); max-width: 760px; margin: 0 auto 22px; }
-.final-cta p  { color: rgba(255,255,255,.65); max-width: 640px; margin: 0 auto 40px; font-size: 16px; }
-.final-cta__note { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.4); }
+.final-cta { padding: 140px 0; }
+.final-cta h2 { color: var(--white); max-width: 620px; margin: 0 auto 22px; }
+.final-cta p  { color: rgba(255,255,255,.65); max-width: 560px; margin: 0 auto 40px; font-size: 16px; }
+.final-cta__note { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.4); max-width: 480px; margin-left: auto; margin-right: auto; }
 
 /* ===========================
    CONTACTS
@@ -1146,8 +1146,13 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   transition: background .2s;
 }
 .modal-close:hover { background: rgba(15,27,45,.16); }
-.modal-box--pdf { max-width: 880px; width: 92vw; height: 88vh; padding: 12px; }
-.modal-box--pdf #pdfFrame { width: 100%; height: 100%; border: none; border-radius: 10px; }
+.modal-box--pdf { max-width: 880px; width: 92vw; height: 88vh; padding: 12px; display: flex; flex-direction: column; }
+.modal-box--pdf #pdfFrame { width: 100%; flex: 1; border: none; border-radius: 10px; }
+.pdf-fallback-link {
+  display: block; text-align: center; font-size: 13px; font-weight: 600;
+  color: var(--orange); text-decoration: none; padding: 8px 0 10px;
+}
+.pdf-fallback-link:hover { text-decoration: underline; }
 @media (max-width: 640px) {
   .modal-box--pdf { width: 96vw; height: 92vh; padding: 8px; }
 }
@@ -1474,7 +1479,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     </div>
 
     <div style="text-align:center;margin-top:36px">
-      <button onclick="openPdf()" class="btn btn--outline btn--lg" style="cursor:pointer;border:none">
+      <button onclick="openPdf()" class="btn btn--gold btn--lg" style="cursor:pointer;border:none">
         📄 Читать фрагмент учебника
       </button>
     </div>
@@ -1710,6 +1715,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 <div class="modal-overlay" id="pdfModal" onclick="if(event.target===this)closePdf()">
   <div class="modal-box modal-box--pdf">
     <button class="modal-close" onclick="closePdf()">✕</button>
+    <a id="pdfFallback" href="fragment.pdf" target="_blank" rel="noopener" class="pdf-fallback-link">Открыть PDF в новой вкладке ↗</a>
     <iframe id="pdfFrame" src="" title="Фрагмент учебника" loading="lazy"></iframe>
   </div>
 </div>
@@ -1781,8 +1787,8 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 <section class="section final-cta">
   <div class="container">
     <span class="label" style="color:var(--gold2)">Заключение</span>
-    <h2>Система, которую нарабатывают годами — теперь в одной книге</h2>
-    <p>Вы можете продолжать работать «как получается». Или — выстроить систему, которая делает вас более уверенным, более ценным и более высокооплачиваемым специалистом.<br><br>
+    <h2>Система, которую нарабатывают годами<br>— теперь в одной книге</h2>
+    <p>Вы можете продолжать работать «как получается».<br>Или — выстроить систему, которая делает вас более уверенным, более ценным и более высокооплачиваемым специалистом.<br><br>
     «Эксперт по оцифровке бизнеса» — не про «узнать что-то новое», а про «изменить то, кем и как вы работаете».</p>
     <button class="btn btn--gold btn--lg" onclick="scrollToPricing()">Купить учебник</button>
     <p class="final-cta__note">После покупки вы получите доступ к обучающему приложению, библиотеке инструментов и подарочному курсу на выбор</p>
@@ -2074,7 +2080,10 @@ function openPdf() {
   const modal = document.getElementById('pdfModal');
   const frame = document.getElementById('pdfFrame');
   if (!modal || !frame) return;
-  if (!frame.src) frame.src = 'fragment.pdf';
+  if (!frame.src) {
+    const pdfUrl = new URL('fragment.pdf', window.location.href).href;
+    frame.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(pdfUrl) + '&embedded=true';
+  }
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
