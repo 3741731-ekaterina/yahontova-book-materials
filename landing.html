@@ -40,7 +40,7 @@
    RESET
 =========================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
 
 body {
   font-family: 'Montserrat', -apple-system, sans-serif;
@@ -48,6 +48,9 @@ body {
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
 }
 
 /* Paper grain */
@@ -141,12 +144,13 @@ p  { font-size: 16px; line-height: 1.75; }
   align-items: center;
   gap: 40px;
   padding: 120px 0 80px;
-  position: relative; overflow: visible;
+  position: relative; overflow: clip;
 }
 .hero::after {
   content: '';
   position: absolute; top: -200px; right: -300px;
   width: 900px; height: 900px;
+  max-width: 100vw;
   background: radial-gradient(circle, rgba(42,99,174,.06) 0%, transparent 65%);
   pointer-events: none;
 }
@@ -303,7 +307,7 @@ p  { font-size: 16px; line-height: 1.75; }
 .problem__summary {
   background: var(--navy); color: var(--white);
   border-radius: 14px; padding: 32px 36px;
-  font-size: 17px; font-weight: 600; line-height: 1.6; max-width: 720px;
+  font-size: 17px; font-weight: 600; line-height: 1.6;
 }
 .problem__summary em { font-style: normal; color: var(--gold2); }
 
@@ -1126,6 +1130,11 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   transition: background .2s;
 }
 .modal-close:hover { background: rgba(15,27,45,.16); }
+.modal-box--pdf { max-width: 880px; width: 92vw; height: 88vh; padding: 12px; }
+.modal-box--pdf #pdfFrame { width: 100%; height: 100%; border: none; border-radius: 10px; }
+@media (max-width: 640px) {
+  .modal-box--pdf { width: 96vw; height: 92vh; padding: 8px; }
+}
 </style>
 </head>
 <body>
@@ -1142,7 +1151,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
       <a class="topnav__link" href="#gifts">Спецпредложение</a>
       <a class="topnav__link" href="#pricing">Стоимость</a>
       <a class="topnav__link" href="#author">Об авторе</a>
-      <a class="topnav__link" href="https://drive.google.com/file/d/1bdAPFGzmvp1CMIXOs_bNLGDyhah_Cj8K/view?usp=drive_link" target="_blank" rel="noopener">Фрагмент</a>
+      <a class="topnav__link" href="javascript:void(0)" onclick="openPdf()">Фрагмент</a>
       <a class="topnav__link" href="#contacts">Задать вопрос</a>
       <a class="topnav__link topnav__link--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
     </div>
@@ -1156,7 +1165,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     <a class="topnav__mlink" href="#gifts">Спецпредложение</a>
     <a class="topnav__mlink" href="#pricing">Стоимость</a>
     <a class="topnav__mlink" href="#author">Об Авторе</a>
-    <a class="topnav__mlink" href="https://drive.google.com/file/d/1bdAPFGzmvp1CMIXOs_bNLGDyhah_Cj8K/view?usp=drive_link" target="_blank" rel="noopener">Фрагмент учебника</a>
+    <a class="topnav__mlink" href="javascript:void(0)" onclick="openPdf()">Фрагмент учебника</a>
     <a class="topnav__mlink" href="#contacts">Задать вопрос</a>
     <a class="topnav__mlink topnav__mlink--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
   </div>
@@ -1445,11 +1454,9 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     </div>
 
     <div style="text-align:center;margin-top:36px">
-      <a href="https://drive.google.com/file/d/1bdAPFGzmvp1CMIXOs_bNLGDyhah_Cj8K/view?usp=drive_link"
-         target="_blank" rel="noopener"
-         class="btn btn--outline btn--lg">
+      <button onclick="openPdf()" class="btn btn--outline btn--lg" style="cursor:pointer;border:none">
         📄 Читать фрагмент учебника
-      </a>
+      </button>
     </div>
 
   </div>
@@ -1653,13 +1660,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 ============================= -->
 <section class="section--sm payment-section">
   <div class="container">
-    <h3>Как оплатить?</h3>
-    <div class="pay-grid">
-      <div class="pay-item"><span class="pay-item__ico">💳</span> По карте</div>
-      <div class="pay-item"><span class="pay-item__ico">📑</span> По счёту</div>
-      <div class="pay-item"><span class="pay-item__ico">🔄</span> Долями — Яндекс Сплит</div>
-    </div>
-    <p class="pay-contact">Проблема с оплатой? Напишите мне:</p>
+    <p class="pay-contact" style="margin-top:0">Проблема с оплатой? Напишите мне:</p>
     <div class="pay-links">
       <a class="pay-link" href="https://t.me/yakhontova_finance" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
@@ -1682,6 +1683,14 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <script id="799ef4de964ba9ef3c82a2ade2d24f99083467f8" src="https://yahontovaschool.getcourse.ru/pl/lite/widget/script?id=1618139"></script>
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div class="modal-overlay" id="pdfModal" onclick="if(event.target===this)closePdf()">
+  <div class="modal-box modal-box--pdf">
+    <button class="modal-close" onclick="closePdf()">✕</button>
+    <iframe id="pdfFrame" src="" title="Фрагмент учебника" loading="lazy"></iframe>
   </div>
 </div>
 
@@ -2038,7 +2047,23 @@ function closeModal() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closePdf(); } });
+
+// ---- PDF viewer modal ----
+function openPdf() {
+  const modal = document.getElementById('pdfModal');
+  const frame = document.getElementById('pdfFrame');
+  if (!modal || !frame) return;
+  if (!frame.src) frame.src = 'fragment.pdf';
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePdf() {
+  const modal = document.getElementById('pdfModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 // ---- Top nav burger ----
 const tnBurger = document.getElementById('topnavBurger');
