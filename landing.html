@@ -311,17 +311,17 @@ p  { font-size: 16px; line-height: 1.75; }
 }
 .problem__summary em { font-style: normal; color: var(--gold2); }
 
-.problem__body { position: relative; }
+.problem__top { display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: center; margin-bottom: 36px; }
+.problem__top-text > .label { display: block; margin-bottom: 14px; }
 .problem__visual {
-  position: absolute; right: 4px; top: 88px;
-  width: 220px; z-index: 1;
-  transform: rotate(-4deg);
+  width: 100%; max-width: 380px; justify-self: end;
+  transform: rotate(-3deg);
   border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(15,27,45,.22), 0 6px 18px rgba(15,27,45,.1);
-  pointer-events: none;
+  box-shadow: 0 20px 50px rgba(15,27,45,.18), 0 6px 18px rgba(15,27,45,.08);
 }
 .problem__visual-mobile { display: none; }
 @media (max-width: 1100px) {
+  .problem__top { grid-template-columns: 1fr; }
   .problem__visual { display: none; }
   .problem__visual-mobile { display: block; }
 }
@@ -657,8 +657,9 @@ p  { font-size: 16px; line-height: 1.75; }
 /* ===========================
    PAYMENT INFO
 =========================== */
-.payment-section { background: var(--cream2); }
+.payment-section { background: var(--cream2); padding: 28px 0; }
 .payment-section h3 { margin-bottom: 16px; font-size: 22px; }
+.payment-section__row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
 .pay-item {
   background: var(--white); border: 1px solid var(--border);
@@ -667,11 +668,11 @@ p  { font-size: 16px; line-height: 1.75; }
   font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600; color: var(--navy);
 }
 .pay-item__ico { font-size: 24px; }
-.pay-contact { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
-.pay-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.pay-contact { font-size: 15px; color: var(--muted); margin: 0; }
+.pay-links { display: flex; gap: 12px; flex-wrap: wrap; }
 .pay-link {
   display: flex; align-items: center; gap: 8px;
-  padding: 12px 20px; border-radius: 8px;
+  padding: 9px 16px; border-radius: 8px;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
   background: var(--white); border: 1.5px solid var(--border);
@@ -1288,9 +1289,14 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 ============================= -->
 <section class="section problem" id="problem">
   <div class="container">
-    <span class="label">Почему этого недостаточно</span>
-    <p class="problem__lead">7 из 10 финансистов и бухгалтеров понимают, как строить финансовые отчёты. Но этого уже недостаточно.</p>
-    <p class="problem__intro">Вы можете уметь строить таблицы, собирать отчёты, понимать, что такое ДДС, ОПиУ и баланс. Но когда дело доходит до клиентов — начинаются вопросы без ответов:</p>
+    <div class="problem__top">
+      <div class="problem__top-text">
+        <span class="label">Почему этого недостаточно</span>
+        <p class="problem__lead">7 из 10 финансистов и бухгалтеров понимают, как строить финансовые отчёты. Но этого уже недостаточно.</p>
+        <p class="problem__intro">Вы можете уметь строить таблицы, собирать отчёты, понимать, что такое ДДС, ОПиУ и баланс. Но когда дело доходит до клиентов — начинаются вопросы без ответов:</p>
+      </div>
+      <img src="было-стало.png" alt="До и после — трансформация финансиста" class="problem__visual reveal">
+    </div>
 
     <div class="problem__body">
       <div class="problem__qs" id="pqs">
@@ -1307,8 +1313,6 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
         Эти вопросы — не про знания теории и таблиц. Они про <em>систему работы</em>, которой у большинства нет.<br><br>
         Когда нет системы, специалист берёт всё подряд, работает на износ и не понимает, куда расти. Это касается как начинающих финансистов, так и людей с большим опытом.
       </div>
-
-      <img src="было-стало.png" alt="До и после — трансформация финансиста" class="problem__visual reveal">
     </div>
 
     <div class="problem__visual-mobile reveal" style="margin-top:52px;text-align:center">
@@ -1674,8 +1678,8 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
      PAYMENT INFO
 ============================= -->
 <section class="section--sm payment-section">
-  <div class="container">
-    <p class="pay-contact" style="margin-top:0">Проблема с оплатой? Напишите мне:</p>
+  <div class="container payment-section__row">
+    <p class="pay-contact">Проблема с оплатой? Напишите мне:</p>
     <div class="pay-links">
       <a class="pay-link" href="https://t.me/yakhontova_finance" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
