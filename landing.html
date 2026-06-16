@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Эксперт по оцифровке бизнеса — Екатерина Яхонтова</title>
+<meta name="description" content="Авторское учебное пособие для финансистов и бухгалтеров. Как оказывать услуги управленческого учёта, работать с клиентами и расти в профессии финдиректора на аутсорсе.">
+<meta property="og:title" content="Эксперт по оцифровке бизнеса — Екатерина Яхонтова">
+<meta property="og:description" content="Не просто книга про отчёты — полноценная система для финансиста.">
+<meta property="og:image" content="cover-web.jpg">
+
+<!-- Fonts: Forum (headings) + Montserrat (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================
+   TOKENS
+=========================== */
+:root {
+  --navy:    #0F1B2D;
+  --navy2:   #1C2E46;
+  --cream:   #F7F3EB;
+  --cream2:  #EDE8DF;
+  --page:    #FDFAF5;
+  --orange:  #C85F18;
+  --orange2: #E07030;
+  --blue:    #2A63AE;
+  --gold:    #C49A3C;
+  --gold2:   #E4B84A;
+  --white:   #FFFFFF;
+  --text:    #1C2B3A;
+  --muted:   #6B7590;
+  --border:  #DDD6C9;
+  --green:   #2A8B52;
+}
+
+/* ===========================
+   RESET
+=========================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  background-color: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Paper grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+/* ===========================
+   TYPOGRAPHY — Forum headings
+=========================== */
+h1, h2, h3 {
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;       /* Forum has no bold — weight is in the design */
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--navy);
+  letter-spacing: 0.02em;
+}
+h1 { font-size: clamp(42px, 7vw, 86px); }
+h2 { font-size: clamp(28px, 4vw, 54px); }
+h3 { font-size: clamp(18px, 2.5vw, 26px); }
+p  { font-size: 16px; line-height: 1.75; }
+
+.label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 14px;
+}
+
+/* ===========================
+   LAYOUT
+=========================== */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+.section    { padding: 96px 0; position: relative; }
+.section--sm{ padding: 64px 0; position: relative; }
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 30px; border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; text-decoration: none; border: none;
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.btn--primary { background: var(--orange); color: var(--white); }
+.btn--primary:hover { background: var(--orange2); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,95,24,.35); }
+.btn--outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+.btn--outline:hover { background: var(--navy); color: var(--white); }
+.btn--white   { background: var(--white); color: var(--orange); }
+.btn--white:hover { background: var(--cream); transform: translateY(-2px); }
+.btn--gold    { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--white); }
+.btn--gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,154,60,.4); }
+.btn--lg { padding: 18px 38px; font-size: 17px; }
+.btn--sm { padding: 10px 20px; font-size: 14px; }
+
+/* ===========================
+   STICKY HEADER
+=========================== */
+.sh {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(247,243,235,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  transform: translateY(-100%);
+  transition: transform .3s ease;
+}
+.sh.vis { transform: translateY(0); }
+.sh__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.sh__title  {
+  font-family: 'Forum', serif;
+  font-size: 15px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--navy);
+}
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  align-items: center;
+  gap: 40px;
+  padding: 120px 0 80px;
+  position: relative; overflow: visible;
+}
+.hero::after {
+  content: '';
+  position: absolute; top: -200px; right: -300px;
+  width: 900px; height: 900px;
+  background: radial-gradient(circle, rgba(42,99,174,.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero__tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,95,24,.1); color: var(--orange);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 4px; margin-bottom: 22px;
+}
+.hero__tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; }
+
+.hero__title em { font-style: normal; color: var(--orange); }
+
+.hero__sub {
+  font-size: 18px; font-weight: 500; color: var(--muted);
+  max-width: 520px; margin: 20px 0 16px;
+}
+.hero__desc {
+  font-size: 15px; color: var(--text);
+  max-width: 520px; margin-bottom: 28px; line-height: 1.75;
+}
+.hero__audience {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
+}
+.hero__audience span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 600;
+  padding: 5px 13px; border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--white); color: var(--navy2);
+}
+.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+.hero__lottery {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+  padding: 10px 18px; border-radius: 6px;
+}
+
+/* ===========================
+   BOOK 3-D
+=========================== */
+.book-stage {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px 40px 80px;
+  overflow: visible;
+}
+.book-stage::after {
+  content: '';
+  position: absolute; bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  width: 55%; height: 50px;
+  background: radial-gradient(ellipse, rgba(15,27,45,.28) 0%, transparent 72%);
+  filter: blur(14px);
+}
+.book-3d {
+  width: clamp(220px, 28vw, 340px);
+  border-radius: 3px 10px 10px 3px; display: block;
+  transform: rotate(-6deg) perspective(900px) rotateY(-12deg);
+  box-shadow:
+    -12px 0   0 2px rgba(8,16,30,.7),
+    -17px 3px 0 rgba(8,16,30,.5),
+     35px 45px 90px rgba(15,27,45,.45),
+     12px 18px 36px rgba(15,27,45,.25);
+  animation: bookFloat 6s ease-in-out infinite;
+  position: relative; z-index: 2;
+}
+@keyframes bookFloat {
+  0%,100% { transform: rotate(-6deg) perspective(900px) rotateY(-12deg) translateY(0); }
+  50%      { transform: rotate(-6deg) perspective(900px) rotateY(-12deg) translateY(-20px); }
+}
+.book-badge {
+  position: absolute; top: 16px; right: 0;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 800;
+  padding: 10px 16px; border-radius: 8px;
+  text-align: center; line-height: 1.35;
+  box-shadow: 0 6px 20px rgba(196,154,60,.45);
+  text-transform: uppercase; letter-spacing: .06em;
+  animation: badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+/* ===========================
+   MARQUEE
+=========================== */
+.marquee-wrap { background: var(--navy); padding: 15px 0; overflow: hidden; }
+.marquee-track {
+  display: flex;
+  animation: marquee 28s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.mitem {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--white); white-space: nowrap;
+}
+.mdot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ===========================
+   STATS ROW
+=========================== */
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  gap: 1px; background: var(--border);
+}
+.stat { background: var(--cream); padding: 36px 20px; text-align: center; }
+.stat__n {
+  font-family: 'Forum', serif;
+  font-size: clamp(40px,5vw,56px); color: var(--navy);
+  line-height: 1; margin-bottom: 6px;
+}
+.stat__n span { color: var(--orange); }
+.stat__l { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+/* ===========================
+   PROBLEM
+=========================== */
+.problem { background: var(--white); }
+.problem__lead { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 16px; max-width: 780px; line-height: 1.4; }
+.problem__intro { max-width: 760px; margin-bottom: 40px; font-size: 16px; color: var(--muted); }
+.problem__qs { display: grid; gap: 12px; margin-bottom: 56px; }
+.pq {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 16px 22px; background: var(--cream);
+  border-radius: 8px; border-left: 3px solid var(--orange);
+  opacity: 0; transform: translateX(-20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.pq.vis { opacity: 1; transform: translateX(0); }
+.pq:nth-child(2) { transition-delay: .07s; }
+.pq:nth-child(3) { transition-delay: .14s; }
+.pq:nth-child(4) { transition-delay: .21s; }
+.pq:nth-child(5) { transition-delay: .28s; }
+.pq:nth-child(6) { transition-delay: .35s; }
+.pq:nth-child(7) { transition-delay: .42s; }
+.pq-mark { font-size: 18px; flex-shrink: 0; padding-top: 2px; }
+.pq-text { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text); }
+.problem__summary {
+  background: var(--navy); color: var(--white);
+  border-radius: 14px; padding: 32px 36px;
+  font-size: 17px; font-weight: 600; line-height: 1.6; max-width: 720px;
+}
+.problem__summary em { font-style: normal; color: var(--gold2); }
+
+.transform-block { display: grid; grid-template-columns: 1fr 56px 1fr; gap: 16px; align-items: center; margin-top: 56px; }
+.state { padding: 28px 24px; border-radius: 12px; text-align: center; }
+.state--before { background: #FEF2EA; border: 1px dashed #F4A278; }
+.state--after  { background: #EBF5EE; border: 1px solid #7EC89F; }
+.state__head { font-family: 'Montserrat',sans-serif; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px; }
+.state--before .state__head { color: #B84000; }
+.state--after  .state__head { color: #1D7A3A; }
+.state p { font-size: 14px; color: var(--text); line-height: 1.65; }
+.transform-arrow { text-align: center; position: relative; }
+.arrow-body { font-size: 32px; color: var(--navy); line-height: 1; }
+.arrow-book {
+  position: absolute; top: -52px; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: var(--white);
+  font-family: 'Montserrat',sans-serif;
+  font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  padding: 6px 10px; border-radius: 5px; white-space: nowrap;
+}
+.arrow-book::after { content: '▼'; display: block; text-align: center; font-size: 9px; margin-top: 2px; }
+
+/* ===========================
+   WHAT IS THE BOOK
+=========================== */
+.whatbook { background: var(--cream); }
+.whatbook__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.whatbook__desc { font-size: 16px; color: var(--text); margin-bottom: 32px; }
+.includes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+.inc-card { background: var(--white); border-radius: 10px; border: 1px solid var(--border); padding: 20px 18px; }
+.inc-card__ico { font-size: 26px; margin-bottom: 8px; }
+.inc-card__t   { font-family: 'Montserrat',sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); }
+.inc-card__d   { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.results__title { font-family: 'Montserrat',sans-serif; font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+.results-list { list-style: none; display: grid; gap: 10px; }
+.results-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--text); }
+.results-list li::before { content: '→'; color: var(--orange); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+/* ===========================
+   FOR WHOM
+=========================== */
+.forwhom { background: var(--navy); }
+.forwhom h2 { color: var(--white); }
+.forwhom .label { color: var(--gold2); }
+.audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+.ac {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px; padding: 32px 26px; backdrop-filter: blur(10px);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.ac.vis { opacity: 1; transform: translateY(0); }
+.ac:nth-child(2) { transition-delay: .12s; }
+.ac:nth-child(3) { transition-delay: .24s; }
+.ac__role { font-family: 'Montserrat',sans-serif; font-size: 20px; font-weight: 900; color: var(--white); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.ac__pains { list-style: none; display: grid; gap: 9px; }
+.ac__pains li { font-size: 14px; color: rgba(255,255,255,.72); padding-left: 18px; position: relative; }
+.ac__pains li::before { content: '—'; position: absolute; left: 0; color: var(--orange2); font-weight: 700; }
+.ac__footer { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); font-size: 13px; font-weight: 700; color: var(--gold2); }
+
+/* ===========================
+   PAGE-FLIP BOOK (Chapters)
+=========================== */
+.chapters { background: var(--white); }
+.chapters__intro { max-width: 620px; margin-bottom: 52px; }
+.chapters__intro p { font-size: 17px; color: var(--muted); margin-top: 14px; }
+
+/* Book viewer wrapper */
+.book-viewer {
+  max-width: 860px; margin: 0 auto;
+  user-select: none;
+}
+
+/* Spread */
+.book-spread {
+  display: flex; position: relative;
+  box-shadow: 0 24px 64px rgba(15,27,45,.22), 0 8px 24px rgba(15,27,45,.1);
+  border-radius: 6px;
+  min-height: 420px;
+}
+
+/* Left page */
+.bp-left {
+  flex: 1; background: var(--page);
+  border-radius: 6px 0 0 6px;
+  border-right: 1px solid rgba(0,0,0,.08);
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+  box-shadow: inset -6px 0 12px rgba(0,0,0,.05);
+}
+
+/* Page lines texture */
+.bp-left::before, .bp-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 29px, rgba(0,0,0,.04) 30px);
+  pointer-events: none;
+}
+
+/* Spine */
+.book-gutter {
+  width: 12px; flex-shrink: 0;
+  background: linear-gradient(to right, rgba(0,0,0,.12), rgba(0,0,0,.04));
+  position: relative; z-index: 5;
+}
+
+/* Flip container */
+.book-flip-wrap {
+  flex: 1; position: relative;
+  perspective: 1800px;
+}
+
+/* The flipping card */
+.book-flip-card {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.book-flip-card.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Front & back faces */
+.bp-right-front, .bp-right-back {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--page);
+  padding: 40px 36px;
+  border-radius: 0 6px 6px 0;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.bp-right-back {
+  transform: rotateY(180deg);
+  border-radius: 0 6px 6px 0;
+}
+/* Shadow on flip */
+.book-flip-card::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to right, rgba(0,0,0,.05) 0%, transparent 20%);
+  pointer-events: none; z-index: 10;
+}
+
+/* Page content styles */
+.bp__section-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 20px;
+}
+.bp__left-title {
+  font-family: 'Forum', serif;
+  font-size: 20px; text-transform: uppercase; color: var(--navy);
+  margin-bottom: 28px; line-height: 1.2;
+}
+.bp__toc { list-style: none; display: grid; gap: 6px; }
+.bp__toc-item {
+  display: flex; gap: 10px; align-items: center;
+  font-size: 13px; padding: 8px 12px; border-radius: 6px;
+  cursor: pointer; transition: background .15s; color: var(--muted);
+}
+.bp__toc-item:hover { background: var(--cream2); color: var(--navy); }
+.bp__toc-item.active { background: var(--cream2); color: var(--navy); font-weight: 700; }
+.bp__toc-item .ch-n { color: var(--orange); font-weight: 700; font-size: 11px; width: 20px; flex-shrink: 0; }
+
+.bp__chapter-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 6px;
+}
+.bp__chapter-title {
+  font-family: 'Forum', serif;
+  font-size: clamp(20px,2.5vw,28px);
+  text-transform: uppercase; color: var(--navy);
+  margin-bottom: 8px; line-height: 1.15;
+}
+.bp__chapter-sub {
+  font-size: 14px; color: var(--muted); margin-bottom: 20px; font-style: italic;
+}
+.bp__chapter-desc {
+  font-size: 15px; color: var(--text); line-height: 1.75;
+}
+.bp__page-num {
+  position: absolute; bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; color: var(--border);
+}
+.bp-left .bp__page-num  { left: 36px; }
+.bp-right-front .bp__page-num { right: 36px; }
+.bp-right-back  .bp__page-num { right: 36px; }
+
+/* Navigation */
+.book-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 24px; padding: 0 4px;
+}
+.book-nav__btn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 700; color: var(--navy);
+  background: none; border: 2px solid var(--border);
+  padding: 10px 22px; border-radius: 6px;
+  cursor: pointer; transition: all .2s;
+}
+.book-nav__btn:hover:not(:disabled) { border-color: var(--orange); color: var(--orange); }
+.book-nav__btn:disabled { opacity: .3; cursor: default; }
+.book-nav__info {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; color: var(--muted); text-align: center;
+}
+.book-nav__dots {
+  display: flex; gap: 5px; justify-content: center; margin-bottom: 4px;
+}
+.book-nav__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); transition: background .2s;
+}
+.book-nav__dot.active { background: var(--orange); }
+
+/* Hint */
+.book-hint {
+  text-align: center; margin-top: 14px;
+  font-size: 12px; color: var(--muted);
+}
+
+/* ===========================
+   APP SECTION
+=========================== */
+.app-section { background: linear-gradient(150deg, #EEF3FA 0%, var(--cream) 100%); }
+.app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.app-phone { position: relative; display: flex; align-items: center; justify-content: center; }
+.app-phone img {
+  width: min(280px, 100%); border-radius: 22px;
+  box-shadow: 0 28px 72px rgba(15,27,45,.22), 0 8px 24px rgba(15,27,45,.12);
+  transform: rotate(2deg);
+}
+.instruments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
+.instr {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; color: var(--text);
+  padding: 10px 14px;
+  background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+}
+.instr::before { content: '📋'; flex-shrink: 0; font-size: 14px; }
+.instr--guide::before { content: '📘'; }
+.messenger-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.mb-badge {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px; font-weight: 700;
+  background: var(--white); border: 1.5px solid var(--border); color: var(--navy2);
+}
+
+/* ===========================
+   GIFTS
+=========================== */
+.gifts { background: var(--white); }
+.lottery-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
+  padding: 8px 18px; border-radius: 20px; margin-bottom: 18px;
+}
+.copies-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px; color: var(--muted); font-weight: 500; margin-bottom: 8px;
+}
+.copies-visual { display: flex; flex-wrap: wrap; gap: 5px; margin: 4px 0 32px; }
+.copy-block { width: 18px; height: 18px; border-radius: 3px; background: linear-gradient(135deg, var(--gold), var(--gold2)); opacity: .85; }
+.copy-block.taken { background: var(--border); opacity: .5; }
+.gifts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 8px 0 32px; }
+.gift {
+  border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px;
+  position: relative; transition: box-shadow .2s, transform .2s;
+}
+.gift:hover { box-shadow: 0 14px 40px rgba(0,0,0,.09); transform: translateY(-4px); }
+.gift__ico   { position: absolute; top: 18px; right: 18px; font-size: 22px; }
+.gift__cross { font-family: 'Montserrat',sans-serif; font-size: 12px; font-weight: 700; color: var(--gold); text-decoration: line-through; margin-bottom: 4px; }
+.gift__free  { font-family: 'Montserrat',sans-serif; font-size: 20px; font-weight: 900; color: var(--green); margin-bottom: 6px; }
+.gift__name  { font-family: 'Montserrat',sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.gift__note  { font-size: 12px; color: var(--muted); }
+.gifts-footer {
+  background: linear-gradient(135deg, rgba(196,154,60,.1), rgba(200,95,24,.08));
+  border: 1px solid rgba(196,154,60,.3);
+  border-radius: 10px; padding: 20px 26px;
+  font-size: 14px; line-height: 1.7; color: var(--text);
+}
+.gifts-footer strong { color: var(--orange); }
+
+/* ===========================
+   PRICING
+=========================== */
+.pricing { background: var(--navy); text-align: center; }
+.pricing h2 { color: var(--white); max-width: 640px; margin: 0 auto 12px; }
+.pricing .label { color: var(--gold2); }
+.pricing__sub { color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 48px; font-size: 16px; }
+.price-card {
+  max-width: 560px; margin: 0 auto;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 22px; padding: 48px 44px; position: relative; overflow: hidden;
+}
+.price-card::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(196,154,60,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.price-includes { list-style: none; text-align: left; margin: 0 0 32px; display: grid; gap: 12px; }
+.price-includes li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: rgba(255,255,255,.85); }
+.price-includes li::before { content: '✓'; color: #7EC89F; font-weight: 900; flex-shrink: 0; font-size: 16px; }
+.price-row { display: flex; align-items: flex-end; justify-content: center; gap: 16px; margin-bottom: 28px; }
+.price-old { font-size: 26px; font-weight: 700; text-decoration: line-through; color: rgba(255,255,255,.3); }
+.price-new { font-family: 'Forum', serif; font-size: 64px; color: var(--white); line-height: 1; }
+.price-rub { font-size: 26px; font-weight: 700; color: rgba(255,255,255,.65); margin-bottom: 6px; }
+.price-save {
+  background: var(--orange); color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; display: inline-block;
+}
+.getcourse-wrap { margin: 0 auto 20px; }
+.pay-methods { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.pm {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 600; padding: 5px 13px; border-radius: 20px;
+  background: rgba(255,255,255,.1); color: rgba(255,255,255,.65);
+}
+
+/* ===========================
+   PAYMENT INFO
+=========================== */
+.payment-section { background: var(--cream2); }
+.payment-section h3 { margin-bottom: 16px; font-size: 22px; }
+.pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+.pay-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600; color: var(--navy);
+}
+.pay-item__ico { font-size: 24px; }
+.pay-contact { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
+.pay-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.pay-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 8px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+  background: var(--white); border: 1.5px solid var(--border);
+  color: var(--navy); transition: all .2s;
+}
+.pay-link:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.1); }
+
+/* ===========================
+   AUTHOR — editorial layout
+=========================== */
+.author { background: var(--white); overflow: hidden; }
+.author__wrap {
+  display: grid; grid-template-columns: 420px 1fr;
+  gap: 0; align-items: stretch; min-height: 580px;
+}
+
+/* Photo fills left column */
+.author__photo-col {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px 0 0 16px;
+}
+.author__photo {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  display: block;
+}
+/* Orange accent bar */
+.author__photo-col::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0; width: 5px;
+  background: linear-gradient(to bottom, var(--orange), var(--gold));
+  z-index: 2;
+}
+/* Dark gradient at bottom for quote */
+.author__photo-col::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(to top, rgba(15,27,45,.85) 0%, transparent 100%);
+  z-index: 1;
+}
+/* Quote on photo */
+.author__photo-quote {
+  position: absolute; bottom: 28px; left: 20px; right: 20px;
+  z-index: 3; color: var(--white);
+  font-size: 14px; font-style: italic; line-height: 1.5;
+  border-left: 3px solid var(--orange); padding-left: 14px;
+}
+
+/* Right text column */
+.author__text {
+  padding: 52px 48px;
+  background: var(--white);
+  border-radius: 0 16px 16px 0;
+  border: 1px solid var(--border); border-left: none;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.author__name {
+  font-family: 'Forum', serif;
+  font-size: 36px; text-transform: uppercase; color: var(--navy); margin-bottom: 6px;
+}
+.author__role { font-family: 'Montserrat',sans-serif; font-size: 14px; color: var(--orange); font-weight: 600; margin-bottom: 28px; }
+.author__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+.afact { background: var(--cream); border-radius: 10px; padding: 16px 18px; }
+.afact__n { font-family: 'Forum', serif; font-size: 34px; color: var(--navy); line-height: 1; }
+.afact__n span { color: var(--orange); }
+.afact__l { font-family: 'Montserrat',sans-serif; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.author__story {
+  font-size: 15px; color: var(--muted); line-height: 1.8;
+  margin-bottom: 28px; font-style: italic;
+}
+
+/* ===========================
+   FAQ
+=========================== */
+.faq { background: var(--cream); }
+.faq__inner { max-width: 820px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-btn {
+  width: 100%; background: none; border: none;
+  padding: 22px 0; text-align: left; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; font-family: inherit;
+}
+.faq-btn:hover .faq-q { color: var(--orange); }
+.faq-q   { font-family: 'Montserrat',sans-serif; font-size: 16px; font-weight: 700; color: var(--navy); flex: 1; transition: color .2s; }
+.faq-ico { font-size: 22px; color: var(--orange); flex-shrink: 0; transition: transform .3s; line-height: 1; font-weight: 300; }
+.faq-item.open .faq-ico { transform: rotate(45deg); }
+.faq-ans { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-item.open .faq-ans { max-height: 300px; }
+.faq-ans__inner { padding: 0 0 22px; font-size: 15px; color: var(--muted); line-height: 1.75; }
+
+/* ===========================
+   FINAL CTA
+=========================== */
+.final-cta {
+  background: linear-gradient(145deg, var(--navy) 0%, #1A3050 100%);
+  text-align: center; position: relative; overflow: hidden;
+}
+.final-cta::before {
+  content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(196,154,60,.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.final-cta h2 { color: var(--white); max-width: 760px; margin: 0 auto 22px; }
+.final-cta p  { color: rgba(255,255,255,.65); max-width: 640px; margin: 0 auto 40px; font-size: 16px; }
+.final-cta__note { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.4); }
+
+/* ===========================
+   CONTACTS
+=========================== */
+.contacts { background: var(--cream); }
+.contacts__grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+.clink {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 22px; border-radius: 9px;
+  text-decoration: none;
+  font-family: 'Montserrat',sans-serif; font-size: 15px; font-weight: 700;
+  background: var(--white); border: 1.5px solid var(--border);
+  color: var(--navy); transition: all .2s;
+}
+.clink:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+  background: var(--navy);
+  padding: 40px 0 32px;
+}
+.footer__inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 18px; text-align: center;
+}
+.footer__brand {
+  font-family: 'Forum', serif;
+  font-size: 14px; text-transform: uppercase; letter-spacing: .1em;
+  color: rgba(255,255,255,.6);
+}
+.footer__legal {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; color: rgba(255,255,255,.35);
+  line-height: 1.8;
+}
+.footer__links {
+  display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+}
+.footer__link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; color: rgba(255,255,255,.4);
+  text-decoration: none; transition: color .2s;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  padding-bottom: 1px;
+}
+.footer__link:hover { color: rgba(255,255,255,.75); }
+.footer__divider { width: 40px; height: 1px; background: rgba(255,255,255,.1); }
+.footer__copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; color: rgba(255,255,255,.2);
+}
+
+/* ===========================
+   TOP NAV
+=========================== */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  background: rgba(247,243,235,.97);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  animation: navDrop .4s ease both;
+}
+@keyframes navDrop { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.topnav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1140px; margin: 0 auto; padding: 0 28px; height: 58px; gap: 16px;
+}
+.topnav__brand {
+  font-family: 'Forum', serif; font-size: 13px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--navy); text-decoration: none; flex-shrink: 0;
+  white-space: nowrap;
+}
+.topnav__links {
+  display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center;
+  flex-wrap: nowrap; overflow: hidden;
+}
+.topnav__link {
+  font-family: 'Montserrat', sans-serif; font-size: 11.5px; font-weight: 600;
+  color: var(--navy2); text-decoration: none; padding: 6px 9px; border-radius: 5px;
+  transition: all .18s; white-space: nowrap; cursor: pointer;
+}
+.topnav__link:hover { background: rgba(200,95,24,.08); color: var(--orange); }
+.topnav__link--cta {
+  background: var(--orange); color: #fff !important; padding: 8px 14px;
+  border-radius: 6px; margin-left: 6px;
+  box-shadow: 0 3px 10px rgba(200,95,24,.3);
+}
+.topnav__link--cta:hover { background: var(--orange2) !important; transform: translateY(-1px); }
+.topnav__burger {
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; width: 36px; height: 36px; border-radius: 6px; border: none;
+  background: none; cursor: pointer; flex-shrink: 0; padding: 4px;
+}
+.topnav__burger span { display: block; width: 20px; height: 2px; background: var(--navy); border-radius: 2px; transition: all .3s; }
+.topnav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.topnav__burger.open span:nth-child(2) { opacity: 0; width: 0; }
+.topnav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.topnav__mobile {
+  display: none; flex-direction: column;
+  background: var(--cream); border-top: 1px solid var(--border);
+  padding: 8px 0 16px;
+}
+.topnav__mobile.open { display: flex; }
+.topnav__mlink {
+  font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600;
+  color: var(--navy); text-decoration: none; padding: 13px 24px;
+  border-bottom: 1px solid var(--border); cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.topnav__mlink:hover { background: rgba(200,95,24,.05); color: var(--orange); }
+.topnav__mlink--cta {
+  margin: 12px 24px 0; border: none; text-align: center; border-radius: 8px;
+  background: var(--orange); color: #fff !important; padding: 14px 24px;
+  border-bottom: none;
+}
+@media (max-width: 900px) {
+  .topnav__links { display: none; }
+  .topnav__burger { display: flex; }
+  .topnav__brand { font-size: 12px; }
+}
+@media (min-width: 901px) {
+  .topnav__mobile { display: none !important; }
+}
+
+/* ===========================
+   INCLUDES ROW (4 in a row)
+=========================== */
+.includes-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 14px; margin-top: 44px;
+}
+@media (max-width: 960px) { .includes-row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .includes-row { grid-template-columns: 1fr; } }
+
+/* ===========================
+   SCROLL REVEAL
+=========================== */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 960px) {
+  /* Hero: book goes BELOW text on mobile */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 100px 0 20px;
+    text-align: center;
+  }
+  .hero__sub, .hero__desc { max-width: 100%; }
+  .hero__audience  { justify-content: center; }
+  .hero__actions   { justify-content: center; }
+  .hero__lottery   { justify-content: center; }
+  .book-stage {
+    order: 2;   /* below text */
+    padding: 20px 20px 50px;
+  }
+  .book-3d {
+    /* simpler on mobile — no heavy perspective */
+    transform: none;
+    animation: bookFloatMobile 5s ease-in-out infinite;
+    box-shadow: 0 24px 48px rgba(15,27,45,.3), 0 8px 20px rgba(15,27,45,.15);
+    width: min(220px, 60%);
+    border-radius: 4px 10px 10px 4px;
+    -webkit-box-shadow:
+      -8px 0 0 1px rgba(8,16,30,.6),
+       0 24px 48px rgba(15,27,45,.3);
+  }
+  @keyframes bookFloatMobile {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+  .book-badge { top: 0; right: -10px; font-size: 10px; padding: 8px 12px; }
+  .book-stage::after { display: none; }
+
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .whatbook__grid, .app-grid { grid-template-columns: 1fr; gap: 44px; }
+  .audience-grid { grid-template-columns: 1fr; gap: 18px; }
+  .gifts-grid { grid-template-columns: 1fr 1fr; }
+  .pay-grid { grid-template-columns: 1fr; }
+  .transform-block { grid-template-columns: 1fr; }
+  .transform-arrow { display: none; }
+  .price-card { padding: 36px 28px; }
+  .price-new { font-size: 52px; }
+
+  /* Author: stack on mobile */
+  .author__wrap { grid-template-columns: 1fr; min-height: auto; }
+  .author__photo-col { border-radius: 16px 16px 0 0; height: 380px; }
+  .author__text { border-radius: 0 0 16px 16px; border: 1px solid var(--border); border-top: none; padding: 36px 28px; }
+
+  /* Book viewer: single page on mobile */
+  .book-spread { flex-direction: column; min-height: auto; }
+  .bp-left { border-radius: 6px 6px 0 0; border-right: none; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .book-gutter { width: 100%; height: 0; }
+  .book-flip-wrap { min-height: 320px; }
+  .bp-right-front, .bp-right-back { border-radius: 0 0 6px 6px; }
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 18px; }
+  .section { padding: 64px 0; }
+  .includes-grid { grid-template-columns: 1fr; }
+  .gifts-grid { grid-template-columns: 1fr; }
+  .author__facts { grid-template-columns: 1fr 1fr; }
+  .price-card { padding: 28px 20px; }
+  .footer__links { gap: 12px; }
+}
+
+/* ===========================
+   FEATURED INSTRUMENTS
+=========================== */
+.instr-featured { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.instr-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 16px; display: flex; flex-direction: column; gap: 6px;
+  transition: box-shadow .2s, transform .2s;
+}
+.instr-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.09); transform: translateY(-2px); }
+.instr-card__ico { font-size: 22px; }
+.instr-card__name { font-family: 'Montserrat',sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); }
+.instr-card__why  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.instr-more-btn {
+  background: none; border: 1.5px solid var(--border);
+  padding: 10px 20px; border-radius: 6px;
+  font-family: 'Montserrat',sans-serif; font-size: 13px; font-weight: 700; color: var(--navy2);
+  cursor: pointer; transition: all .2s; width: 100%; margin-bottom: 16px;
+}
+.instr-more-btn:hover { border-color: var(--orange); color: var(--orange); }
+.instr-all { display: none; }
+.instr-all.open { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.instr-small {
+  font-family: 'Montserrat',sans-serif;
+  font-size: 12px; font-weight: 500; color: var(--text);
+  padding: 8px 12px; background: var(--cream); border-radius: 6px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 7px;
+}
+.instr-small::before { content: '📋'; font-size: 13px; }
+@media (max-width: 640px) {
+  .instr-featured { grid-template-columns: 1fr; }
+  .instr-all.open { grid-template-columns: 1fr; }
+}
+
+/* ===========================
+   LOTTERY STEPS
+=========================== */
+.lottery-how {
+  background: linear-gradient(135deg, rgba(196,154,60,.08), rgba(200,95,24,.06));
+  border: 1px solid rgba(196,154,60,.25);
+  border-radius: 14px; padding: 28px 30px; margin-bottom: 32px;
+}
+.lottery-how__title {
+  font-family: 'Montserrat',sans-serif;
+  font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--navy); margin-bottom: 18px;
+}
+.lottery-steps {
+  display: flex; gap: 0; align-items: flex-start;
+  flex-wrap: nowrap; overflow-x: auto;
+}
+.lstep {
+  flex: 1 0 0; min-width: 130px; text-align: center;
+  padding: 0 10px; position: relative;
+}
+.lstep:not(:last-child)::after {
+  content: '→';
+  position: absolute; top: 18px; right: -8px;
+  color: var(--gold); font-size: 18px; font-weight: 900; z-index: 2;
+}
+.lstep__n {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--white);
+  font-family: 'Montserrat',sans-serif; font-size: 15px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+}
+.lstep__text { font-size: 12px; color: var(--navy); line-height: 1.5; font-weight: 600; }
+.lstep__emoji { font-size: 20px; margin-bottom: 6px; }
+
+/* ===========================
+   SPOTS COUNTER
+=========================== */
+.spots-row {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.spots-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--navy); color: var(--white);
+  font-family: 'Montserrat',sans-serif; font-size: 13px; font-weight: 700;
+  padding: 10px 18px; border-radius: 8px;
+}
+.spots-badge__num {
+  font-family: 'Forum',serif; font-size: 24px; color: var(--gold2); line-height: 1;
+}
+.spots-bar-wrap {
+  flex: 1; min-width: 140px; height: 8px;
+  background: rgba(15,27,45,.1); border-radius: 4px; overflow: hidden;
+}
+.spots-bar {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(to right, var(--gold), var(--gold2));
+  transition: width .6s ease;
+}
+
+/* ===========================
+   PAYMENT LOGOS
+=========================== */
+.pay-logo-row {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px;
+}
+.pay-logo {
+  height: 30px; padding: 4px 10px; border-radius: 5px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); background: var(--white);
+  font-family: 'Montserrat',sans-serif; font-weight: 800; font-size: 12px;
+  letter-spacing: .03em; white-space: nowrap;
+}
+.pay-logo--visa { color: #1a1f71; font-style: italic; font-size: 14px; }
+.pay-logo--mc   { gap: 2px; }
+.mc-left  { width: 16px; height: 16px; border-radius: 50%; background: #EB001B; }
+.mc-right { width: 16px; height: 16px; border-radius: 50%; background: #F79E1B; margin-left: -7px; }
+.pay-logo--mir  { background: linear-gradient(90deg, #0d8c3a, #00bce5); color: var(--white); border: none; }
+.pay-logo--sbp  { background: #1d5d8e; color: var(--white); border: none; font-size: 11px; }
+
+/* ===========================
+   PAYMENT MODAL
+=========================== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(15,27,45,.65);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+  padding: 20px;
+  /* без backdrop-filter — он создаёт stacking context и режет попапы GetCourse */
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+/* GetCourse рендерит iframe/попап с высоким z-index — не мешаем */
+iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index: 10000 !important; }
+.modal-box {
+  background: var(--white); border-radius: 18px;
+  padding: 36px 40px; max-width: 560px; width: 100%;
+  position: relative;
+  transform: translateY(20px) scale(.97);
+  transition: transform .25s ease;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; font-size: 24px; color: var(--muted);
+  cursor: pointer; line-height: 1; padding: 4px; transition: color .2s;
+}
+.modal-close:hover { color: var(--navy); }
+.modal-header { margin-bottom: 6px; }
+.modal-title {
+  font-family: 'Forum',serif; font-size: 26px; text-transform: uppercase;
+  color: var(--navy); margin-bottom: 6px;
+}
+.modal-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.modal-price-row {
+  display: flex; align-items: flex-end; gap: 10px; margin-bottom: 20px;
+}
+.modal-old { font-size: 18px; text-decoration: line-through; color: var(--muted); }
+.modal-new { font-family: 'Forum',serif; font-size: 44px; color: var(--navy); line-height: 1; }
+.modal-rub { font-size: 18px; color: var(--muted); margin-bottom: 4px; }
+.modal-save {
+  background: var(--orange); color: var(--white);
+  font-family: 'Montserrat',sans-serif; font-size: 11px; font-weight: 800;
+  padding: 3px 9px; border-radius: 4px; display: inline-block; margin-bottom: 20px;
+}
+.modal-includes { list-style: none; margin: 0 0 24px; display: grid; gap: 8px; }
+.modal-includes li { font-size: 14px; color: var(--text); display: flex; gap: 10px; }
+.modal-includes li::before { content: '✓'; color: var(--green); font-weight: 900; flex-shrink: 0; }
+.modal-gc { /* GetCourse widget container */ margin-bottom: 12px; }
+.modal-pay-logos { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+@media (max-width: 640px) {
+  .modal-box { padding: 28px 20px; }
+  .modal-new { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- =============================
+     TOP NAVIGATION
+============================= -->
+<nav class="topnav" id="topnav">
+  <div class="topnav__inner">
+    <a class="topnav__brand" href="#">Эксперт по оцифровке бизнеса</a>
+    <div class="topnav__links">
+      <a class="topnav__link" href="#about">Что входит</a>
+      <a class="topnav__link" href="#contents">Содержание</a>
+      <a class="topnav__link" href="#gifts">Спецпредложение</a>
+      <a class="topnav__link" href="#pricing">Стоимость</a>
+      <a class="topnav__link" href="#author">Об авторе</a>
+      <a class="topnav__link" href="https://drive.google.com/file/d/1bdAPFGzmvp1CMIXOs_bNLGDyhah_Cj8K/view?usp=drive_link" target="_blank" rel="noopener">Фрагмент</a>
+      <a class="topnav__link" href="#contacts">Задать вопрос</a>
+      <a class="topnav__link topnav__link--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
+    </div>
+    <button class="topnav__burger" id="topnavBurger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="topnav__mobile" id="topnavMobile">
+    <a class="topnav__mlink" href="#about">Что входит в продукт</a>
+    <a class="topnav__mlink" href="#contents">Содержание</a>
+    <a class="topnav__mlink" href="#gifts">Спецпредложение</a>
+    <a class="topnav__mlink" href="#pricing">Стоимость</a>
+    <a class="topnav__mlink" href="#author">Об Авторе</a>
+    <a class="topnav__mlink" href="https://drive.google.com/file/d/1bdAPFGzmvp1CMIXOs_bNLGDyhah_Cj8K/view?usp=drive_link" target="_blank" rel="noopener">Фрагмент учебника</a>
+    <a class="topnav__mlink" href="#contacts">Задать вопрос</a>
+    <a class="topnav__mlink topnav__mlink--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
+  </div>
+</nav>
+
+<!-- =============================
+     HERO
+============================= -->
+<section class="section" style="padding-top:58px;padding-bottom:0;">
+  <div class="container">
+    <div class="hero">
+
+      <!-- LEFT: TEXT -->
+      <div class="hero__content">
+        <div class="hero__tag"><i></i> Авторское учебное пособие</div>
+
+        <h1 class="hero__title">
+          Эксперт по <em>оцифровке</em><br>
+          бизнеса
+        </h1>
+
+        <p class="hero__sub">
+          Как оказывать услуги управленческого учёта, выстраивать работу с клиентами и реализовать себя в финансовом аутсорсинге
+        </p>
+
+        <p class="hero__desc">
+          Не просто «книга про отчёты и таблицы», а полноценная система из исчерпывающего учебного пособия и приложения с готовыми рабочими инструментами.
+        </p>
+
+        <div class="hero__audience">
+          <span>Финансистам</span>
+          <span>Финменеджерам</span>
+          <span>Финансовым директорам</span>
+          <span>Бухгалтерам</span>
+          <span>Собственникам бухкомпаний</span>
+          <span>Экономистам</span>
+        </div>
+
+        <div class="hero__actions">
+          <button class="btn btn--primary btn--lg" onclick="scrollToPricing()">Купить учебник</button>
+          <a href="#contents" class="btn btn--outline btn--lg">Смотреть содержание</a>
+        </div>
+
+        <div class="hero__lottery">
+          🎁 Беспроигрышная лотерея: выиграйте 1 из лучших курсов по финучёту и клиентам или личную консультацию
+        </div>
+      </div>
+
+      <!-- RIGHT: 3D BOOK (moves below text on mobile via order:2) -->
+      <div class="book-stage" style="flex-direction:column;gap:20px">
+        <img src="cover-web.jpg"
+             alt="Обложка книги «Эксперт по оцифровке бизнеса»"
+             class="book-3d" id="book3d">
+        <div class="book-badge" style="position:static;animation:badgePulse 3s ease-in-out infinite">ТОЛЬКО 100 ЭКЗЕМПЛЯРОВ</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     MARQUEE
+============================= -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mitem"><span class="mdot"></span>Диагностика клиента</div>
+    <div class="mitem"><span class="mdot"></span>ДДС, ОПиУ и Баланс</div>
+    <div class="mitem"><span class="mdot"></span>Работа с собственником</div>
+    <div class="mitem"><span class="mdot"></span>Ценообразование услуг</div>
+    <div class="mitem"><span class="mdot"></span>Карьера финдиректора на аутсорсе</div>
+    <div class="mitem"><span class="mdot"></span>Управленческий учёт</div>
+    <div class="mitem"><span class="mdot"></span>Финансовый анализ</div>
+    <div class="mitem"><span class="mdot"></span>Работа с клиентами</div>
+    <div class="mitem"><span class="mdot"></span>Диагностика клиента</div>
+    <div class="mitem"><span class="mdot"></span>ДДС, ОПиУ и Баланс</div>
+    <div class="mitem"><span class="mdot"></span>Работа с собственником</div>
+    <div class="mitem"><span class="mdot"></span>Ценообразование услуг</div>
+    <div class="mitem"><span class="mdot"></span>Карьера финдиректора на аутсорсе</div>
+    <div class="mitem"><span class="mdot"></span>Управленческий учёт</div>
+    <div class="mitem"><span class="mdot"></span>Финансовый анализ</div>
+    <div class="mitem"><span class="mdot"></span>Работа с клиентами</div>
+  </div>
+</div>
+
+<!-- =============================
+     STATS
+============================= -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat__n">7 <span>лет</span></div>
+    <div class="stat__l">в практике финансового аутсорсинга</div>
+  </div>
+  <div class="stat">
+    <div class="stat__n">150<span>+</span></div>
+    <div class="stat__l">внедрений управленческого учёта</div>
+  </div>
+  <div class="stat">
+    <div class="stat__n">100<span>+</span></div>
+    <div class="stat__l">финансовых моделей построено</div>
+  </div>
+  <div class="stat">
+    <div class="stat__n">12</div>
+    <div class="stat__l">глав — от диагностики до ценообразования</div>
+  </div>
+</div>
+
+<!-- =============================
+     PROBLEM
+============================= -->
+<section class="section problem" id="problem">
+  <div class="container">
+    <span class="label">Почему этого недостаточно</span>
+    <p class="problem__lead">7 из 10 финансистов и бухгалтеров понимают, как строить финансовые отчёты. Но этого уже недостаточно.</p>
+    <p class="problem__intro">Вы можете уметь строить таблицы, собирать отчёты, понимать, что такое ДДС, ОПиУ и баланс. Но когда дело доходит до клиентов — начинаются вопросы без ответов:</p>
+
+    <div class="problem__qs" id="pqs">
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выглядит полный цикл оказания услуги: с чего начать, за что хвататься в первую очередь?</div></div>
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выстроить систему из взаимосвязанных отчётов с понятной логикой, а не разрозненные таблицы с цифрами?</div></div>
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как объяснить собственнику ценность своей работы, чтобы он не спрашивал «а за что я вообще плачу деньги»?</div></div>
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как на первой встрече довести клиента до заключения договора, а не свалиться в бесплатное консультирование?</div></div>
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выстроить проект — от диагностики до результата — и не утонуть в рутине?</div></div>
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как называть цену уверенно без стыда и страха получить отказ?</div></div>
+      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как перестать работать за троих, а получать за одного?</div></div>
+    </div>
+
+    <div class="problem__summary reveal">
+      Эти вопросы — не про знания теории и таблиц. Они про <em>систему работы</em>, которой у большинства нет.<br><br>
+      Когда нет системы, специалист берёт всё подряд, работает на износ и не понимает, куда расти. Это касается как начинающих финансистов, так и людей с большим опытом.
+    </div>
+
+    <div style="margin-top:52px;text-align:center" class="reveal">
+      <img src="было-стало.png"
+           alt="До и после — трансформация финансиста"
+           style="max-width:100%;border-radius:14px;box-shadow:0 16px 48px rgba(15,27,45,.14),0 4px 16px rgba(15,27,45,.08)">
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     WHAT IS THE BOOK
+============================= -->
+<section class="section whatbook" id="about">
+  <div class="container">
+    <span class="label">Что это за учебник</span>
+    <h2 class="reveal" style="margin-bottom:44px;max-width:780px">Практический курс в формате книги и приложения</h2>
+
+    <div class="whatbook__grid">
+      <div>
+        <p class="whatbook__desc reveal" style="transition-delay:.1s">
+          «Эксперт по оцифровке бизнеса» — для специалистов, которые хотят не просто изучить управленческий учёт, а понять, как применять его в работе с реальными клиентами.<br><br>
+          В книге простым языком разобрано, как устроена работа финансиста в бизнесе: от первой диагностики до внедрения ДДС, ОПиУ, Баланса, финансового анализа, встреч с собственником и ценообразования услуг.
+        </p>
+      </div>
+      <div>
+        <div class="results__title">Результат от применения учебника — вы знаете, как:</div>
+        <ul class="results-list">
+          <li>Устроена услуга управленческого учёта</li>
+          <li>Проводить диагностику клиента</li>
+          <li>Объяснять собственнику ценность ДДС, ОПиУ и Баланса</li>
+          <li>Увидеть проблемы бизнеса через цифры</li>
+          <li>Выстраивать работу с клиентом от начала до конца</li>
+          <li>Показывать результат своей работы</li>
+          <li>Формировать стоимость услуг уверенно</li>
+          <li>Развиваться в профессии финансового директора на аутсорсе</li>
+        </ul>
+        <br>
+        <a href="#contents" class="btn btn--outline" style="margin-top:8px">Смотреть содержание учебника</a>
+      </div>
+    </div>
+
+    <!-- Что входит — 4 карточки в ряд -->
+    <div class="includes-row">
+      <div class="inc-card reveal"><div class="inc-card__ico">📖</div><div class="inc-card__t">Электронная книга</div><div class="inc-card__d">Доступ навсегда на Google Диске</div></div>
+      <div class="inc-card reveal" style="transition-delay:.08s"><div class="inc-card__ico">🗂️</div><div class="inc-card__t">Разборы кейсов</div><div class="inc-card__d">Реальные примеры внедрения учёта</div></div>
+      <div class="inc-card reveal" style="transition-delay:.16s"><div class="inc-card__ico">✍️</div><div class="inc-card__t">Практические задания</div><div class="inc-card__d">С ответами к каждой главе</div></div>
+      <div class="inc-card reveal" style="transition-delay:.24s"><div class="inc-card__ico">📱</div><div class="inc-card__t">Обучающее приложение</div><div class="inc-card__d">15 готовых инструментов и шаблонов</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     FOR WHOM
+============================= -->
+<section class="section forwhom">
+  <div class="container">
+    <span class="label">Для кого</span>
+    <h2>Книга для вас, если вы:</h2>
+
+    <div class="audience-grid">
+      <div class="ac">
+        <div class="ac__role"><span>📒</span> Бухгалтер</div>
+        <ul class="ac__pains">
+          <li>Надоело вести первичку и сдавать декларации</li>
+          <li>Достигли потолка в бухгалтерии, выше не прыгнуть</li>
+          <li>Выгорели от бухучёта, хотите сменить направление</li>
+          <li>Не хватает твёрдой базы в управленческих отчётах</li>
+        </ul>
+        <div class="ac__footer">→ Хотите перейти к управленческому учёту и работать с бизнесом на совершенно другом уровне</div>
+      </div>
+      <div class="ac">
+        <div class="ac__role"><span>💼</span> Финансист в найме</div>
+        <ul class="ac__pains">
+          <li>Есть опыт и знания в финучёте</li>
+          <li>Нет понимания, как упаковать навыки в услугу</li>
+          <li>Страх не найти клиентов</li>
+          <li>Боитесь самостоятельно вести проект и продавать услуги</li>
+        </ul>
+        <div class="ac__footer">→ Нужна система — от первой встречи до закрытия проекта</div>
+      </div>
+      <div class="ac">
+        <div class="ac__role"><span>📈</span> Финдир на аутсорсе</div>
+        <ul class="ac__pains">
+          <li>Уже работаете с клиентами, но не устраивают низкие чеки</li>
+          <li>Работаете за троих, а получаете за одного</li>
+          <li>Чувствуете себя исполнителем, а не независимым специалистом</li>
+          <li>Хотите чувствовать себя увереннее на этапе переговоров</li>
+        </ul>
+        <div class="ac__footer">→ Хотите чувствовать себя увереннее и дороже</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn btn--gold btn--lg" onclick="scrollToPricing()">Это про меня — купить книгу</button>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     CONTENTS — PAGE-FLIP BOOK
+============================= -->
+<section class="section chapters" id="contents">
+  <div class="container">
+    <span class="label">Содержание</span>
+    <h2>12 глав, 4 раздела — и полный путь<br>от новичка до эксперта</h2>
+    <div class="chapters__intro">
+      <p>Листайте страницы — каждая глава отвечает на реальный вопрос из практики финансиста.</p>
+    </div>
+
+    <!-- BOOK VIEWER -->
+    <div class="book-viewer">
+      <div class="book-spread">
+        <!-- LEFT PAGE: section + TOC -->
+        <div class="bp-left" id="bpLeft">
+          <div class="bp__section-label" id="leftSection">Раздел 1</div>
+          <div class="bp__left-title" id="leftTitle">Основа работы финансиста</div>
+          <ul class="bp__toc" id="tocList"></ul>
+          <div class="bp__page-num" id="leftPageNum">1</div>
+        </div>
+
+        <!-- GUTTER / SPINE -->
+        <div class="book-gutter"></div>
+
+        <!-- RIGHT PAGE: flip card -->
+        <div class="book-flip-wrap">
+          <div class="book-flip-card" id="flipCard">
+            <!-- FRONT -->
+            <div class="bp-right-front" id="flipFront">
+              <div class="bp__chapter-label" id="frontLabel">Глава 01</div>
+              <div class="bp__chapter-title"  id="frontTitle"></div>
+              <div class="bp__chapter-sub"    id="frontSub"></div>
+              <div class="bp__chapter-desc"   id="frontDesc"></div>
+              <div class="bp__page-num"        id="frontPageNum">2</div>
+            </div>
+            <!-- BACK (revealed on flip) -->
+            <div class="bp-right-back" id="flipBack">
+              <div class="bp__chapter-label" id="backLabel"></div>
+              <div class="bp__chapter-title"  id="backTitle"></div>
+              <div class="bp__chapter-sub"    id="backSub"></div>
+              <div class="bp__chapter-desc"   id="backDesc"></div>
+              <div class="bp__page-num"        id="backPageNum"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="book-nav">
+        <button class="book-nav__btn" id="prevBtn" onclick="bookPrev()">← Назад</button>
+        <div class="book-nav__info">
+          <div class="book-nav__dots" id="navDots"></div>
+          <div>Глава <span id="navNum">1</span> из 12</div>
+        </div>
+        <button class="book-nav__btn" id="nextBtn" onclick="bookNext()">Вперёд →</button>
+      </div>
+      <div class="book-hint">Нажимайте стрелки или кликайте по странице, чтобы перелистнуть</div>
+    </div>
+
+    <div style="text-align:center;margin-top:36px">
+      <a href="https://drive.google.com/file/d/1bdAPFGzmvp1CMIXOs_bNLGDyhah_Cj8K/view?usp=drive_link"
+         target="_blank" rel="noopener"
+         class="btn btn--outline btn--lg">
+        📄 Читать фрагмент учебника
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- =============================
+     APP SECTION
+============================= -->
+<section class="section app-section" id="app">
+  <div class="container">
+    <div class="app-grid">
+      <div class="app-phone">
+        <img src="app-screen.jpg" alt="Скриншот библиотеки материалов к книге">
+      </div>
+      <div>
+        <span class="label">Обучающее приложение</span>
+        <h2 class="reveal">Все инструменты — в одном месте</h2>
+        <p style="color:var(--muted);margin:16px 0 24px;font-size:16px" class="reveal">
+          В комплекте с книгой вы получаете приложение с 15 готовыми инструментами, которые не нужно придумывать с нуля.
+        </p>
+        <!-- Featured 5 instruments -->
+        <div class="instr-featured">
+          <div class="instr-card">
+            <div class="instr-card__ico">✅</div>
+            <div class="instr-card__name">Чек-лист диагностики клиента</div>
+            <div class="instr-card__why">Структура первой встречи: что спросить, как собрать информацию о бизнесе и сразу выйти на коммерческое предложение</div>
+          </div>
+          <div class="instr-card">
+            <div class="instr-card__ico">📄</div>
+            <div class="instr-card__name">Шаблон КП</div>
+            <div class="instr-card__why">Готовое коммерческое предложение, которое объясняет ценность управленческого учёта языком собственника</div>
+          </div>
+          <div class="instr-card">
+            <div class="instr-card__ico">💰</div>
+            <div class="instr-card__name">Калькулятор стоимости услуг</div>
+            <div class="instr-card__why">Рассчитайте справедливую цену своих услуг исходя из часов и компетенций — и называйте её уверенно</div>
+          </div>
+          <div class="instr-card">
+            <div class="instr-card__ico">📊</div>
+            <div class="instr-card__name">Шаблоны ДДС, ОПиУ, Баланса</div>
+            <div class="instr-card__why">Три ключевых отчёта управленческого учёта, готовые к заполнению — не нужно изобретать структуру с нуля</div>
+          </div>
+          <div class="instr-card">
+            <div class="instr-card__ico">🎯</div>
+            <div class="instr-card__name">Таблица отработки возражений</div>
+            <div class="instr-card__why">«Дорого», «Подумаю», «У нас нет денег» — готовые ответы на все типичные возражения клиентов</div>
+          </div>
+          <div class="instr-card">
+            <div class="instr-card__ico">📘</div>
+            <div class="instr-card__name">Гайд «Как найти первых клиентов»</div>
+            <div class="instr-card__why">Пошаговый алгоритм поиска клиентов для финансиста на аутсорсе — без холодных звонков и стоп-слов</div>
+          </div>
+        </div>
+
+        <!-- Show all toggle -->
+        <button class="instr-more-btn" id="instrMoreBtn" onclick="toggleInstrs()">
+          + Показать все 15 инструментов
+        </button>
+        <div class="instr-all" id="instrAll">
+          <div class="instr-small">Шаблон учёта сделок</div>
+          <div class="instr-small">Шаблон разделения кредита и процентов</div>
+          <div class="instr-small">Реестр основных средств</div>
+          <div class="instr-small">Шаблон учёта обязательств</div>
+          <div class="instr-small">Чек-лист сходимости баланса</div>
+          <div class="instr-small">Руководство по работе в найме</div>
+          <div class="instr-small">Гайд «Скрипт продаж по телефону»</div>
+          <div class="instr-small">Шаблон финансового анализа</div>
+          <div class="instr-small">Шаблон управленческого баланса</div>
+        </div>
+        <div class="messenger-badges">
+          <!-- Telegram official icon -->
+          <span class="mb-badge">
+            <svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2AABEE"/><stop offset="1" stop-color="#229ED9"/></linearGradient></defs>
+              <circle cx="25" cy="25" r="25" fill="url(#tg1)"/>
+              <path fill="white" d="M37.6 13.4L6.8 25.3c-.9.4-.8 1.7.2 1.9l8.1 2.6 3.1 9.9c.2.8 1.3 1 1.8.3l4.4-4.5 8.7 6.5c.8.6 2 .1 2.2-.9l5.7-26c.3-1.4-1-2.5-2.4-1.7zm-4.6 5.2L18.9 31.1c-.3.2-.4.5-.3.9l1.3 5.4-2.9-2.2c-.3-.2-.7-.2-1 .1l-2.4 2.4-2.2-7L32 18.6c.5-.3.5-1-.6-1z"/>
+            </svg>
+            Telegram
+          </span>
+          <!-- MAX logo -->
+          <span class="mb-badge">
+            <img src="max-logo.png" alt="MAX" style="width:20px;height:20px;object-fit:contain">
+            MAX
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     GIFTS / LOTTERY
+============================= -->
+<section class="section gifts" id="gifts">
+  <div class="container">
+    <div class="lottery-badge">🎁 Беспроигрышная лотерея</div>
+    <h2 class="reveal">В подарок — курс или личная консультация Екатерины</h2>
+    <p style="color:var(--muted);margin:14px 0 24px;font-size:16px;max-width:680px" class="reveal">
+      После покупки учебника вы автоматически участвуете в программе подарков. Каждый покупатель из первых 100 получает один из 6 бонусов.
+    </p>
+
+    <!-- Lottery mechanic steps -->
+    <div class="lottery-how reveal">
+      <div class="lottery-how__title">🎲 Как работает лотерея — 4 шага</div>
+      <div class="lottery-steps">
+        <div class="lstep">
+          <div class="lstep__emoji">🛒</div>
+          <div class="lstep__n">1</div>
+          <div class="lstep__text">Оплачиваете учебник</div>
+        </div>
+        <div class="lstep">
+          <div class="lstep__emoji">📧</div>
+          <div class="lstep__n">2</div>
+          <div class="lstep__text">Получаете письмо со ссылкой в приложение</div>
+        </div>
+        <div class="lstep">
+          <div class="lstep__emoji">🎰</div>
+          <div class="lstep__n">3</div>
+          <div class="lstep__text">Нажимаете кнопку — система рандомно выдаёт 1 из 6 бонусов</div>
+        </div>
+        <div class="lstep">
+          <div class="lstep__emoji">🎁</div>
+          <div class="lstep__n">4</div>
+          <div class="lstep__text">В течение 3 дней вам подключают курс или назначают консультацию</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spots counter -->
+    <div class="spots-row">
+      <div class="spots-badge">
+        Осталось мест:&nbsp;<span class="spots-badge__num" id="spotsNum">45</span>&nbsp;из 100
+      </div>
+      <div class="spots-bar-wrap">
+        <div class="spots-bar" id="spotsBar" style="width:45%"></div>
+      </div>
+    </div>
+
+    <div class="gifts-grid">
+      <div class="gift reveal"><div class="gift__ico">🏆</div><div class="gift__cross">21 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Курс «Создание финансовых моделей с 0»</div><div class="gift__note">Полный практический курс</div></div>
+      <div class="gift reveal" style="transition-delay:.08s"><div class="gift__ico">📊</div><div class="gift__cross">17 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Практикум по финансовому анализу</div><div class="gift__note">Разбор реальных компаний</div></div>
+      <div class="gift reveal" style="transition-delay:.16s"><div class="gift__ico">🎯</div><div class="gift__cross">14 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Курс «Клиенты за 14 дней»</div><div class="gift__note">Система привлечения клиентов</div></div>
+      <div class="gift reveal" style="transition-delay:.24s"><div class="gift__ico">🛠️</div><div class="gift__cross">4 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">«Первые деньги без паники»</div><div class="gift__note">Пакет инструментов для старта</div></div>
+      <div class="gift reveal" style="transition-delay:.32s"><div class="gift__ico">🌱</div><div class="gift__cross">4 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Мини-курс «Фундамент роста финансиста»</div><div class="gift__note">База для уверенного старта</div></div>
+      <div class="gift reveal" style="transition-delay:.40s;border-color:var(--orange);background:rgba(200,95,24,.04)"><div class="gift__ico">💎</div><div class="gift__cross">15 000 ₽</div><div class="gift__free" style="color:var(--orange)">бесплатно</div><div class="gift__name">Личная консультация Екатерины</div><div class="gift__note">1 на 1 — разбор вашей ситуации</div></div>
+    </div>
+
+    <div class="gifts-footer">
+      <strong>Как забрать подарок?</strong> После оплаты книги на почту придёт письмо со ссылкой на приложение, где вам выпадет 1 из бонусов. В течение 3 дней с момента покупки вам подключают курс или назначают консультацию.<br>
+      <em>* Доступ к каждому курсу — 90 дней. Бонусы только для первых 100 покупателей.</em>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     PRICING
+============================= -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <span class="label">Стоимость</span>
+    <h2>Учебное пособие<br>«Эксперт по оцифровке бизнеса»</h2>
+    <p class="pricing__sub">Всё, что нужно для профессионального роста — в одном пакете</p>
+
+    <div class="price-card reveal">
+      <ul class="price-includes">
+        <li>Электронный учебник Екатерины Яхонтовой (формат А4, Google Диск)</li>
+        <li>Обучающее приложение в Telegram и MAX</li>
+        <li>15 практических инструментов, шаблонов и чек-листов</li>
+        <li>Курс или консультация в подарок по итогам лотереи</li>
+        <li>Индивидуальный доступ к материалам — навсегда</li>
+      </ul>
+
+      <div class="price-row">
+        <span class="price-old">14 900</span>
+        <span class="price-new">4 900</span>
+        <span class="price-rub">₽</span>
+      </div>
+      <div><span class="price-save">Скидка 67%</span></div>
+
+      <!-- GetCourse widget — оплата прямо в блоке -->
+      <div style="margin:28px 0 12px">
+        <script id="799ef4de964ba9ef3c82a2ade2d24f99083467f8" src="https://yahontovaschool.getcourse.ru/pl/lite/widget/script?id=1618139"></script>
+      </div>
+
+      <div class="pay-logo-row" style="justify-content:center;margin-top:16px">
+        <div class="pay-logo pay-logo--visa">VISA</div>
+        <div class="pay-logo pay-logo--mc"><div class="mc-left"></div><div class="mc-right"></div></div>
+        <div class="pay-logo pay-logo--mir">МИР</div>
+        <div class="pay-logo pay-logo--sbp">СБП ⚡</div>
+        <div class="pay-logo" style="font-size:11px;color:var(--muted)">Яндекс Сплит</div>
+        <div class="pay-logo" style="font-size:11px;color:var(--muted)">По счёту</div>
+      </div>
+      <div style="text-align:center;margin-top:10px;font-size:12px;color:rgba(255,255,255,.4)">
+        🔒 Безопасная оплата · Доступ навсегда · Без подписки
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     PAYMENT INFO
+============================= -->
+<section class="section--sm payment-section">
+  <div class="container">
+    <h3>Как оплатить?</h3>
+    <div class="pay-grid">
+      <div class="pay-item"><span class="pay-item__ico">💳</span> По карте</div>
+      <div class="pay-item"><span class="pay-item__ico">📑</span> По счёту</div>
+      <div class="pay-item"><span class="pay-item__ico">🔄</span> Долями — Яндекс Сплит</div>
+    </div>
+    <p class="pay-contact">Проблема с оплатой? Напишите мне:</p>
+    <div class="pay-links">
+      <a class="pay-link" href="https://t.me/yakhontova_finance" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="tg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2AABEE"/><stop offset="1" stop-color="#229ED9"/></linearGradient></defs>
+          <circle cx="25" cy="25" r="25" fill="url(#tg2)"/>
+          <path fill="white" d="M37.6 13.4L6.8 25.3c-.9.4-.8 1.7.2 1.9l8.1 2.6 3.1 9.9c.2.8 1.3 1 1.8.3l4.4-4.5 8.7 6.5c.8.6 2 .1 2.2-.9l5.7-26c.3-1.4-1-2.5-2.4-1.7zm-4.6 5.2L18.9 31.1c-.3.2-.4.5-.3.9l1.3 5.4-2.9-2.2c-.3-.2-.7-.2-1 .1l-2.4 2.4-2.2-7L32 18.6c.5-.3.5-1-.6-1z"/>
+        </svg>
+        Telegram
+      </a>
+      <a class="pay-link" href="https://max.ru/u/f9LHodD0cOK4FCCehXDnZVD9DPEf3Pur_Rgmnral_wmHP9O1MFHvQz7C16o" target="_blank" rel="noopener">
+        <img src="max-logo.png" alt="MAX" style="width:20px;height:20px;object-fit:contain">
+        MAX
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     AUTHOR
+============================= -->
+<section class="section author" id="author">
+  <div class="container">
+    <span class="label">Автор учебника</span>
+
+    <div class="author__wrap reveal">
+      <!-- Photo column -->
+      <div class="author__photo-col">
+        <img src="author-web.jpg" alt="Екатерина Яхонтова" class="author__photo">
+        <div class="author__photo-quote">
+          «Написала эту книгу, чтобы сократить ваш путь — то, на что у меня ушло 7 лет»
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="author__text">
+        <div class="author__name">Екатерина Яхонтова</div>
+        <div class="author__role">Финансист · Эксперт по управленческому учёту · Автор обучающих программ</div>
+
+        <div class="author__facts">
+          <div class="afact"><div class="afact__n">150<span>+</span></div><div class="afact__l">бизнесов — внедрение управленческого учёта</div></div>
+          <div class="afact"><div class="afact__n">100<span>+</span></div><div class="afact__l">финансовых моделей построено</div></div>
+          <div class="afact"><div class="afact__n">7</div><div class="afact__l">лет в финансовом аутсорсинге</div></div>
+          <div class="afact"><div class="afact__n">1<span>-я</span></div><div class="afact__l">книга с полной системой для финансиста на аутсорсе</div></div>
+        </div>
+
+        <p class="author__story">
+          До 2019 года работала главным бухгалтером. Переломным моментом стало банкротство компании — после него решила больше не возвращаться в привычный найм.<br><br>
+          Путь в управленческий учёт начался не с красивой истории успеха, а с поиска и большой внутренней неуверенности. Первые стабильные 400 000 рублей в месяц пришли не сразу — на это ушло около двух лет с ошибками, низкими ценами и сложными клиентами.
+        </p>
+
+        <a href="https://t.me/yakhontova_finance" target="_blank" rel="noopener" class="btn btn--primary">Учиться у Екатерины</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     FAQ
+============================= -->
+<section class="section faq">
+  <div class="container">
+    <span class="label">Часто задают</span>
+    <h2 style="margin-bottom:48px">Ответы на частые вопросы</h2>
+    <div class="faq__inner">
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Кому подойдёт эта книга?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Всем, кто работает с финансами или хочет начать: бухгалтерам, финансистам, специалистам по управленческому учёту, финансовым директорам на аутсорсе и тем, кто хочет перейти в эту профессию.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Подойдёт ли она новичку?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Да. Книга написана понятным языком без перегруза терминами. Автор объясняет всё с самого начала: что такое управленческий учёт, зачем он нужен, как устроены отчёты.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Подойдёт ли бухгалтеру без опыта в управленческом учёте?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Да, именно для этого книга и написана. Многие бухгалтеры хотят перейти в управленческий учёт, но не знают, с чего начать. Книга даёт структуру: как устроена эта работа, что делать на первой встрече, как внедрять отчёты.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Есть ли внутри практические материалы?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Да. Помимо текста, к книге прилагается библиотека инструментов: шаблоны, чек-листы, таблицы, диагностические карты, коммерческое предложение, отработка возражений и многое другое. Плюс — практические задания в каждой главе с ответами.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Можно ли применять инструменты сразу в работе?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Да, это и есть цель книги. Шаблоны и чек-листы сразу готовы к использованию. Их нужно адаптировать под конкретный проект — и можно идти на встречу с клиентом.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Как получить доступ к приложению?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Доступ предоставляется через QR-коды и ссылки, размещённые внутри книги. После получения книги вы сразу можете подключиться к дополнительным материалам в Telegram или MAX.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Можно ли передавать доступ другому человеку?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Нет. Доступ к приложению с инструментами и книге — индивидуальный. Материалы предназначены для личного использования покупателя. Книга открывается на Google Диске — читать можно и без доступа в интернет.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Как участвовать в розыгрыше курсов?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">После оплаты книги вам на почту придёт письмо со ссылкой на приложение с подарками. Участвовать можно 1 раз. Если вы выиграли курс, который уже проходили — напишите Екатерине и вместе выберете альтернативу.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Стоит ли покупать действующему финансовому директору?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Да. Даже если вы уже работаете с клиентами, книга позволяет систематизировать опыт, закрыть пробелы и выстроить более чёткие процессы. Особенно полезны главы про диагностику, ценообразование, границы и ведение встреч.</div></div></div>
+      <div class="faq-item"><button class="faq-btn"><span class="faq-q">Что если книга мне не подойдёт?</span><span class="faq-ico">+</span></button><div class="faq-ans"><div class="faq-ans__inner">Напишите Екатерине напрямую в Telegram или MAX — разберёмся в ситуации индивидуально.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     FINAL CTA
+============================= -->
+<section class="section final-cta">
+  <div class="container">
+    <span class="label" style="color:var(--gold2)">Заключение</span>
+    <h2>Система, которую нарабатывают годами — теперь в одной книге</h2>
+    <p>Вы можете продолжать работать «как получается». Или — выстроить систему, которая делает вас более уверенным, более ценным и более высокооплачиваемым специалистом.<br><br>
+    «Эксперт по оцифровке бизнеса» — не про «узнать что-то новое», а про «изменить то, кем и как вы работаете».</p>
+    <button class="btn btn--gold btn--lg" onclick="scrollToPricing()">Купить учебник</button>
+    <p class="final-cta__note">После покупки вы получите доступ к обучающему приложению, библиотеке инструментов и подарочному курсу на выбор</p>
+  </div>
+</section>
+
+<!-- =============================
+     CONTACTS
+============================= -->
+<section class="section--sm contacts" id="contacts">
+  <div class="container">
+    <span class="label">Контакты</span>
+    <h2>Остались вопросы?</h2>
+    <p style="color:var(--muted);margin-top:10px">Если у вас остались вопросы по учебнику, доступу к материалам, подарочной программе или оплате — напишите мне напрямую.</p>
+    <div class="contacts__grid">
+      <a class="clink" href="https://t.me/yakhontova_finance" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="tg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2AABEE"/><stop offset="1" stop-color="#229ED9"/></linearGradient></defs>
+          <circle cx="25" cy="25" r="25" fill="url(#tg3)"/>
+          <path fill="white" d="M37.6 13.4L6.8 25.3c-.9.4-.8 1.7.2 1.9l8.1 2.6 3.1 9.9c.2.8 1.3 1 1.8.3l4.4-4.5 8.7 6.5c.8.6 2 .1 2.2-.9l5.7-26c.3-1.4-1-2.5-2.4-1.7zm-4.6 5.2L18.9 31.1c-.3.2-.4.5-.3.9l1.3 5.4-2.9-2.2c-.3-.2-.7-.2-1 .1l-2.4 2.4-2.2-7L32 18.6c.5-.3.5-1-.6-1z"/>
+        </svg>
+        Написать в Telegram
+      </a>
+      <a class="clink" href="https://max.ru/u/f9LHodD0cOK4FCCehXDnZVD9DPEf3Pur_Rgmnral_wmHP9O1MFHvQz7C16o" target="_blank" rel="noopener">
+        <img src="max-logo.png" alt="MAX" style="width:22px;height:22px;object-fit:contain">
+        Написать в MAX
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =============================
+     FOOTER
+============================= -->
+<footer>
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">Эксперт по оцифровке бизнеса · Екатерина Яхонтова</div>
+
+      <div class="footer__divider"></div>
+
+      <div class="footer__legal">
+        ИП Яхонтова Екатерина Владимировна &nbsp;·&nbsp; ИНН&nbsp;025803729988 &nbsp;·&nbsp; ОГРНИП&nbsp;319028000105642
+      </div>
+
+      <div class="footer__links">
+        <a class="footer__link" href="https://disk.yandex.ru/i/cmz36rgtz848UA" target="_blank" rel="noopener">Политика обработки персональных данных</a>
+        <a class="footer__link" href="https://disk.yandex.ru/i/hG8EL0jriKnSLA" target="_blank" rel="noopener">Согласие на обработку данных</a>
+        <a class="footer__link" href="https://disk.yandex.ru/i/2Yby1XfgYDg7fw" target="_blank" rel="noopener">Согласие на рассылку</a>
+        <span style="color:rgba(255,255,255,.2);font-family:Montserrat,sans-serif;font-size:12px">Оферта</span>
+      </div>
+
+      <div class="footer__divider"></div>
+
+      <div class="footer__copy">© 2025 Все права защищены</div>
+    </div>
+  </div>
+</footer>
+
+<!-- =============================
+     JAVASCRIPT
+============================= -->
+<script>
+
+/* ---- IntersectionObserver: reveal ---- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .pq, .ac').forEach(el => io.observe(el));
+
+/* ---- FAQ accordion ---- */
+document.querySelectorAll('.faq-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+/* ---- 100 copies visual ---- */
+(function() {
+  const wrap = document.getElementById('copies');
+  if (!wrap) return;
+  const taken = 23;
+  for (let i = 0; i < 100; i++) {
+    const b = document.createElement('div');
+    b.className = 'copy-block' + (i < taken ? ' taken' : '');
+    wrap.appendChild(b);
+  }
+})();
+
+/* ---- Smooth scroll ---- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); }
+  });
+});
+
+/* ============================================
+   PAGE-FLIP BOOK
+============================================ */
+const CHAPTERS = [
+  { sec: 'Раздел 1. Основа работы финансиста', secShort: 'Раздел 1', num: 1, title: 'Что такое управленческий учёт', sub: 'И чем он отличается от бухгалтерского', desc: 'Зачем вообще нужен управленческий учёт, какие вопросы он закрывает, почему бизнес не может без него управляться — и почему это ваша точка входа в работу с любым клиентом.' },
+  { sec: 'Раздел 1. Основа работы финансиста', secShort: 'Раздел 1', num: 2, title: 'Функции финансиста', sub: 'Как хаос превращается в систему', desc: 'Что на самом деле делает сильный финансист. Сбор данных, анализ, донесение, просчёт решений, планирование — и почему «делать отчёты» — это только малая часть работы.' },
+  { sec: 'Раздел 1. Основа работы финансиста', secShort: 'Раздел 1', num: 3, title: 'Как внедряется управленческий учёт', sub: 'Этапы, которые нельзя пропустить', desc: 'Почему нельзя перепрыгнуть этапы. Где ломается внедрение. Как довести систему до состояния «работает без вас».' },
+  { sec: 'Раздел 1. Основа работы финансиста', secShort: 'Раздел 1', num: 4, title: 'Диагностика: не аудит, а точка входа', sub: 'Первая встреча и коммерческое предложение', desc: 'Как провести первую встречу так, чтобы клиент сам пришёл к пониманию своей проблемы. Логика SPIN. Диагностическая карта. Как переводить боль в решение — и в коммерческое предложение.' },
+  { sec: 'Раздел 1. Основа работы финансиста', secShort: 'Раздел 1', num: 5, title: 'Как проводить встречи с клиентом', sub: 'Структура и управление разговором', desc: 'Структура встречи, управление разговором, работа с сопротивлением. Как объяснять цифры так, чтобы клиент понял и принял решение.' },
+  { sec: 'Раздел 2. Внедрение управленческого учёта', secShort: 'Раздел 2', num: 6, title: 'Отчёт о движении денежных средств', sub: 'ДДС: восемь шагов от хаоса к системе', desc: 'Восемь шагов внедрения ДДС — от разбора реальности бизнеса до первого запуска. Справочник статей, кошельки, сбор данных, точка старта. Как не дать учёту умереть через две недели.' },
+  { sec: 'Раздел 2. Внедрение управленческого учёта', secShort: 'Раздел 2', num: 7, title: 'ОПиУ', sub: 'Как понять, зарабатывает бизнес или нет', desc: 'Разница между деньгами и прибылью. Как читать отчёт о прибылях и убытках. Анализ по направлениям. Как находить слабые места и объяснять собственнику, где реально зарабатывает бизнес.' },
+  { sec: 'Раздел 2. Внедрение управленческого учёта', secShort: 'Раздел 2', num: 8, title: 'Баланс', sub: 'Как увидеть, чем на самом деле живёт бизнес', desc: 'Активы, обязательства, устойчивость. Как управленческий баланс показывает реальное состояние бизнеса — и почему без него картина всегда неполная.' },
+  { sec: 'Раздел 3. Финансовый анализ', secShort: 'Раздел 3', num: 9, title: 'Финансовый анализ', sub: 'Методы, коэффициенты и мониторинг', desc: 'Методы финансового анализа, коэффициенты ликвидности и устойчивости, оборачиваемость. Практический разбор реальной компании. Пять показателей для ежемесячного мониторинга.' },
+  { sec: 'Раздел 4. Работа финансиста', secShort: 'Раздел 4', num: 10, title: 'Удалёнка', sub: 'Как организовать работу без офиса', desc: 'Инструменты, процессы, взаимодействие с клиентом в онлайн-формате. Как не потерять управляемость и контакт.' },
+  { sec: 'Раздел 4. Работа финансиста', secShort: 'Раздел 4', num: 11, title: 'Границы и ответственность', sub: 'В работе финансиста', desc: 'Почему финансисты соглашаются делать работу трёх людей. Как выстроить границы с клиентом с первой встречи. Упаковка услуги, договор, дорожная карта.' },
+  { sec: 'Раздел 4. Работа финансиста', secShort: 'Раздел 4', num: 12, title: 'Ценообразование услуг финансиста', sub: 'Как говорить о деньгах уверенно', desc: 'Как формировать стоимость своих услуг. Почему страх назвать цену — это проблема не цены, а ценности. Как говорить о деньгах уверенно.' }
+];
+
+let curIdx = 0;
+let isFlipping = false;
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function populateFace(prefix, idx) {
+  if (idx < 0 || idx >= CHAPTERS.length) return;
+  const ch = CHAPTERS[idx];
+  document.getElementById(prefix + 'Label').textContent = 'Глава ' + pad(ch.num);
+  document.getElementById(prefix + 'Title').textContent = ch.title;
+  document.getElementById(prefix + 'Sub').textContent   = ch.sub;
+  document.getElementById(prefix + 'Desc').textContent  = ch.desc;
+  document.getElementById(prefix + 'PageNum').textContent = ch.num * 2;
+}
+
+function buildToc(idx) {
+  const ch  = CHAPTERS[idx];
+  const sec = ch.sec;
+  const list = document.getElementById('tocList');
+  list.innerHTML = '';
+  document.getElementById('leftSection').textContent = ch.secShort;
+  document.getElementById('leftTitle').textContent   = sec.replace(/^Раздел \d+\.\s*/, '');
+  document.getElementById('leftPageNum').textContent = idx * 2 + 1;
+
+  CHAPTERS.forEach((c, i) => {
+    if (c.sec !== sec) return;
+    const li = document.createElement('li');
+    li.className = 'bp__toc-item' + (i === idx ? ' active' : '');
+    li.innerHTML = '<span class="ch-n">' + pad(c.num) + '</span>' + c.title;
+    li.addEventListener('click', () => { if (!isFlipping && i !== curIdx) jumpTo(i); });
+    list.appendChild(li);
+  });
+}
+
+function buildDots() {
+  const wrap = document.getElementById('navDots');
+  wrap.innerHTML = '';
+  CHAPTERS.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'book-nav__dot' + (i === curIdx ? ' active' : '');
+    wrap.appendChild(d);
+  });
+  document.getElementById('navNum').textContent = curIdx + 1;
+}
+
+function updateNav() {
+  document.getElementById('prevBtn').disabled = curIdx === 0;
+  document.getElementById('nextBtn').disabled = curIdx === CHAPTERS.length - 1;
+  buildDots();
+}
+
+function renderCurrent() {
+  populateFace('front', curIdx);
+  buildToc(curIdx);
+  updateNav();
+}
+
+function doFlip(toIdx) {
+  if (isFlipping || toIdx === curIdx || toIdx < 0 || toIdx >= CHAPTERS.length) return;
+  isFlipping = true;
+
+  // Pre-load target content on the back face
+  populateFace('back', toIdx);
+
+  const card = document.getElementById('flipCard');
+  card.classList.add('flipped');
+
+  card.addEventListener('transitionend', () => {
+    // Swap: update front with new content, reset card without animation
+    curIdx = toIdx;
+    card.style.transition = 'none';
+    card.classList.remove('flipped');
+    populateFace('front', curIdx);
+    buildToc(curIdx);
+    updateNav();
+
+    // Re-enable transition after two frames (avoids flash)
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      card.style.transition = '';
+      isFlipping = false;
+    }));
+  }, { once: true });
+}
+
+function bookNext() { doFlip(curIdx + 1); }
+function bookPrev() { doFlip(curIdx - 1); }
+function jumpTo(idx) { doFlip(idx); }
+
+// Click right page to go next
+document.getElementById('flipCard').addEventListener('click', () => {
+  if (!isFlipping && curIdx < CHAPTERS.length - 1) bookNext();
+});
+
+// ---- Keyboard navigation ←/→ ----
+document.addEventListener('keydown', e => {
+  const viewer = document.getElementById('contents');
+  if (!viewer) return;
+  if (e.key === 'ArrowRight') bookNext();
+  if (e.key === 'ArrowLeft')  bookPrev();
+});
+
+// ---- Mobile swipe on flip card ----
+(function() {
+  const el = document.getElementById('flipCard');
+  if (!el) return;
+  let startX = 0;
+  el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  el.addEventListener('touchend', e => {
+    const delta = e.changedTouches[0].clientX - startX;
+    if (Math.abs(delta) > 50) {
+      if (delta < 0) bookNext(); else bookPrev();
+    }
+  }, { passive: true });
+})();
+
+// ---- Show/hide all instruments ----
+function toggleInstrs() {
+  const all = document.getElementById('instrAll');
+  const btn = document.getElementById('instrMoreBtn');
+  if (!all || !btn) return;
+  if (all.classList.contains('open')) {
+    all.classList.remove('open');
+    btn.textContent = '+ Показать все 15 инструментов';
+  } else {
+    all.classList.add('open');
+    btn.textContent = '− Свернуть список';
+  }
+}
+
+// ---- Spots counter (localStorage) ----
+(function() {
+  const KEY = 'bk_spots_v2';
+  let spots = localStorage.getItem(KEY);
+  if (spots === null) {
+    spots = 45;
+  } else {
+    spots = Math.max(10, parseInt(spots) - 5);
+  }
+  localStorage.setItem(KEY, spots);
+
+  const numEl  = document.getElementById('spotsNum');
+  const barEl  = document.getElementById('spotsBar');
+  if (numEl) numEl.textContent = spots;
+  if (barEl) barEl.style.width = spots + '%';
+})();
+
+// ---- Scroll to pricing ----
+function scrollToPricing() {
+  const target = document.getElementById('pricing');
+  if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' });
+}
+
+// ---- Top nav burger ----
+const tnBurger = document.getElementById('topnavBurger');
+const tnMobile = document.getElementById('topnavMobile');
+if (tnBurger && tnMobile) {
+  tnBurger.addEventListener('click', () => {
+    const open = tnMobile.classList.toggle('open');
+    tnBurger.classList.toggle('open', open);
+    tnBurger.setAttribute('aria-expanded', open);
+  });
+  tnMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      tnMobile.classList.remove('open');
+      tnBurger.classList.remove('open');
+      tnBurger.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+// Init
+renderCurrent();
+</script>
+
+
+</body>
+</html>

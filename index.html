@@ -4,404 +4,487 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#1B3A6B">
+  <meta name="description" content="Библиотека шаблонов к книге «Эксперт по оцифровке бизнеса» — Екатерина Яхонтова">
   <title>Материалы к книге</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://st.max.ru/js/max-web-app.js"></script>
   <style>
-    /* ── Light tokens ─────────────────────────────────────────── */
+    /* ══ Tokens ═════════════════════════════════════════════════ */
     :root {
-      --c-primary:     #1B3A6B;
-      --c-accent:      #2E6DA4;
-      --c-accent-tint: rgba(46, 109, 164, 0.10);
-      --c-bg:          #FFFFFF;
-      --c-card:        #F5F8FC;
-      --c-text:        #1A1A1A;
-      --c-muted:       #6B7280;
-      --c-border:      #E2E8F0;
-      --safe-b:        env(safe-area-inset-bottom, 0px);
+      --p:   #1B3A6B;
+      --a:   #2E6DA4;
+      --at:  rgba(46,109,164,.10);
+      --bg:  #FFFFFF;
+      --cd:  #F5F8FC;
+      --tx:  #1A1A1A;
+      --mu:  #6B7280;
+      --bo:  #E2E8F0;
+      --gr:  #16A34A;
+      --r:   14px;
+      --sb:  env(safe-area-inset-bottom, 0px);
     }
-
-    /* ── Dark tokens ──────────────────────────────────────────── */
     html.dark {
-      --c-accent-tint: rgba(46, 109, 164, 0.18);
-      --c-bg:          #0F1923;
-      --c-card:        #1A2636;
-      --c-text:        #EAEAEA;
-      --c-muted:       #8B95A3;
-      --c-border:      #253044;
+      --at: rgba(46,109,164,.18);
+      --bg: #0F1923; --cd: #1A2636;
+      --tx: #EAEAEA; --mu: #8B95A3; --bo: #253044;
     }
-
-    @media (prefers-color-scheme: dark) {
-      html:not(.light) {
-        --c-accent-tint: rgba(46, 109, 164, 0.18);
-        --c-bg:          #0F1923;
-        --c-card:        #1A2636;
-        --c-text:        #EAEAEA;
-        --c-muted:       #8B95A3;
-        --c-border:      #253044;
-      }
-    }
+    @media (prefers-color-scheme: dark) { html:not(.light) {
+      --at: rgba(46,109,164,.18);
+      --bg: #0F1923; --cd: #1A2636;
+      --tx: #EAEAEA; --mu: #8B95A3; --bo: #253044;
+    }}
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
-      background: var(--c-bg);
-      color: var(--c-text);
+      background: var(--bg); color: var(--tx);
       min-height: 100vh;
-      padding-bottom: calc(80px + var(--safe-b));
+      padding-bottom: calc(82px + var(--sb));
+      overflow-x: hidden;
     }
 
-    /* ── Header ───────────────────────────────────────────────── */
+    /* ══ Keyframes ═══════════════════════════════════════════════ */
+    @keyframes hshift  { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    @keyframes hdrop   { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
+    @keyframes barrise { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+    @keyframes fadeUp  { to{opacity:1;transform:translateY(0)} }
+    @keyframes sright  { to{opacity:1;transform:translateX(0)} }
+    @keyframes shimmer { 0%,100%{opacity:0;transform:scaleX(.4)} 50%{opacity:1;transform:scaleX(1)} }
+    @keyframes skel    { from{background-position:-200% 0} to{background-position:200% 0} }
+    @keyframes spin    { to{transform:rotate(360deg)} }
+    @keyframes bounce  { 0%{transform:scale(0) rotate(-15deg);opacity:0} 70%{transform:scale(1.15) rotate(5deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+    @keyframes pop     { 0%{transform:scale(0.5);opacity:0} 60%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1} }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+    @keyframes confettiDrop { to { transform: translateY(120px) rotate(720deg); opacity: 0; } }
+    @keyframes pulseGlow   { 0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,.3)} 50%{box-shadow:0 0 0 10px rgba(22,163,74,0)} }
+
+    /* ══ Header ══════════════════════════════════════════════════ */
     .header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--c-primary);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      position: sticky; top: 0; z-index: 100;
+      background: linear-gradient(120deg,#0f2a52,#1B3A6B,#2759a3,#1a4f8a,#163268);
+      background-size: 400% 400%;
+      animation: hshift 10s ease infinite, hdrop .45s ease both;
+      padding: 13px 16px; display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.28);
     }
-
+    .header::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+      animation: shimmer 4s ease-in-out infinite;
+    }
     .header__cover {
-      width: 52px;
-      height: 52px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.12);
-      flex-shrink: 0;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
+      width:46px; height:46px; border-radius:9px; flex-shrink:0; overflow:hidden;
+      display:flex; align-items:center; justify-content:center; font-size:24px;
+      background:rgba(255,255,255,.12);
+      box-shadow:0 2px 10px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18);
     }
+    .header__cover img { width:100%; height:100%; object-fit:cover; display:block; }
+    .header__info { flex:1; min-width:0; }
+    .header__title { font-size:15px; font-weight:700; color:#fff; line-height:1.3; text-shadow:0 1px 4px rgba(0,0,0,.25); }
+    .header__sub   { font-size:11px; color:rgba(255,255,255,.65); margin-top:2px; line-height:1.4; }
 
-    .header__cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    /* ── Hamburger ── */
+    .burger {
+      width:38px; height:38px; border-radius:9px; flex-shrink:0;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+      cursor:pointer; -webkit-tap-highlight-color:transparent;
+      transition:background .2s;
     }
-
-    .header__title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #FFFFFF;
-      line-height: 1.3;
+    .burger:active { background:rgba(255,255,255,.28); }
+    .burger span {
+      display:block; width:18px; height:2px;
+      background:#fff; border-radius:2px;
+      transition:transform .3s ease, opacity .2s, width .3s;
     }
+    .burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity:0; width:0; }
+    .burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
-    .header__sub {
-      font-size: 12px;
-      color: rgba(255,255,255,0.65);
-      margin-top: 3px;
-      line-height: 1.5;
+    /* ── Drawer menu ── */
+    .drawer-overlay {
+      position:fixed; inset:0; z-index:200;
+      background:rgba(0,0,0,.45);
+      opacity:0; pointer-events:none;
+      transition:opacity .3s ease;
+      backdrop-filter:blur(3px);
     }
+    .drawer-overlay.open { opacity:1; pointer-events:all; }
+    .drawer {
+      position:fixed; top:0; right:0; bottom:0; z-index:201;
+      width:min(280px, 82vw);
+      background:var(--bg);
+      box-shadow:-8px 0 32px rgba(0,0,0,.2);
+      transform:translateX(100%);
+      transition:transform .32s cubic-bezier(.32,1,.56,1);
+      display:flex; flex-direction:column;
+      overflow:hidden;
+    }
+    .drawer.open { transform:translateX(0); }
+    .drawer__head {
+      padding:18px 20px 14px;
+      background:linear-gradient(120deg,#0f2a52,#1B3A6B,#2759a3);
+      background-size:300% 300%;
+      animation:hshift 10s ease infinite;
+      border-bottom:1px solid var(--bo);
+      flex-shrink:0;
+    }
+    .drawer__title { font-size:15px; font-weight:700; color:#fff; margin-bottom:3px; }
+    .drawer__sub   { font-size:11px; color:rgba(255,255,255,.6); }
+    .drawer__close {
+      position:absolute; top:14px; right:16px;
+      width:30px; height:30px; border-radius:50%;
+      background:rgba(255,255,255,.15); border:none; color:#fff;
+      font-size:16px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; -webkit-tap-highlight-color:transparent;
+    }
+    .drawer__nav { flex:1; overflow-y:auto; padding:12px 0; }
+    .drawer__item {
+      display:flex; align-items:center; gap:12px;
+      padding:13px 20px; cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      transition:background .15s;
+      border-left:3px solid transparent;
+    }
+    .drawer__item:hover, .drawer__item:active { background:var(--at); border-left-color:var(--a); }
+    .drawer__item__ico { font-size:18px; flex-shrink:0; }
+    .drawer__item__text { font-size:14px; font-weight:600; color:var(--tx); line-height:1.3; }
+    .drawer__item__count { margin-left:auto; font-size:11px; font-weight:700; color:var(--a);
+      background:var(--at); padding:2px 7px; border-radius:10px; }
+    .drawer__feedback-btn {
+      margin:12px 16px; padding:12px;
+      background:var(--a); color:#fff; border:none; border-radius:10px;
+      font-size:14px; font-weight:700; cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      transition:background .2s, transform .15s;
+    }
+    .drawer__feedback-btn:active { transform:scale(.97); }
 
-    /* ── Main content ─────────────────────────────────────────── */
-    .content { padding: 16px; }
+    /* ══ Content ══════════════════════════════════════════════════ */
+    .content { padding:16px; }
 
+    /* ── Tip ── */
     .tip {
-      background: var(--c-accent-tint);
-      border: 1px solid rgba(46, 109, 164, 0.2);
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-size: 13px;
-      color: var(--c-accent);
-      line-height: 1.55;
-      margin-bottom: 20px;
+      background:var(--at); border:1px solid rgba(46,109,164,.22);
+      border-radius:12px; padding:12px 15px 12px 18px;
+      font-size:13px; color:var(--a); line-height:1.6;
+      margin-bottom:20px; position:relative; overflow:hidden;
+      opacity:0; transform:translateY(12px);
+      animation:fadeUp .45s .2s ease forwards;
     }
+    .tip::before { content:''; position:absolute; top:0; left:0; bottom:0; width:3px; background:var(--a); border-radius:3px 0 0 3px; }
 
-    /* ── Chapter section ──────────────────────────────────────── */
-    .chapter { margin-bottom: 24px; }
+    /* ── Stats counters ── */
+    .stats {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+      margin-bottom:22px;
+      opacity:0; transform:translateY(14px);
+      animation:fadeUp .45s .35s ease forwards;
+    }
+    .stat-box {
+      background:var(--cd); border:1px solid var(--bo); border-radius:12px;
+      padding:12px 8px; text-align:center;
+    }
+    .stat-box__n {
+      font-size:28px; font-weight:900; color:var(--p); line-height:1;
+      font-variant-numeric:tabular-nums;
+    }
+    .stat-box__l { font-size:10px; color:var(--mu); margin-top:4px; line-height:1.3; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
 
+    /* ── Skeleton ── */
+    .skel {
+      background:linear-gradient(90deg,var(--cd) 25%,rgba(46,109,164,.07) 50%,var(--cd) 75%);
+      background-size:200% 100%; animation:skel 1.4s ease infinite;
+      border-radius:var(--r); border:1px solid var(--bo);
+    }
+    .skel-card  { height:68px; margin-bottom:10px; }
+    .skel-label { height:13px; width:42%; margin-bottom:11px; border-radius:6px; }
+
+    /* ── Chapter section ── */
+    .chapter { margin-bottom:28px; }
     .chapter__label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--c-accent);
-      margin-bottom: 8px;
-      padding: 0 2px;
+      font-size:11px; font-weight:700; letter-spacing:.10em; text-transform:uppercase;
+      color:var(--a); margin-bottom:10px; padding:0 2px;
+      display:flex; align-items:center; gap:8px;
+      opacity:0; transform:translateX(-12px);
     }
+    .chapter__label.vis { animation:sright .4s ease forwards; }
+    .chapter__label::after { content:''; flex:1; height:1px; background:linear-gradient(to right,var(--bo),transparent); }
 
-    /* ── Cards ────────────────────────────────────────────────── */
-    .cards { display: flex; flex-direction: column; gap: 8px; }
-
+    /* ── Cards ── */
+    .cards { display:flex; flex-direction:column; gap:10px; }
     .card {
-      position: relative;
-      overflow: hidden;
-      background: var(--c-card);
-      border: 1px solid var(--c-border);
-      border-radius: 12px;
-      padding: 14px 14px 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform 0.13s ease, box-shadow 0.13s ease;
-      user-select: none;
+      position:relative; overflow:hidden;
+      background:var(--cd); border:1px solid var(--bo);
+      border-radius:var(--r); padding:14px 14px 14px 16px;
+      display:flex; align-items:center; gap:13px;
+      text-decoration:none; color:inherit; cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, border-color .2s;
+      user-select:none; opacity:0; transform:translateY(18px);
     }
-
-    .card:active {
-      transform: scale(0.964);
+    .card.vis { animation:fadeUp .45s calc(var(--d,0ms)) cubic-bezier(.22,1,.36,1) forwards; }
+    @media(hover:hover) {
+      .card:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(27,58,107,.14); border-color:rgba(46,109,164,.35); }
+      .card:hover .card__icon { background:rgba(46,109,164,.18); transform:scale(1.08); }
     }
+    .card:active { transform:scale(.963) !important; box-shadow:none !important; }
+    .card__icon { width:42px; height:42px; border-radius:10px; background:var(--at); display:flex; align-items:center; justify-content:center; font-size:21px; flex-shrink:0; transition:background .2s,transform .2s; }
+    .card__body { flex:1; min-width:0; }
+    .card__name { font-size:14px; font-weight:600; color:var(--tx); line-height:1.35; }
+    .card__hint { font-size:12px; color:var(--mu); margin-top:3px; line-height:1.5; }
+    .card__cta  { font-size:12px; font-weight:700; color:var(--a); flex-shrink:0; padding-left:6px; white-space:nowrap; transition:color .2s; }
 
-    .card__icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: var(--c-accent-tint);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .card__body {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .card__name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--c-text);
-      line-height: 1.35;
-    }
-
-    .card__hint {
-      font-size: 12px;
-      color: var(--c-muted);
-      margin-top: 3px;
-      line-height: 1.45;
-    }
-
-    .card__cta {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--c-accent);
-      flex-shrink: 0;
-      padding-left: 6px;
-    }
-
-    /* ── Video card layout ────────────────────────────────────── */
-    .card--video {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-    }
-
-    .card__top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .card__footer {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--c-border);
-    }
-
+    /* Video card */
+    .card--video { flex-direction:column; align-items:stretch; gap:0; }
+    .card__top    { display:flex; align-items:center; gap:13px; }
+    .card__footer { display:flex; gap:8px; margin-top:13px; padding-top:13px; border-top:1px solid var(--bo); }
     .card__btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 8px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform 0.13s, opacity 0.13s;
-      user-select: none;
+      flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+      padding:10px 8px; border-radius:9px; font-size:13px; font-weight:600;
+      text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+      transition:transform .15s, opacity .15s, background .2s, box-shadow .2s; user-select:none;
     }
-
-    .card__btn:active {
-      transform: scale(0.96);
-      opacity: 0.8;
+    .card__btn:active { transform:scale(.95); opacity:.8; }
+    .card__btn--video { background:var(--at); color:var(--a); border:1px solid rgba(46,109,164,.22); }
+    .card__btn--open  { background:var(--a); color:#fff; box-shadow:0 2px 8px rgba(27,58,107,.2); }
+    @media(hover:hover) {
+      .card__btn--video:hover { background:rgba(46,109,164,.18); }
+      .card__btn--open:hover  { background:#1a5a9e; transform:translateY(-1px); box-shadow:0 4px 14px rgba(27,58,107,.35); }
     }
+    .play-icon { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:50%; background:var(--a); color:#fff; font-size:7px; flex-shrink:0; }
 
-    .card__btn--video {
-      background: var(--c-accent-tint);
-      color: var(--c-accent);
-      border: 1px solid rgba(46, 109, 164, 0.22);
-    }
-
-    .card__btn--open {
-      background: var(--c-accent);
-      color: #ffffff;
-    }
-
-    /* ── Ripple ───────────────────────────────────────────────── */
+    /* ── Ripple ── */
     .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(46, 109, 164, 0.20);
-      transform: scale(0);
-      animation: ripple-out 0.5s ease-out forwards;
-      pointer-events: none;
+      position:absolute; border-radius:50%; pointer-events:none;
+      background:radial-gradient(circle,rgba(46,109,164,.28) 0%,rgba(46,109,164,.04) 70%);
+      transform:scale(0); animation:ripple-out .55s cubic-bezier(.2,.6,.4,1) forwards;
     }
+    @keyframes ripple-out { to{transform:scale(4.5);opacity:0} }
 
-    @keyframes ripple-out {
-      to { transform: scale(5); opacity: 0; }
-    }
-
-    /* ── Scroll-to-top FAB ────────────────────────────────────── */
+    /* ══ FAB — scroll to top ═════════════════════════════════════ */
     .fab {
-      position: fixed;
-      bottom: calc(74px + var(--safe-b));
-      right: 18px;
-      width: 44px;
-      height: 44px;
-      background: var(--c-primary);
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(27, 58, 107, 0.40);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.25s, transform 0.25s;
-      z-index: 20;
-      -webkit-tap-highlight-color: transparent;
+      position:fixed; bottom:calc(76px + var(--sb)); right:16px; z-index:50;
+      width:44px; height:44px; border-radius:50%;
+      background:linear-gradient(135deg,#1B3A6B,#2E6DA4); color:#fff;
+      border:none; font-size:18px; font-weight:700;
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+      box-shadow:0 4px 16px rgba(27,58,107,.45);
+      opacity:0; transform:translateY(14px) scale(.88);
+      transition:opacity .3s, transform .3s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .fab.vis { opacity:1; transform:translateY(0) scale(1); }
+    @media(hover:hover) { .fab:hover { transform:translateY(-2px) scale(1.08) !important; } }
+
+    /* ══ Feedback FAB ════════════════════════════════════════════ */
+    .fab-fb {
+      position:fixed; bottom:calc(76px + var(--sb)); left:16px; z-index:50;
+      width:44px; height:44px; border-radius:50%;
+      background:linear-gradient(135deg,var(--gr),#15803d); color:#fff;
+      border:none; font-size:20px;
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+      box-shadow:0 4px 16px rgba(22,163,74,.4);
+      opacity:0; transform:translateY(14px) scale(.88);
+      transition:opacity .3s, transform .3s;
+      -webkit-tap-highlight-color:transparent;
+      animation:pulseGlow 3s 2s ease-in-out infinite;
+    }
+    .fab-fb.vis { opacity:1; transform:translateY(0) scale(1); }
+    @media(hover:hover) { .fab-fb:hover { transform:translateY(-2px) scale(1.1) !important; } }
+
+    /* ══ Feedback modal ══════════════════════════════════════════ */
+    .fb-overlay {
+      position:fixed; inset:0; z-index:300;
+      background:rgba(0,0,0,.5); backdrop-filter:blur(6px);
+      display:flex; align-items:flex-end; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition:opacity .3s ease;
+    }
+    .fb-overlay.open { opacity:1; pointer-events:all; }
+    .fb-sheet {
+      width:100%; max-width:560px;
+      background:var(--bg); border-radius:20px 20px 0 0;
+      padding:20px 22px calc(22px + var(--sb));
+      transform:translateY(100%);
+      transition:transform .38s cubic-bezier(.32,1,.56,1);
+      position:relative;
+    }
+    .fb-overlay.open .fb-sheet { transform:translateY(0); }
+    .fb-handle {
+      width:40px; height:4px; border-radius:2px;
+      background:var(--bo); margin:0 auto 18px;
+    }
+    .fb-title { font-size:18px; font-weight:700; color:var(--tx); margin-bottom:4px; }
+    .fb-sub   { font-size:13px; color:var(--mu); margin-bottom:20px; }
+    .fb-close {
+      position:absolute; top:18px; right:18px;
+      width:30px; height:30px; border-radius:50%;
+      background:var(--cd); border:none; color:var(--mu); font-size:16px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background .2s;
+    }
+    .fb-close:hover { background:var(--bo); }
+
+    /* Form fields */
+    .fb-row   { margin-bottom:14px; }
+    .fb-label { font-size:12px; font-weight:700; color:var(--mu); margin-bottom:5px; display:block; text-transform:uppercase; letter-spacing:.06em; }
+    .fb-input, .fb-textarea {
+      width:100%; padding:12px 14px;
+      background:var(--cd); border:1.5px solid var(--bo);
+      border-radius:10px; font-size:15px; color:var(--tx);
+      font-family:inherit; outline:none;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    .fb-input:focus, .fb-textarea:focus {
+      border-color:var(--a); box-shadow:0 0 0 3px rgba(46,109,164,.12);
+    }
+    .fb-textarea { resize:none; height:100px; line-height:1.55; }
+    .fb-submit {
+      width:100%; padding:15px; background:var(--a); color:#fff;
+      border:none; border-radius:12px; font-size:16px; font-weight:700;
+      cursor:pointer; -webkit-tap-highlight-color:transparent;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      transition:background .2s, transform .15s, box-shadow .2s;
+      box-shadow:0 4px 14px rgba(27,58,107,.3);
+    }
+    .fb-submit:active { transform:scale(.97); }
+    @media(hover:hover) { .fb-submit:hover { background:#1a5a9e; transform:translateY(-1px); } }
+    .fb-submit .spinner { width:18px; height:18px; border:2.5px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:none; }
+    .fb-submit.loading .spinner   { display:block; }
+    .fb-submit.loading .btn-text  { display:none; }
+
+    /* Success state */
+    .fb-success { display:none; flex-direction:column; align-items:center; padding:10px 0 8px; text-align:center; }
+    .fb-success.show { display:flex; }
+    .fb-success__circle {
+      width:72px; height:72px; border-radius:50%;
+      background:rgba(22,163,74,.1); border:2.5px solid var(--gr);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:16px; animation:pop .5s ease both, pulseGlow 2s .5s ease-in-out 3;
+    }
+    .fb-success__check { width:36px; height:36px; }
+    .fb-success__check path {
+      fill:none; stroke:var(--gr); stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round;
+      stroke-dasharray:50; stroke-dashoffset:50;
+      animation:drawCheck .6s .3s cubic-bezier(.32,1,.56,1) forwards;
+    }
+    .fb-success__title { font-size:20px; font-weight:700; color:var(--tx); margin-bottom:6px; }
+    .fb-success__text  { font-size:14px; color:var(--mu); line-height:1.6; max-width:240px; margin-bottom:18px; }
+    .fb-success__close {
+      padding:12px 30px; background:var(--a); color:#fff;
+      border:none; border-radius:10px; font-size:15px; font-weight:700;
+      cursor:pointer; -webkit-tap-highlight-color:transparent;
+      transition:background .2s;
     }
 
-    .fab.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* Confetti pieces */
+    .confetti-piece {
+      position:absolute; width:8px; height:8px;
+      border-radius:2px; pointer-events:none;
+      animation:confettiDrop 1.2s ease forwards;
     }
 
-    /* ── Gate (блокировка вне Telegram) ──────────────────────── */
-    .gate {
-      position: fixed;
-      inset: 0;
-      background: var(--c-bg);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
-    }
-
-    .gate.hidden { display: none; }
-
-    .gate__box { text-align: center; max-width: 260px; }
-
-    .gate__icon { font-size: 52px; margin-bottom: 20px; }
-
-    .gate__title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--c-text);
-      margin-bottom: 10px;
-    }
-
-    .gate__text {
-      font-size: 14px;
-      color: var(--c-muted);
-      line-height: 1.65;
-    }
-
-    /* ── Channel bar (подписка) ───────────────────────────────── */
+    /* ══ Channel bar ═════════════════════════════════════════════ */
     .channel-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 15;
-      background: var(--c-primary);
-      padding: 10px 16px calc(10px + var(--safe-b));
-      display: flex;
-      gap: 8px;
+      position:fixed; bottom:0; left:0; right:0; z-index:15;
+      background:linear-gradient(120deg,#0f2a52,#1B3A6B,#2759a3);
+      background-size:300% 300%;
+      animation:hshift 10s 2s ease infinite, barrise .45s .3s ease both;
+      padding:10px 16px calc(10px + var(--sb));
+      display:flex; gap:8px;
+      box-shadow:0 -2px 16px rgba(0,0,0,.25);
     }
-
     .channel-bar__btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      padding: 9px 10px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      white-space: nowrap;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s;
-      overflow: hidden;
+      flex:1; display:flex; align-items:center; justify-content:center; gap:7px;
+      padding:10px 10px; border-radius:22px;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.15);
+      color:#fff; font-size:12px; font-weight:600;
+      text-decoration:none; white-space:nowrap; cursor:pointer;
+      -webkit-tap-highlight-color:transparent; overflow:hidden;
+      transition:background .2s, transform .15s;
     }
-
-    .channel-bar__btn:active { background: rgba(255,255,255,0.28); }
-
-    .channel-bar__logo {
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
-      object-fit: contain;
-      flex-shrink: 0;
-      display: block;
-    }
-
-    .channel-bar__logo--tg { border-radius: 50%; }
+    @media(hover:hover) { .channel-bar__btn:hover { background:rgba(255,255,255,.22); transform:translateY(-1px); } }
+    .channel-bar__btn:active { background:rgba(255,255,255,.28); transform:scale(.97); }
+    .channel-bar__logo { width:20px; height:20px; border-radius:4px; object-fit:contain; flex-shrink:0; display:block; }
+    .channel-bar__logo--tg { border-radius:50%; }
   </style>
 </head>
-
 <body>
-  <!-- ── Gate (не Telegram) ──────────────────────────────────── -->
-  <div class="gate hidden" id="gate">
-    <div class="gate__box">
-      <div class="gate__icon">📱</div>
-      <div class="gate__title">Откройте в Telegram</div>
-      <p class="gate__text">
-        Библиотека доступна только внутри Telegram.<br><br>
-        Отсканируйте QR-код из книги или перейдите по ссылке на бот.
-      </p>
-    </div>
-  </div>
 
-  <!-- ── Header ──────────────────────────────────────────────── -->
+  <!-- ══ Drawer overlay ═══════════════════════════════════════ -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <nav class="drawer" id="drawer" aria-label="Навигация">
+    <div class="drawer__head">
+      <div class="drawer__title">Разделы библиотеки</div>
+      <div class="drawer__sub">Перейдите к нужной главе</div>
+      <button class="drawer__close" id="drawerClose" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="drawer__nav" id="drawerNav"></div>
+    <button class="drawer__feedback-btn" id="drawerFbBtn">
+      💬 Задать вопрос
+    </button>
+  </nav>
+
+  <!-- ══ Header ═══════════════════════════════════════════════ -->
   <header class="header">
     <div class="header__cover" id="coverWrap">📗</div>
-    <div>
+    <div class="header__info">
       <div class="header__title">Материалы к книге</div>
-      <div class="header__sub">
-        «Эксперт по оцифровке бизнеса»<br>
-        Екатерина Яхонтова
-      </div>
+      <div class="header__sub">«Эксперт по оцифровке бизнеса» · Екатерина Яхонтова</div>
     </div>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
-  <!-- ── Content ─────────────────────────────────────────────── -->
+  <!-- ══ Content ═══════════════════════════════════════════════ -->
   <main class="content">
+    <!-- Tip -->
     <div class="tip">
-      💡 Нажмите на карточку — откроется таблица.<br>
-      Сохраните: <strong>Файл → Создать копию</strong>
+      💡 Нажмите на карточку — откроется таблица. Сохраните: <strong>Файл → Создать копию</strong>
     </div>
+
+    <!-- Stats counters -->
+    <div class="stats" id="statsRow">
+      <div class="stat-box">
+        <div class="stat-box__n" data-target="13" id="cnt0">0</div>
+        <div class="stat-box__l">шаблонов</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box__n" data-target="6" id="cnt1">0</div>
+        <div class="stat-box__l">разделов</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box__n" data-target="7" id="cnt2">0</div>
+        <div class="stat-box__l">видеоуроков</div>
+      </div>
+    </div>
+
+    <!-- Skeleton shown while JS renders -->
+    <div id="skeleton">
+      <div class="skel skel-label"></div>
+      <div class="skel skel-card"></div>
+      <div class="skel skel-card"></div>
+      <div class="skel skel-label" style="margin-top:16px"></div>
+      <div class="skel skel-card"></div>
+      <div class="skel skel-label" style="margin-top:16px"></div>
+      <div class="skel skel-card"></div>
+      <div class="skel skel-card"></div>
+    </div>
+
     <div id="catalog"></div>
   </main>
 
-  <!-- ── FAB ─────────────────────────────────────────────────── -->
+  <!-- ══ FAB — scroll to top ══════════════════════════════════ -->
   <button class="fab" id="fab" aria-label="Наверх">↑</button>
 
-  <!-- ── Channel bar ─────────────────────────────────────────── -->
+  <!-- ══ FAB — feedback ════════════════════════════════════════ -->
+  <button class="fab-fb" id="fabFb" aria-label="Обратная связь">💬</button>
+
+  <!-- ══ Channel bar ════════════════════════════════════════════ -->
   <div class="channel-bar">
     <a class="channel-bar__btn" id="maxBtn">
       <img src="max-logo.png" alt="MAX" class="channel-bar__logo">
@@ -409,300 +492,360 @@
     </a>
     <a class="channel-bar__btn" id="tgBtn">
       <svg class="channel-bar__logo channel-bar__logo--tg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="50" fill="#2CA5E0"/>
+        <defs><linearGradient id="tgG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2AABEE"/><stop offset="1" stop-color="#229ED9"/>
+        </linearGradient></defs>
+        <circle cx="50" cy="50" r="50" fill="url(#tgG)"/>
         <path fill="white" d="M22 48L74 28c2.5-.9 4.7.6 3.9 4.5L70 72c-.7 3-2.4 3.7-4.9 2.3L52 65l-6.5 6c-.7.7-1.3 1.3-2.7 1.3l1-14 25-23c1.1-1-.2-1.5-1.7-.5L29 57l-13-4c-3-.9-3-2.9.5-4.2z"/>
       </svg>
       <span>Подписаться в Telegram</span>
     </a>
   </div>
 
+  <!-- ══ Feedback modal ════════════════════════════════════════ -->
+  <div class="fb-overlay" id="fbOverlay" role="dialog" aria-modal="true" aria-label="Форма обратной связи">
+    <div class="fb-sheet" id="fbSheet">
+      <div class="fb-handle"></div>
+      <button class="fb-close" id="fbClose" aria-label="Закрыть">✕</button>
+
+      <!-- Form -->
+      <div id="fbForm">
+        <div class="fb-title">Задать вопрос</div>
+        <div class="fb-sub">Напишите — и Екатерина ответит вам лично</div>
+        <div class="fb-row">
+          <label class="fb-label" for="fbName">Ваше имя</label>
+          <input class="fb-input" id="fbName" type="text" placeholder="Например, Анна" autocomplete="given-name">
+        </div>
+        <div class="fb-row">
+          <label class="fb-label" for="fbEmail">Email</label>
+          <input class="fb-input" id="fbEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="fb-row">
+          <label class="fb-label" for="fbMsg">Ваш вопрос</label>
+          <textarea class="fb-textarea" id="fbMsg" placeholder="Опишите, что вас интересует…"></textarea>
+        </div>
+        <button class="fb-submit" id="fbSubmit">
+          <span class="btn-text">Отправить сообщение →</span>
+          <span class="spinner"></span>
+        </button>
+      </div>
+
+      <!-- Success state -->
+      <div class="fb-success" id="fbSuccess">
+        <div style="position:relative">
+          <!-- Confetti container -->
+          <div id="confettiContainer" style="position:absolute;top:0;left:50%;pointer-events:none"></div>
+          <div class="fb-success__circle">
+            <svg class="fb-success__check" viewBox="0 0 36 36">
+              <path d="M6 18 L14 26 L30 10"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fb-success__title">Сообщение отправлено!</div>
+        <div class="fb-success__text">Екатерина свяжется с вами в течение 1–2 рабочих дней.</div>
+        <button class="fb-success__close" id="fbSuccessClose">Хорошо, спасибо!</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    /* ══ Catalog data ══════════════════════════════════════════ */
     const CATALOG = [
-      {
-        chapter: "Глава 4. Работа с клиентом",
-        items: [
-          {
-            name: "Чек-лист диагностики клиента",
-            hint: "Используйте на первой встрече с клиентом",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1CNFJwazQFU4z9waVwLvMNtZI8agwSwOCMTaEC-b26x4/edit?usp=drivesdk",
-          },
-          {
-            name: "Таблица отработки возражений",
-            hint: "Готовые ответы на «дорого» и «подумаю»",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1EzW8xwVNCjXsqLOSwA4B5DT2d9vOsgV6-lQIGm8BLfk/edit?gid=0#gid=0",
-          },
-          {
-            name: "Шаблон коммерческого предложения",
-            hint: "Структура через боли, а не список услуг",
-            icon: "📋",
-            url: "https://docs.google.com/presentation/d/1yqE7_mhC_xRKFeNRcnoFCTSLNDKvozBh_7SVpT6ojk8/edit?usp=sharing",
-          },
-        ],
-      },
-      {
-        chapter: "Глава 6. ДДС",
-        items: [
-          {
-            name: "Шаблон ДДС",
-            hint: "Адаптируйте справочник статей под клиента",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1N06_6idJSHiTaLVxTrjkJh8IargP0zY0X-2hlR6oJjo/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/69caf39ccbf252f437d8f7bb1a9ac656/?p=qDHbNVNYNZeCmaYikIiV0w",
-          },
-        ],
-      },
-      {
-        chapter: "Глава 7. ОПиУ",
-        items: [
-          {
-            name: "Шаблон ОПиУ",
-            hint: "Логика расчёта от выручки до чистой прибыли",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1pKNhD6pME_yVdWYuU1V_D0HBJAmZWdW3ql2DMVVuJ60/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/5b8103e0b12c325673e8d2538f356f9f/?p=_96pfm8aOIfJouos6FMHtw",
-          },
-          {
-            name: "Шаблон учёта сделок",
-            hint: "Для сборки выручки по методу начисления",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1EwE7n0ksLYIDulvZzYtOAigHbIiudvm1xbsMkES9nY8/edit?usp=drivesdk",
-          },
-          {
-            name: "Шаблон разделения кредита",
-            hint: "Тело и проценты — отдельно",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1Y_n9asCbANZ8lem91Mhmw3CAcF6viQYiWcbHiQeeVp4/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/31a15c24fd3472011572366b8fb304ac/?p=NODkmrJUmbvDKrEV2Ic3Mg",
-          },
-          {
-            name: "Шаблон учёта заработной платы",
-            hint: "Начисление и выплата сотрудникам",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1K9Cy9Xiywr_7pu0bfP66iNnQsG8fHe2XKexaEavs0Rs/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/85f6c8b1ca5263a18a90b86fe84aceb6/?p=OlBMPewzy-UwLMPvUE5qGw",
-          },
-          {
-            name: "Реестр основных средств",
-            hint: "Активы и амортизация",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1zwsuhsVHn-iwZUXLMPsQyxShgl0aH1YCwEndrypc3sc/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/c4d6c8e1f263adc60ab782de2bd31650/?p=1Kk-Q1hKowzdB0Mhm-fnqQ",
-          },
-          {
-            name: "Шаблон учёта обязательств",
-            hint: "Для корректной сборки баланса",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1So1rbBYH7S-B0rej_nhFU91rL4tKUHuhRPn4wx0hpiM/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/478088d5f186981810fb8c706a5c61c7/?p=5LSzfS48H7GwYC12a5c18g",
-          },
-        ],
-      },
-      {
-        chapter: "Глава 8. Баланс",
-        items: [
-          {
-            name: "Шаблон управленческого баланса",
-            hint: "Активы и пассивы с пояснениями",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1SovY46QC6AMiGKq2pMaRC_4D9XMSLfEp_VJSdmYUyr8/edit?usp=drivesdk",
-            video: "https://rutube.ru/video/private/8573f7134927bb7836519525894565e8/?p=88yzH492MzTloz00hxRzkw",
-          },
-        ],
-      },
-      {
-        chapter: "Глава 12. Ценообразование",
-        items: [
-          {
-            name: "Калькулятор стоимости услуг",
-            hint: "Внутренний ориентир для ценообразования",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1C67x6fcpqTaykBKGUPpZJq3-PAzGN7jKMfMYKP_AgDw/edit?gid=0#gid=0",
-          },
-        ],
-      },
-      {
-        chapter: "Финансовый анализ",
-        items: [
-          {
-            name: "Шаблон финансового анализа",
-            hint: "Комплексная оценка финансового состояния клиента",
-            icon: "📊",
-            url: "https://docs.google.com/spreadsheets/d/1bDLRXTu6F7qLZ3qEy3rnsh6s5GrcmCGqh62imG5O_I4/edit?usp=sharing",
-          },
-        ],
-      },
+      { chapter:"Глава 4. Работа с клиентом", icon:"📋", items:[
+          { name:"Чек-лист диагностики клиента",    hint:"Используйте на первой встрече с клиентом",    icon:"📋", url:"https://docs.google.com/spreadsheets/d/1CNFJwazQFU4z9waVwLvMNtZI8agwSwOCMTaEC-b26x4/edit?usp=drivesdk" },
+          { name:"Таблица отработки возражений",     hint:"Готовые ответы на «дорого» и «подумаю»",     icon:"🎯", url:"https://docs.google.com/spreadsheets/d/1EzW8xwVNCjXsqLOSwA4B5DT2d9vOsgV6-lQIGm8BLfk/edit?gid=0#gid=0" },
+          { name:"Шаблон коммерческого предложения", hint:"Структура через боли, а не список услуг",     icon:"📄", url:"https://docs.google.com/presentation/d/1yqE7_mhC_xRKFeNRcnoFCTSLNDKvozBh_7SVpT6ojk8/edit?usp=sharing" },
+        ]},
+      { chapter:"Глава 6. ДДС", icon:"📊", items:[
+          { name:"Шаблон ДДС", hint:"Адаптируйте справочник статей под клиента", icon:"📊", url:"https://docs.google.com/spreadsheets/d/1N06_6idJSHiTaLVxTrjkJh8IargP0zY0X-2hlR6oJjo/edit?usp=drivesdk", video:"https://rutube.ru/video/private/69caf39ccbf252f437d8f7bb1a9ac656/?p=qDHbNVNYNZeCmaYikIiV0w" },
+        ]},
+      { chapter:"Глава 7. ОПиУ", icon:"📈", items:[
+          { name:"Шаблон ОПиУ",                  hint:"От выручки до чистой прибыли",          icon:"📈", url:"https://docs.google.com/spreadsheets/d/1pKNhD6pME_yVdWYuU1V_D0HBJAmZWdW3ql2DMVVuJ60/edit?usp=drivesdk", video:"https://rutube.ru/video/private/5b8103e0b12c325673e8d2538f356f9f/?p=_96pfm8aOIfJouos6FMHtw" },
+          { name:"Шаблон учёта сделок",           hint:"Выручка по методу начисления",          icon:"📊", url:"https://docs.google.com/spreadsheets/d/1EwE7n0ksLYIDulvZzYtOAigHbIiudvm1xbsMkES9nY8/edit?usp=drivesdk" },
+          { name:"Шаблон разделения кредита",     hint:"Тело и проценты — отдельно",            icon:"💳", url:"https://docs.google.com/spreadsheets/d/1Y_n9asCbANZ8lem91Mhmw3CAcF6viQYiWcbHiQeeVp4/edit?usp=drivesdk", video:"https://rutube.ru/video/private/31a15c24fd3472011572366b8fb304ac/?p=NODkmrJUmbvDKrEV2Ic3Mg" },
+          { name:"Шаблон учёта зарплаты",         hint:"Начисление и выплата сотрудникам",      icon:"👥", url:"https://docs.google.com/spreadsheets/d/1K9Cy9Xiywr_7pu0bfP66iNnQsG8fHe2XKexaEavs0Rs/edit?usp=drivesdk", video:"https://rutube.ru/video/private/85f6c8b1ca5263a18a90b86fe84aceb6/?p=OlBMPewzy-UwLMPvUE5qGw" },
+          { name:"Реестр основных средств",       hint:"Активы и амортизация",                  icon:"🏭", url:"https://docs.google.com/spreadsheets/d/1zwsuhsVHn-iwZUXLMPsQyxShgl0aH1YCwEndrypc3sc/edit?usp=drivesdk", video:"https://rutube.ru/video/private/c4d6c8e1f263adc60ab782de2bd31650/?p=1Kk-Q1hKowzdB0Mhm-fnqQ" },
+          { name:"Шаблон учёта обязательств",     hint:"Для корректной сборки баланса",         icon:"⚖️", url:"https://docs.google.com/spreadsheets/d/1So1rbBYH7S-B0rej_nhFU91rL4tKUHuhRPn4wx0hpiM/edit?usp=drivesdk", video:"https://rutube.ru/video/private/478088d5f186981810fb8c706a5c61c7/?p=5LSzfS48H7GwYC12a5c18g" },
+        ]},
+      { chapter:"Глава 8. Баланс", icon:"📑", items:[
+          { name:"Шаблон управленческого баланса", hint:"Активы и пассивы с пояснениями", icon:"📑", url:"https://docs.google.com/spreadsheets/d/1SovY46QC6AMiGKq2pMaRC_4D9XMSLfEp_VJSdmYUyr8/edit?usp=drivesdk", video:"https://rutube.ru/video/private/8573f7134927bb7836519525894565e8/?p=88yzH492MzTloz00hxRzkw" },
+        ]},
+      { chapter:"Глава 12. Ценообразование", icon:"💰", items:[
+          { name:"Калькулятор стоимости услуг", hint:"Внутренний ориентир для ценообразования", icon:"💰", url:"https://docs.google.com/spreadsheets/d/1C67x6fcpqTaykBKGUPpZJq3-PAzGN7jKMfMYKP_AgDw/edit?gid=0#gid=0" },
+        ]},
+      { chapter:"Финансовый анализ", icon:"🔍", items:[
+          { name:"Шаблон финансового анализа", hint:"Комплексная оценка финансового состояния", icon:"🔍", url:"https://docs.google.com/spreadsheets/d/1bDLRXTu6F7qLZ3qEy3rnsh6s5GrcmCGqh62imG5O_I4/edit?usp=sharing" },
+        ]},
     ];
 
-    /* ═══════════════════════════════════════════════════════════
-       PLATFORM DETECTION + GATE
-       Поддержка: Telegram и MAX
-       ═══════════════════════════════════════════════════════════ */
-    const tg  = window.Telegram?.WebApp;   // Telegram Bridge
-    const max = window.WebApp;             // MAX Bridge (автоинициализация)
-    const gate = document.getElementById("gate");
-
-    // initData непустой только внутри соответствующего мессенджера
+    /* ══ Platform detection (no blocking gate) ═════════════════ */
+    const tg  = window.Telegram?.WebApp;
+    const max = window.WebApp;
     const inTelegram = Boolean(tg?.initData);
     const inMax      = Boolean(max?.initData);
 
-    if (inTelegram || inMax) {
-      gate.classList.add("hidden");
+    if (inTelegram) { tg.ready(); tg.expand(); applyScheme(tg.colorScheme); tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme)); }
 
-      if (inTelegram) {
-        tg.ready();
-        tg.expand();
-        applyScheme(tg.colorScheme);
-        tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme));
-      }
-      // MAX инициализируется сам; тему берём из системы (prefers-color-scheme)
-    } else {
-      // Прямой браузер — показываем заглушку, скрываем всё
-      gate.classList.remove("hidden");
-      document.querySelector("header").style.display = "none";
-      document.querySelector("main").style.display = "none";
-      document.querySelector(".channel-bar").style.display = "none";
-      document.getElementById("fab").style.display = "none";
+    function applyScheme(s) {
+      document.documentElement.classList.toggle("dark",  s === "dark");
+      document.documentElement.classList.toggle("light", s === "light");
     }
 
-    function applyScheme(scheme) {
-      document.documentElement.classList.toggle("dark",  scheme === "dark");
-      document.documentElement.classList.toggle("light", scheme === "light");
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       CHANNEL BUTTON
-       ═══════════════════════════════════════════════════════════ */
-    document.getElementById("maxBtn").addEventListener("click", () => {
-      openUrl("https://max.ru/id25803729988_biz");
-    });
-    document.getElementById("tgBtn").addEventListener("click", () => {
-      openUrl("https://t.me/+lYQIg1GzM9owZWNi");
-    });
-
-    /* ═══════════════════════════════════════════════════════════
-       COVER IMAGE
-       ═══════════════════════════════════════════════════════════ */
-    const coverWrap = document.getElementById("coverWrap");
-    const img = new Image();
-    img.src = "cover.jpg";
-    img.alt = "Обложка книги";
-    img.onload = () => {
-      coverWrap.textContent = "";
-      coverWrap.appendChild(img);
-    };
-
-    /* ═══════════════════════════════════════════════════════════
-       HELPERS
-       ═══════════════════════════════════════════════════════════ */
+    /* ══ Open URL helper ════════════════════════════════════════ */
     function openUrl(url) {
       if (!url) return;
-      if (inTelegram) { tg.openLink(url);  return; }
+      if (inTelegram) { tg.openLink(url); return; }
       if (inMax)      { max.openLink(url); return; }
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
+    /* ══ Cover image ════════════════════════════════════════════ */
+    const coverWrap = document.getElementById("coverWrap");
+    const ci = new Image(); ci.src = "cover.jpg"; ci.alt = "Обложка";
+    ci.onload = () => { coverWrap.textContent = ""; coverWrap.appendChild(ci); };
+
+    /* ══ Channel buttons ════════════════════════════════════════ */
+    document.getElementById("maxBtn").addEventListener("click", () => openUrl("https://max.ru/id25803729988_biz"));
+    document.getElementById("tgBtn").addEventListener("click",  () => openUrl("https://t.me/+lYQIg1GzM9owZWNi"));
+
+    /* ══ Ripple ══════════════════════════════════════════════════ */
     function addRipple(el, e) {
-      const rect = el.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const rip  = document.createElement("span");
+      const r = el.getBoundingClientRect();
+      const s = Math.max(r.width, r.height) * 2;
+      const rip = document.createElement("span");
       rip.className = "ripple";
-      rip.style.cssText =
-        `width:${size}px;height:${size}px;` +
-        `left:${e.clientX - rect.left - size / 2}px;` +
-        `top:${e.clientY - rect.top - size / 2}px`;
+      rip.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;
       el.appendChild(rip);
       rip.addEventListener("animationend", () => rip.remove());
     }
 
-    /* ═══════════════════════════════════════════════════════════
-       RENDER
-       ═══════════════════════════════════════════════════════════ */
+    /* ══ IntersectionObserver — scroll reveal ════════════════════ */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+
+    /* ══ Stats counter animation ═════════════════════════════════ */
+    function animCount(el, target, dur = 1000) {
+      let start = null;
+      const step = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = Math.round(e * target);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(step);
+    }
+
+    const statsEl = document.getElementById("statsRow");
+    const statsIO = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        statsIO.disconnect();
+        CATALOG.forEach((_, i) => {
+          const el = document.getElementById("cnt" + i);
+          if (el) animCount(el, +el.dataset.target, 900 + i * 100);
+        });
+      }
+    }, { threshold: 0.5 });
+    if (statsEl) statsIO.observe(statsEl);
+
+    /* ══ Render catalog ══════════════════════════════════════════ */
     function render() {
       const root = document.getElementById("catalog");
       root.innerHTML = "";
+      document.getElementById("skeleton").style.display = "none";
 
-      for (const section of CATALOG) {
+      let delay = 60;
+
+      CATALOG.forEach((section, si) => {
         const ch = document.createElement("div");
         ch.className = "chapter";
+        ch.id = "sec-" + si;
 
         const label = document.createElement("div");
         label.className = "chapter__label";
         label.textContent = section.chapter;
         ch.appendChild(label);
+        io.observe(label);
 
-        const cardsEl = document.createElement("div");
-        cardsEl.className = "cards";
+        const cards = document.createElement("div");
+        cards.className = "cards";
 
-        for (const item of section.items) {
+        section.items.forEach(item => {
           const card = document.createElement("div");
+          card.style.setProperty("--d", delay + "ms");
+          delay += 55;
 
           if (item.video) {
-            // ── Карточка с видео: два явных button-a внизу ──
             card.className = "card card--video";
             card.innerHTML =
               `<div class="card__top">` +
-                `<div class="card__icon">${item.icon || "📊"}</div>` +
-                `<div class="card__body">` +
-                  `<div class="card__name">${item.name}</div>` +
-                  `<div class="card__hint">${item.hint}</div>` +
-                `</div>` +
+                `<div class="card__icon">${item.icon}</div>` +
+                `<div class="card__body"><div class="card__name">${item.name}</div><div class="card__hint">${item.hint}</div></div>` +
               `</div>` +
               `<div class="card__footer">` +
-                `<a class="card__btn card__btn--video">▶&nbsp;Видео</a>` +
+                `<a class="card__btn card__btn--video"><span class="play-icon">▶</span>&nbsp;Видео</a>` +
                 `<a class="card__btn card__btn--open">Открыть таблицу&nbsp;→</a>` +
               `</div>`;
-
-            card.querySelector(".card__btn--video").addEventListener("click", (e) => {
-              e.stopPropagation();
-              openUrl(item.video);
-            });
-            card.querySelector(".card__btn--open").addEventListener("click", (e) => {
-              e.stopPropagation();
-              addRipple(card, e);
-              openUrl(item.url);
-            });
-
+            card.querySelector(".card__btn--video").addEventListener("click", e => { e.stopPropagation(); addRipple(card, e); openUrl(item.video); });
+            card.querySelector(".card__btn--open").addEventListener("click",  e => { e.stopPropagation(); addRipple(card, e); openUrl(item.url); });
           } else {
-            // ── Простая карточка: вся кликабельна ──
             card.className = "card";
             card.innerHTML =
-              `<div class="card__icon">${item.icon || "📊"}</div>` +
-              `<div class="card__body">` +
-                `<div class="card__name">${item.name}</div>` +
-                `<div class="card__hint">${item.hint}</div>` +
-              `</div>` +
+              `<div class="card__icon">${item.icon}</div>` +
+              `<div class="card__body"><div class="card__name">${item.name}</div><div class="card__hint">${item.hint}</div></div>` +
               `<div class="card__cta">Открыть&nbsp;→</div>`;
-
-            card.addEventListener("click", (e) => {
-              addRipple(card, e);
-              openUrl(item.url);
-            });
+            card.addEventListener("click", e => { addRipple(card, e); openUrl(item.url); });
           }
 
-          cardsEl.appendChild(card);
-        }
+          cards.appendChild(card);
+          io.observe(card);
+        });
 
-        ch.appendChild(cardsEl);
+        ch.appendChild(cards);
         root.appendChild(ch);
+      });
+
+      buildDrawerNav();
+    }
+
+    /* ══ Drawer (hamburger menu) ═════════════════════════════════ */
+    const burger       = document.getElementById("burger");
+    const drawer       = document.getElementById("drawer");
+    const drawerOver   = document.getElementById("drawerOverlay");
+    const drawerClose  = document.getElementById("drawerClose");
+
+    function openDrawer() {
+      drawer.classList.add("open");
+      drawerOver.classList.add("open");
+      burger.classList.add("open");
+      burger.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+    function closeDrawer() {
+      drawer.classList.remove("open");
+      drawerOver.classList.remove("open");
+      burger.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    burger.addEventListener("click", () => drawer.classList.contains("open") ? closeDrawer() : openDrawer());
+    drawerClose.addEventListener("click", closeDrawer);
+    drawerOver.addEventListener("click", closeDrawer);
+
+    function buildDrawerNav() {
+      const nav = document.getElementById("drawerNav");
+      nav.innerHTML = "";
+      CATALOG.forEach((section, i) => {
+        const item = document.createElement("div");
+        item.className = "drawer__item";
+        item.innerHTML =
+          `<span class="drawer__item__ico">${section.icon}</span>` +
+          `<span class="drawer__item__text">${section.chapter}</span>` +
+          `<span class="drawer__item__count">${section.items.length}</span>`;
+        item.addEventListener("click", () => {
+          closeDrawer();
+          const el = document.getElementById("sec-" + i);
+          if (el) { setTimeout(() => el.scrollIntoView({ behavior:"smooth", block:"start" }), 340); }
+        });
+        nav.appendChild(item);
+      });
+    }
+
+    document.getElementById("drawerFbBtn").addEventListener("click", () => { closeDrawer(); openFeedback(); });
+
+    /* ══ FAB — scroll to top ═════════════════════════════════════ */
+    const fab = document.getElementById("fab");
+    const fabFb = document.getElementById("fabFb");
+
+    window.addEventListener("scroll", () => {
+      const scrolled = window.scrollY > 260;
+      fab.classList.toggle("vis", scrolled);
+      fabFb.classList.toggle("vis", scrolled);
+    }, { passive: true });
+
+    fab.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    /* ══ Feedback form ═══════════════════════════════════════════ */
+    const fbOverlay = document.getElementById("fbOverlay");
+    const fbClose   = document.getElementById("fbClose");
+    const fbSubmit  = document.getElementById("fbSubmit");
+    const fbForm    = document.getElementById("fbForm");
+    const fbSuccess = document.getElementById("fbSuccess");
+
+    function openFeedback() {
+      // Reset to form state
+      fbForm.style.display = "";
+      fbSuccess.classList.remove("show");
+      fbSubmit.classList.remove("loading");
+      document.getElementById("fbName").value = "";
+      document.getElementById("fbEmail").value = "";
+      document.getElementById("fbMsg").value = "";
+      fbOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => document.getElementById("fbName").focus(), 400);
+    }
+    function closeFeedback() {
+      fbOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    fabFb.addEventListener("click", openFeedback);
+    fbClose.addEventListener("click", closeFeedback);
+    fbOverlay.addEventListener("click", e => { if (e.target === fbOverlay) closeFeedback(); });
+    document.getElementById("fbSuccessClose").addEventListener("click", closeFeedback);
+
+    // Submit with fake loading → success animation
+    fbSubmit.addEventListener("click", () => {
+      const name  = document.getElementById("fbName").value.trim();
+      const email = document.getElementById("fbEmail").value.trim();
+      const msg   = document.getElementById("fbMsg").value.trim();
+      if (!name || !email || !msg) {
+        // Shake empty fields
+        [["fbName",name],["fbEmail",email],["fbMsg",msg]].forEach(([id, val]) => {
+          if (!val) {
+            const el = document.getElementById(id);
+            el.style.borderColor = "#ef4444";
+            el.style.boxShadow = "0 0 0 3px rgba(239,68,68,.15)";
+            setTimeout(() => { el.style.borderColor = ""; el.style.boxShadow = ""; }, 2000);
+          }
+        });
+        return;
+      }
+      fbSubmit.classList.add("loading");
+      setTimeout(() => {
+        fbForm.style.display = "none";
+        fbSuccess.classList.add("show");
+        launchConfetti();
+      }, 1600);
+    });
+
+    // Confetti burst
+    const CONFETTI_COLORS = ["#2E6DA4","#f59e0b","#10b981","#ef4444","#8b5cf6","#f97316"];
+    function launchConfetti() {
+      const container = document.getElementById("confettiContainer");
+      for (let i = 0; i < 22; i++) {
+        const p = document.createElement("div");
+        p.className = "confetti-piece";
+        const color = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+        const x = (Math.random() - 0.5) * 160;
+        const dur = 0.9 + Math.random() * 0.7;
+        const delay = Math.random() * 0.4;
+        const rot = Math.random() * 360;
+        p.style.cssText =
+          `background:${color};` +
+          `left:${x}px;top:-10px;` +
+          `transform:rotate(${rot}deg);` +
+          `animation:confettiDrop ${dur}s ${delay}s ease forwards;` +
+          `border-radius:${Math.random() > .5 ? "50%" : "2px"}`;
+        container.appendChild(p);
+        p.addEventListener("animationend", () => p.remove());
       }
     }
 
-    /* ═══════════════════════════════════════════════════════════
-       SCROLL-TO-TOP FAB
-       ═══════════════════════════════════════════════════════════ */
-    const fab = document.getElementById("fab");
-
-    window.addEventListener("scroll", () => {
-      fab.classList.toggle("visible", window.scrollY > 280);
-    }, { passive: true });
-
-    fab.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    /* ── GO ── */
+    /* ══ GO ══════════════════════════════════════════════════════ */
     render();
   </script>
 </body>
