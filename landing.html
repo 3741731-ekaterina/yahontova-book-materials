@@ -287,7 +287,7 @@ p  { font-size: 16px; line-height: 1.75; }
 .problem { background: var(--white); }
 .problem__lead { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 16px; max-width: 780px; line-height: 1.4; }
 .problem__intro { max-width: 760px; margin-bottom: 40px; font-size: 16px; color: var(--muted); }
-.problem__qs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 56px; align-items: stretch; }
+.problem__qs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 56px; align-items: stretch; position: relative; z-index: 2; }
 .pq {
   display: flex; gap: 16px; align-items: flex-start;
   padding: 16px 22px; background: var(--cream);
@@ -308,8 +308,24 @@ p  { font-size: 16px; line-height: 1.75; }
   background: var(--navy); color: var(--white);
   border-radius: 14px; padding: 32px 36px;
   font-size: 17px; font-weight: 600; line-height: 1.6;
+  position: relative; z-index: 2;
 }
 .problem__summary em { font-style: normal; color: var(--gold2); }
+
+.problem__body { position: relative; }
+.problem__visual {
+  position: absolute; right: -56px; bottom: -28px;
+  width: 280px; z-index: 1;
+  transform: rotate(-5deg);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(15,27,45,.22), 0 6px 18px rgba(15,27,45,.1);
+  pointer-events: none;
+}
+.problem__visual-mobile { display: none; }
+@media (max-width: 1100px) {
+  .problem__visual { display: none; }
+  .problem__visual-mobile { display: block; }
+}
 
 .transform-block { display: grid; grid-template-columns: 1fr 56px 1fr; gap: 16px; align-items: center; margin-top: 56px; }
 .state { padding: 28px 24px; border-radius: 12px; text-align: center; }
@@ -1281,22 +1297,26 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     <p class="problem__lead">7 из 10 финансистов и бухгалтеров понимают, как строить финансовые отчёты. Но этого уже недостаточно.</p>
     <p class="problem__intro">Вы можете уметь строить таблицы, собирать отчёты, понимать, что такое ДДС, ОПиУ и баланс. Но когда дело доходит до клиентов — начинаются вопросы без ответов:</p>
 
-    <div class="problem__qs" id="pqs">
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выглядит полный цикл оказания услуги: с чего начать, за что хвататься в первую очередь?</div></div>
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выстроить систему из взаимосвязанных отчётов с понятной логикой, а не разрозненные таблицы с цифрами?</div></div>
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как объяснить собственнику ценность своей работы, чтобы он не спрашивал «а за что я вообще плачу деньги»?</div></div>
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как на первой встрече довести клиента до заключения договора, а не свалиться в бесплатное консультирование?</div></div>
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выстроить проект — от диагностики до результата — и не утонуть в рутине?</div></div>
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как называть цену уверенно без стыда и страха получить отказ?</div></div>
-      <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как перестать работать за троих, а получать за одного?</div></div>
+    <div class="problem__body">
+      <div class="problem__qs" id="pqs">
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выглядит полный цикл оказания услуги: с чего начать, за что хвататься в первую очередь?</div></div>
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выстроить систему из взаимосвязанных отчётов с понятной логикой, а не разрозненные таблицы с цифрами?</div></div>
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как объяснить собственнику ценность своей работы, чтобы он не спрашивал «а за что я вообще плачу деньги»?</div></div>
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как на первой встрече довести клиента до заключения договора, а не свалиться в бесплатное консультирование?</div></div>
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как выстроить проект — от диагностики до результата — и не утонуть в рутине?</div></div>
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как называть цену уверенно без стыда и страха получить отказ?</div></div>
+        <div class="pq"><div class="pq-mark">❓</div><div class="pq-text">Как перестать работать за троих, а получать за одного?</div></div>
+      </div>
+
+      <div class="problem__summary reveal">
+        Эти вопросы — не про знания теории и таблиц. Они про <em>систему работы</em>, которой у большинства нет.<br><br>
+        Когда нет системы, специалист берёт всё подряд, работает на износ и не понимает, куда расти. Это касается как начинающих финансистов, так и людей с большим опытом.
+      </div>
+
+      <img src="было-стало.png" alt="До и после — трансформация финансиста" class="problem__visual reveal">
     </div>
 
-    <div class="problem__summary reveal">
-      Эти вопросы — не про знания теории и таблиц. Они про <em>систему работы</em>, которой у большинства нет.<br><br>
-      Когда нет системы, специалист берёт всё подряд, работает на износ и не понимает, куда расти. Это касается как начинающих финансистов, так и людей с большим опытом.
-    </div>
-
-    <div style="margin-top:52px;text-align:center" class="reveal">
+    <div class="problem__visual-mobile reveal" style="margin-top:52px;text-align:center">
       <img src="было-стало.png"
            alt="До и после — трансформация финансиста"
            style="max-width:100%;border-radius:14px;box-shadow:0 16px 48px rgba(15,27,45,.14),0 4px 16px rgba(15,27,45,.08)">
