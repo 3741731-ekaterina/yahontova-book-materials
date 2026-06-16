@@ -1097,20 +1097,20 @@ footer {
    PAYMENT MODAL
 =========================== */
 .modal-overlay {
+  visibility: hidden; opacity: 0; pointer-events: none;
   position: fixed; inset: 0; z-index: 500;
   background: rgba(15,27,45,.65);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .25s ease;
+  transition: opacity .25s ease, visibility .25s ease;
   padding: 20px;
   /* без backdrop-filter — он создаёт stacking context и режет попапы GetCourse */
 }
-.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-overlay.open { visibility: visible; opacity: 1; pointer-events: all; }
 /* GetCourse рендерит iframe/попап с высоким z-index — не мешаем */
 iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index: 10000 !important; }
 .modal-box {
   background: var(--white); border-radius: 18px;
-  padding: 36px 40px; max-width: 560px; width: 100%;
+  padding: 16px; max-width: 480px; width: 100%;
   position: relative;
   transform: translateY(20px) scale(.97);
   transition: transform .25s ease;
@@ -1118,37 +1118,13 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 }
 .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
 .modal-close {
-  position: absolute; top: 16px; right: 20px;
-  background: none; border: none; font-size: 24px; color: var(--muted);
-  cursor: pointer; line-height: 1; padding: 4px; transition: color .2s;
+  position: absolute; top: 10px; right: 12px; z-index: 1;
+  background: rgba(15,27,45,.08); border: none; width: 32px; height: 32px;
+  border-radius: 50%; font-size: 18px; color: var(--navy);
+  cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
 }
-.modal-close:hover { color: var(--navy); }
-.modal-header { margin-bottom: 6px; }
-.modal-title {
-  font-family: 'Forum',serif; font-size: 26px; text-transform: uppercase;
-  color: var(--navy); margin-bottom: 6px;
-}
-.modal-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
-.modal-price-row {
-  display: flex; align-items: flex-end; gap: 10px; margin-bottom: 20px;
-}
-.modal-old { font-size: 18px; text-decoration: line-through; color: var(--muted); }
-.modal-new { font-family: 'Forum',serif; font-size: 44px; color: var(--navy); line-height: 1; }
-.modal-rub { font-size: 18px; color: var(--muted); margin-bottom: 4px; }
-.modal-save {
-  background: var(--orange); color: var(--white);
-  font-family: 'Montserrat',sans-serif; font-size: 11px; font-weight: 800;
-  padding: 3px 9px; border-radius: 4px; display: inline-block; margin-bottom: 20px;
-}
-.modal-includes { list-style: none; margin: 0 0 24px; display: grid; gap: 8px; }
-.modal-includes li { font-size: 14px; color: var(--text); display: flex; gap: 10px; }
-.modal-includes li::before { content: '✓'; color: var(--green); font-weight: 900; flex-shrink: 0; }
-.modal-gc { /* GetCourse widget container */ margin-bottom: 12px; }
-.modal-pay-logos { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
-@media (max-width: 640px) {
-  .modal-box { padding: 28px 20px; }
-  .modal-new { font-size: 36px; }
-}
+.modal-close:hover { background: rgba(15,27,45,.16); }
 </style>
 </head>
 <body>
@@ -1652,9 +1628,8 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
       </div>
       <div><span class="price-save">Скидка 67%</span></div>
 
-      <!-- GetCourse widget — оплата прямо в блоке -->
       <div style="margin:28px 0 12px">
-        <script id="799ef4de964ba9ef3c82a2ade2d24f99083467f8" src="https://yahontovaschool.getcourse.ru/pl/lite/widget/script?id=1618139"></script>
+        <button class="btn btn--primary btn--lg" style="width:100%;justify-content:center;cursor:pointer;border:none" onclick="openModal()">Купить учебник</button>
       </div>
 
       <div class="pay-logo-row" style="justify-content:center;margin-top:16px">
@@ -1700,6 +1675,14 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     </div>
   </div>
 </section>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="payModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <script id="799ef4de964ba9ef3c82a2ade2d24f99083467f8" src="https://yahontovaschool.getcourse.ru/pl/lite/widget/script?id=1618139"></script>
+  </div>
+</div>
 
 <!-- =============================
      AUTHOR
@@ -1824,7 +1807,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 
       <div class="footer__divider"></div>
 
-      <div class="footer__copy">© 2025 Все права защищены</div>
+      <div class="footer__copy">© 2026 Все права защищены</div>
     </div>
   </div>
 </footer>
@@ -2040,6 +2023,21 @@ function scrollToPricing() {
   const target = document.getElementById('pricing');
   if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' });
 }
+
+// ---- Payment modal ----
+function openModal() {
+  const modal = document.getElementById('payModal');
+  if (!modal) return;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  const modal = document.getElementById('payModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 // ---- Top nav burger ----
 const tnBurger = document.getElementById('topnavBurger');
