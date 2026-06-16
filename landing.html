@@ -283,7 +283,7 @@ p  { font-size: 16px; line-height: 1.75; }
 .problem { background: var(--white); }
 .problem__lead { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 16px; max-width: 780px; line-height: 1.4; }
 .problem__intro { max-width: 760px; margin-bottom: 40px; font-size: 16px; color: var(--muted); }
-.problem__qs { display: grid; gap: 12px; margin-bottom: 56px; }
+.problem__qs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 56px; align-items: stretch; }
 .pq {
   display: flex; gap: 16px; align-items: flex-start;
   padding: 16px 22px; background: var(--cream);
@@ -879,6 +879,7 @@ footer {
   border-bottom: none;
 }
 @media (max-width: 900px) {
+  .problem__qs { grid-template-columns: 1fr; }
   .topnav__links { display: none; }
   .topnav__burger { display: flex; }
   .topnav__brand { font-size: 12px; }
@@ -1300,7 +1301,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 <section class="section whatbook" id="about">
   <div class="container">
     <span class="label">Что это за учебник</span>
-    <h2 class="reveal" style="margin-bottom:44px;max-width:780px">Практический курс в формате книги и приложения</h2>
+    <h2 class="reveal" style="margin-bottom:44px;max-width:100%">Практический курс в формате книги<br>и приложения</h2>
 
     <div class="whatbook__grid">
       <div>
