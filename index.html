@@ -54,10 +54,6 @@
     @keyframes skel    { from{background-position:-200% 0} to{background-position:200% 0} }
     @keyframes spin    { to{transform:rotate(360deg)} }
     @keyframes bounce  { 0%{transform:scale(0) rotate(-15deg);opacity:0} 70%{transform:scale(1.15) rotate(5deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
-    @keyframes pop     { 0%{transform:scale(0.5);opacity:0} 60%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1} }
-    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
-    @keyframes confettiDrop { to { transform: translateY(120px) rotate(720deg); opacity: 0; } }
-    @keyframes pulseGlow   { 0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,.3)} 50%{box-shadow:0 0 0 10px rgba(22,163,74,0)} }
 
     /* ══ Header ══════════════════════════════════════════════════ */
     .header {
@@ -152,16 +148,6 @@
     .drawer__item__text { font-size:14px; font-weight:600; color:var(--tx); line-height:1.3; }
     .drawer__item__count { margin-left:auto; font-size:11px; font-weight:700; color:var(--a);
       background:var(--at); padding:2px 7px; border-radius:10px; }
-    .drawer__feedback-btn {
-      margin:12px 16px; padding:12px;
-      background:var(--a); color:#fff; border:none; border-radius:10px;
-      font-size:14px; font-weight:700; cursor:pointer;
-      -webkit-tap-highlight-color:transparent;
-      display:flex; align-items:center; justify-content:center; gap:8px;
-      transition:background .2s, transform .15s;
-    }
-    .drawer__feedback-btn:active { transform:scale(.97); }
-
     /* ══ Content ══════════════════════════════════════════════════ */
     .content { padding:16px; }
 
@@ -279,114 +265,6 @@
     .fab.vis { opacity:1; transform:translateY(0) scale(1); }
     @media(hover:hover) { .fab:hover { transform:translateY(-2px) scale(1.08) !important; } }
 
-    /* ══ Feedback FAB ════════════════════════════════════════════ */
-    .fab-fb {
-      position:fixed; bottom:calc(76px + var(--sb)); left:16px; z-index:50;
-      width:44px; height:44px; border-radius:50%;
-      background:linear-gradient(135deg,var(--gr),#15803d); color:#fff;
-      border:none; font-size:20px;
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      box-shadow:0 4px 16px rgba(22,163,74,.4);
-      opacity:0; transform:translateY(14px) scale(.88);
-      transition:opacity .3s, transform .3s;
-      -webkit-tap-highlight-color:transparent;
-      animation:pulseGlow 3s 2s ease-in-out infinite;
-    }
-    .fab-fb.vis { opacity:1; transform:translateY(0) scale(1); }
-    @media(hover:hover) { .fab-fb:hover { transform:translateY(-2px) scale(1.1) !important; } }
-
-    /* ══ Feedback modal ══════════════════════════════════════════ */
-    .fb-overlay {
-      position:fixed; inset:0; z-index:300;
-      background:rgba(0,0,0,.5); backdrop-filter:blur(6px);
-      display:flex; align-items:flex-end; justify-content:center;
-      opacity:0; pointer-events:none;
-      transition:opacity .3s ease;
-    }
-    .fb-overlay.open { opacity:1; pointer-events:all; }
-    .fb-sheet {
-      width:100%; max-width:560px;
-      background:var(--bg); border-radius:20px 20px 0 0;
-      padding:20px 22px calc(22px + var(--sb));
-      transform:translateY(100%);
-      transition:transform .38s cubic-bezier(.32,1,.56,1);
-      position:relative;
-    }
-    .fb-overlay.open .fb-sheet { transform:translateY(0); }
-    .fb-handle {
-      width:40px; height:4px; border-radius:2px;
-      background:var(--bo); margin:0 auto 18px;
-    }
-    .fb-title { font-size:18px; font-weight:700; color:var(--tx); margin-bottom:4px; }
-    .fb-sub   { font-size:13px; color:var(--mu); margin-bottom:20px; }
-    .fb-close {
-      position:absolute; top:18px; right:18px;
-      width:30px; height:30px; border-radius:50%;
-      background:var(--cd); border:none; color:var(--mu); font-size:16px;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background .2s;
-    }
-    .fb-close:hover { background:var(--bo); }
-
-    /* Form fields */
-    .fb-row   { margin-bottom:14px; }
-    .fb-label { font-size:12px; font-weight:700; color:var(--mu); margin-bottom:5px; display:block; text-transform:uppercase; letter-spacing:.06em; }
-    .fb-input, .fb-textarea {
-      width:100%; padding:12px 14px;
-      background:var(--cd); border:1.5px solid var(--bo);
-      border-radius:10px; font-size:15px; color:var(--tx);
-      font-family:inherit; outline:none;
-      transition:border-color .2s, box-shadow .2s;
-    }
-    .fb-input:focus, .fb-textarea:focus {
-      border-color:var(--a); box-shadow:0 0 0 3px rgba(46,109,164,.12);
-    }
-    .fb-textarea { resize:none; height:100px; line-height:1.55; }
-    .fb-submit {
-      width:100%; padding:15px; background:var(--a); color:#fff;
-      border:none; border-radius:12px; font-size:16px; font-weight:700;
-      cursor:pointer; -webkit-tap-highlight-color:transparent;
-      display:flex; align-items:center; justify-content:center; gap:8px;
-      transition:background .2s, transform .15s, box-shadow .2s;
-      box-shadow:0 4px 14px rgba(27,58,107,.3);
-    }
-    .fb-submit:active { transform:scale(.97); }
-    @media(hover:hover) { .fb-submit:hover { background:#1a5a9e; transform:translateY(-1px); } }
-    .fb-submit .spinner { width:18px; height:18px; border:2.5px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:none; }
-    .fb-submit.loading .spinner   { display:block; }
-    .fb-submit.loading .btn-text  { display:none; }
-
-    /* Success state */
-    .fb-success { display:none; flex-direction:column; align-items:center; padding:10px 0 8px; text-align:center; }
-    .fb-success.show { display:flex; }
-    .fb-success__circle {
-      width:72px; height:72px; border-radius:50%;
-      background:rgba(22,163,74,.1); border:2.5px solid var(--gr);
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom:16px; animation:pop .5s ease both, pulseGlow 2s .5s ease-in-out 3;
-    }
-    .fb-success__check { width:36px; height:36px; }
-    .fb-success__check path {
-      fill:none; stroke:var(--gr); stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round;
-      stroke-dasharray:50; stroke-dashoffset:50;
-      animation:drawCheck .6s .3s cubic-bezier(.32,1,.56,1) forwards;
-    }
-    .fb-success__title { font-size:20px; font-weight:700; color:var(--tx); margin-bottom:6px; }
-    .fb-success__text  { font-size:14px; color:var(--mu); line-height:1.6; max-width:240px; margin-bottom:18px; }
-    .fb-success__close {
-      padding:12px 30px; background:var(--a); color:#fff;
-      border:none; border-radius:10px; font-size:15px; font-weight:700;
-      cursor:pointer; -webkit-tap-highlight-color:transparent;
-      transition:background .2s;
-    }
-
-    /* Confetti pieces */
-    .confetti-piece {
-      position:absolute; width:8px; height:8px;
-      border-radius:2px; pointer-events:none;
-      animation:confettiDrop 1.2s ease forwards;
-    }
-
     /* ══ Channel bar ═════════════════════════════════════════════ */
     .channel-bar {
       position:fixed; bottom:0; left:0; right:0; z-index:15;
@@ -423,9 +301,6 @@
       <button class="drawer__close" id="drawerClose" aria-label="Закрыть">✕</button>
     </div>
     <div class="drawer__nav" id="drawerNav"></div>
-    <button class="drawer__feedback-btn" id="drawerFbBtn">
-      💬 Задать вопрос
-    </button>
   </nav>
 
   <!-- ══ Header ═══════════════════════════════════════════════ -->
@@ -481,9 +356,6 @@
   <!-- ══ FAB — scroll to top ══════════════════════════════════ -->
   <button class="fab" id="fab" aria-label="Наверх">↑</button>
 
-  <!-- ══ FAB — feedback ════════════════════════════════════════ -->
-  <button class="fab-fb" id="fabFb" aria-label="Обратная связь">💬</button>
-
   <!-- ══ Channel bar ════════════════════════════════════════════ -->
   <div class="channel-bar">
     <a class="channel-bar__btn" id="maxBtn">
@@ -500,52 +372,6 @@
       </svg>
       <span>Подписаться в Telegram</span>
     </a>
-  </div>
-
-  <!-- ══ Feedback modal ════════════════════════════════════════ -->
-  <div class="fb-overlay" id="fbOverlay" role="dialog" aria-modal="true" aria-label="Форма обратной связи">
-    <div class="fb-sheet" id="fbSheet">
-      <div class="fb-handle"></div>
-      <button class="fb-close" id="fbClose" aria-label="Закрыть">✕</button>
-
-      <!-- Form -->
-      <div id="fbForm">
-        <div class="fb-title">Задать вопрос</div>
-        <div class="fb-sub">Напишите — и Екатерина ответит вам лично</div>
-        <div class="fb-row">
-          <label class="fb-label" for="fbName">Ваше имя</label>
-          <input class="fb-input" id="fbName" type="text" placeholder="Например, Анна" autocomplete="given-name">
-        </div>
-        <div class="fb-row">
-          <label class="fb-label" for="fbEmail">Email</label>
-          <input class="fb-input" id="fbEmail" type="email" placeholder="you@example.com" autocomplete="email">
-        </div>
-        <div class="fb-row">
-          <label class="fb-label" for="fbMsg">Ваш вопрос</label>
-          <textarea class="fb-textarea" id="fbMsg" placeholder="Опишите, что вас интересует…"></textarea>
-        </div>
-        <button class="fb-submit" id="fbSubmit">
-          <span class="btn-text">Отправить сообщение →</span>
-          <span class="spinner"></span>
-        </button>
-      </div>
-
-      <!-- Success state -->
-      <div class="fb-success" id="fbSuccess">
-        <div style="position:relative">
-          <!-- Confetti container -->
-          <div id="confettiContainer" style="position:absolute;top:0;left:50%;pointer-events:none"></div>
-          <div class="fb-success__circle">
-            <svg class="fb-success__check" viewBox="0 0 36 36">
-              <path d="M6 18 L14 26 L30 10"/>
-            </svg>
-          </div>
-        </div>
-        <div class="fb-success__title">Сообщение отправлено!</div>
-        <div class="fb-success__text">Екатерина свяжется с вами в течение 1–2 рабочих дней.</div>
-        <button class="fb-success__close" id="fbSuccessClose">Хорошо, спасибо!</button>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -754,96 +580,14 @@
       });
     }
 
-    document.getElementById("drawerFbBtn").addEventListener("click", () => { closeDrawer(); openFeedback(); });
-
     /* ══ FAB — scroll to top ═════════════════════════════════════ */
     const fab = document.getElementById("fab");
-    const fabFb = document.getElementById("fabFb");
 
     window.addEventListener("scroll", () => {
-      const scrolled = window.scrollY > 260;
-      fab.classList.toggle("vis", scrolled);
-      fabFb.classList.toggle("vis", scrolled);
+      fab.classList.toggle("vis", window.scrollY > 260);
     }, { passive: true });
 
     fab.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
-    /* ══ Feedback form ═══════════════════════════════════════════ */
-    const fbOverlay = document.getElementById("fbOverlay");
-    const fbClose   = document.getElementById("fbClose");
-    const fbSubmit  = document.getElementById("fbSubmit");
-    const fbForm    = document.getElementById("fbForm");
-    const fbSuccess = document.getElementById("fbSuccess");
-
-    function openFeedback() {
-      // Reset to form state
-      fbForm.style.display = "";
-      fbSuccess.classList.remove("show");
-      fbSubmit.classList.remove("loading");
-      document.getElementById("fbName").value = "";
-      document.getElementById("fbEmail").value = "";
-      document.getElementById("fbMsg").value = "";
-      fbOverlay.classList.add("open");
-      document.body.style.overflow = "hidden";
-      setTimeout(() => document.getElementById("fbName").focus(), 400);
-    }
-    function closeFeedback() {
-      fbOverlay.classList.remove("open");
-      document.body.style.overflow = "";
-    }
-
-    fabFb.addEventListener("click", openFeedback);
-    fbClose.addEventListener("click", closeFeedback);
-    fbOverlay.addEventListener("click", e => { if (e.target === fbOverlay) closeFeedback(); });
-    document.getElementById("fbSuccessClose").addEventListener("click", closeFeedback);
-
-    // Submit with fake loading → success animation
-    fbSubmit.addEventListener("click", () => {
-      const name  = document.getElementById("fbName").value.trim();
-      const email = document.getElementById("fbEmail").value.trim();
-      const msg   = document.getElementById("fbMsg").value.trim();
-      if (!name || !email || !msg) {
-        // Shake empty fields
-        [["fbName",name],["fbEmail",email],["fbMsg",msg]].forEach(([id, val]) => {
-          if (!val) {
-            const el = document.getElementById(id);
-            el.style.borderColor = "#ef4444";
-            el.style.boxShadow = "0 0 0 3px rgba(239,68,68,.15)";
-            setTimeout(() => { el.style.borderColor = ""; el.style.boxShadow = ""; }, 2000);
-          }
-        });
-        return;
-      }
-      fbSubmit.classList.add("loading");
-      setTimeout(() => {
-        fbForm.style.display = "none";
-        fbSuccess.classList.add("show");
-        launchConfetti();
-      }, 1600);
-    });
-
-    // Confetti burst
-    const CONFETTI_COLORS = ["#2E6DA4","#f59e0b","#10b981","#ef4444","#8b5cf6","#f97316"];
-    function launchConfetti() {
-      const container = document.getElementById("confettiContainer");
-      for (let i = 0; i < 22; i++) {
-        const p = document.createElement("div");
-        p.className = "confetti-piece";
-        const color = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
-        const x = (Math.random() - 0.5) * 160;
-        const dur = 0.9 + Math.random() * 0.7;
-        const delay = Math.random() * 0.4;
-        const rot = Math.random() * 360;
-        p.style.cssText =
-          `background:${color};` +
-          `left:${x}px;top:-10px;` +
-          `transform:rotate(${rot}deg);` +
-          `animation:confettiDrop ${dur}s ${delay}s ease forwards;` +
-          `border-radius:${Math.random() > .5 ? "50%" : "2px"}`;
-        container.appendChild(p);
-        p.addEventListener("animationend", () => p.remove());
-      }
-    }
 
     /* ══ GO ══════════════════════════════════════════════════════ */
     render();
