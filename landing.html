@@ -313,9 +313,9 @@ p  { font-size: 16px; line-height: 1.75; }
 
 .problem__body { position: relative; }
 .problem__visual {
-  position: absolute; right: 8px; bottom: -16px;
-  width: 240px; z-index: 1;
-  transform: rotate(-5deg);
+  position: absolute; right: 4px; top: 88px;
+  width: 220px; z-index: 1;
+  transform: rotate(-4deg);
   border-radius: 14px;
   box-shadow: 0 20px 50px rgba(15,27,45,.22), 0 6px 18px rgba(15,27,45,.1);
   pointer-events: none;
@@ -778,8 +778,8 @@ p  { font-size: 16px; line-height: 1.75; }
   pointer-events: none;
 }
 .final-cta { padding: 140px 0; }
-.final-cta h2 { color: var(--white); max-width: 620px; margin: 0 auto 22px; }
-.final-cta p  { color: rgba(255,255,255,.65); max-width: 560px; margin: 0 auto 40px; font-size: 16px; }
+.final-cta h2 { color: var(--white); max-width: 100%; margin: 0 auto 22px; }
+.final-cta p  { color: rgba(255,255,255,.65); max-width: 740px; margin: 0 auto 40px; font-size: 16px; }
 .final-cta__note { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.4); max-width: 480px; margin-left: auto; margin-right: auto; }
 
 /* ===========================
@@ -1146,16 +1146,6 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   transition: background .2s;
 }
 .modal-close:hover { background: rgba(15,27,45,.16); }
-.modal-box--pdf { max-width: 880px; width: 92vw; height: 88vh; padding: 12px; display: flex; flex-direction: column; }
-.modal-box--pdf #pdfFrame { width: 100%; flex: 1; border: none; border-radius: 10px; }
-.pdf-fallback-link {
-  display: block; text-align: center; font-size: 13px; font-weight: 600;
-  color: var(--orange); text-decoration: none; padding: 8px 0 10px;
-}
-.pdf-fallback-link:hover { text-decoration: underline; }
-@media (max-width: 640px) {
-  .modal-box--pdf { width: 96vw; height: 92vh; padding: 8px; }
-}
 </style>
 </head>
 <body>
@@ -1172,7 +1162,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
       <a class="topnav__link" href="#gifts">Спецпредложение</a>
       <a class="topnav__link" href="#pricing">Стоимость</a>
       <a class="topnav__link" href="#author">Об авторе</a>
-      <a class="topnav__link" href="javascript:void(0)" onclick="openPdf()">Фрагмент</a>
+      <a class="topnav__link" href="fragment.pdf" target="_blank" rel="noopener">Фрагмент</a>
       <a class="topnav__link" href="#contacts">Задать вопрос</a>
       <a class="topnav__link topnav__link--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
     </div>
@@ -1186,7 +1176,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     <a class="topnav__mlink" href="#gifts">Спецпредложение</a>
     <a class="topnav__mlink" href="#pricing">Стоимость</a>
     <a class="topnav__mlink" href="#author">Об Авторе</a>
-    <a class="topnav__mlink" href="javascript:void(0)" onclick="openPdf()">Фрагмент учебника</a>
+    <a class="topnav__mlink" href="fragment.pdf" target="_blank" rel="noopener">Фрагмент учебника</a>
     <a class="topnav__mlink" href="#contacts">Задать вопрос</a>
     <a class="topnav__mlink topnav__mlink--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
   </div>
@@ -1479,9 +1469,9 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     </div>
 
     <div style="text-align:center;margin-top:36px">
-      <button onclick="openPdf()" class="btn btn--gold btn--lg" style="cursor:pointer;border:none">
+      <a href="fragment.pdf" target="_blank" rel="noopener" class="btn btn--gold btn--lg">
         📄 Читать фрагмент учебника
-      </button>
+      </a>
     </div>
 
   </div>
@@ -1711,15 +1701,6 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   </div>
 </div>
 
-<!-- PDF MODAL -->
-<div class="modal-overlay" id="pdfModal" onclick="if(event.target===this)closePdf()">
-  <div class="modal-box modal-box--pdf">
-    <button class="modal-close" onclick="closePdf()">✕</button>
-    <a id="pdfFallback" href="fragment.pdf" target="_blank" rel="noopener" class="pdf-fallback-link">Открыть PDF в новой вкладке ↗</a>
-    <iframe id="pdfFrame" src="" title="Фрагмент учебника" loading="lazy"></iframe>
-  </div>
-</div>
-
 <!-- =============================
      AUTHOR
 ============================= -->
@@ -1787,8 +1768,8 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 <section class="section final-cta">
   <div class="container">
     <span class="label" style="color:var(--gold2)">Заключение</span>
-    <h2>Система, которую нарабатывают годами<br>— теперь в одной книге</h2>
-    <p>Вы можете продолжать работать «как получается».<br>Или — выстроить систему, которая делает вас более уверенным, более ценным и более высокооплачиваемым специалистом.<br><br>
+    <h2>Система, которую нарабатывают<br>годами — теперь в одной книге</h2>
+    <p>Вы можете продолжать работать «как получается». Или — выстроить систему, которая<br>делает вас более уверенным, более ценным и более высокооплачиваемым специалистом.<br><br>
     «Эксперт по оцифровке бизнеса» — не про «узнать что-то новое», а про «изменить то, кем и как вы работаете».</p>
     <button class="btn btn--gold btn--lg" onclick="scrollToPricing()">Купить учебник</button>
     <p class="final-cta__note">После покупки вы получите доступ к обучающему приложению, библиотеке инструментов и подарочному курсу на выбор</p>
@@ -2073,26 +2054,7 @@ function closeModal() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closePdf(); } });
-
-// ---- PDF viewer modal ----
-function openPdf() {
-  const modal = document.getElementById('pdfModal');
-  const frame = document.getElementById('pdfFrame');
-  if (!modal || !frame) return;
-  if (!frame.src) {
-    const pdfUrl = new URL('fragment.pdf', window.location.href).href;
-    frame.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(pdfUrl) + '&embedded=true';
-  }
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closePdf() {
-  const modal = document.getElementById('pdfModal');
-  if (!modal) return;
-  modal.classList.remove('open');
-  document.body.style.overflow = '';
-}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 // ---- Top nav burger ----
 const tnBurger = document.getElementById('topnavBurger');
