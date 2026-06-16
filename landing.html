@@ -783,7 +783,14 @@ p  { font-size: 16px; line-height: 1.75; }
    CONTACTS
 =========================== */
 .contacts { background: var(--cream); }
+.contacts__top { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.contacts__text { flex: 1; min-width: 260px; }
+.contacts__photo { width: 140px; flex-shrink: 0; align-self: flex-end; margin-bottom: -16px; }
+.contacts__photo img { width: 100%; display: block; }
 .contacts__grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+@media (max-width: 640px) {
+  .contacts__photo { display: none; }
+}
 .clink {
   display: flex; align-items: center; gap: 10px;
   padding: 14px 22px; border-radius: 9px;
@@ -1771,9 +1778,16 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 ============================= -->
 <section class="section--sm contacts" id="contacts">
   <div class="container">
-    <span class="label">Контакты</span>
-    <h2>Остались вопросы?</h2>
-    <p style="color:var(--muted);margin-top:10px">Если у вас остались вопросы по учебнику, доступу к материалам, подарочной программе или оплате — напишите мне напрямую.</p>
+    <div class="contacts__top">
+      <div class="contacts__text">
+        <span class="label">Контакты</span>
+        <h2>Остались вопросы?</h2>
+        <p style="color:var(--muted);margin-top:10px">Если у вас остались вопросы по учебнику, доступу к материалам, подарочной программе или оплате — напишите мне напрямую.</p>
+      </div>
+      <div class="contacts__photo">
+        <img src="contact-photo.png" alt="Екатерина Яхонтова">
+      </div>
+    </div>
     <div class="contacts__grid">
       <a class="clink" href="https://t.me/yakhontova_finance" target="_blank" rel="noopener">
         <svg width="22" height="22" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
