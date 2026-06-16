@@ -783,10 +783,10 @@ p  { font-size: 16px; line-height: 1.75; }
    CONTACTS
 =========================== */
 .contacts { background: var(--cream); }
-.contacts__top { display: flex; align-items: flex-end; gap: 16px; }
+.contacts__top { display: flex; align-items: stretch; gap: 16px; }
 .contacts__text { flex: 1; min-width: 260px; }
-.contacts__photo { width: 120px; flex-shrink: 0; margin-bottom: -16px; }
-.contacts__photo img { width: 100%; display: block; }
+.contacts__photo { width: 140px; flex-shrink: 0; }
+.contacts__photo img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; display: block; }
 .contacts__grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
 @media (max-width: 640px) {
   .contacts__photo { display: none; }
@@ -986,7 +986,7 @@ footer {
   .book-spread { flex-direction: column; min-height: auto; }
   .bp-left { border-radius: 6px 6px 0 0; border-right: none; border-bottom: 1px solid rgba(0,0,0,.08); }
   .book-gutter { width: 100%; height: 0; }
-  .book-flip-wrap { min-height: 320px; }
+  .book-flip-wrap { height: 360px; min-height: 360px; }
   .bp-right-front, .bp-right-back { border-radius: 0 0 6px 6px; }
 }
 
