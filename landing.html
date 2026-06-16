@@ -552,7 +552,8 @@ p  { font-size: 16px; line-height: 1.75; }
    APP SECTION
 =========================== */
 .app-section { background: linear-gradient(150deg, #EEF3FA 0%, var(--cream) 100%); }
-.app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.app-head { margin-bottom: 40px; }
+.app-grid { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: start; }
 .app-phone { position: relative; display: flex; align-items: center; justify-content: center; }
 .app-phone img {
   width: min(280px, 100%); border-radius: 22px;
@@ -568,14 +569,6 @@ p  { font-size: 16px; line-height: 1.75; }
 }
 .instr::before { content: '📋'; flex-shrink: 0; font-size: 14px; }
 .instr--guide::before { content: '📘'; }
-.messenger-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
-.mb-badge {
-  display: flex; align-items: center; gap: 7px;
-  padding: 9px 16px; border-radius: 30px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px; font-weight: 700;
-  background: var(--white); border: 1.5px solid var(--border); color: var(--navy2);
-}
 
 /* ===========================
    GIFTS
@@ -1000,7 +993,7 @@ footer {
 /* ===========================
    FEATURED INSTRUMENTS
 =========================== */
-.instr-featured { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.instr-featured { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
 .instr-card {
   background: var(--white); border: 1px solid var(--border); border-radius: 12px;
   padding: 18px 16px; display: flex; flex-direction: column; gap: 6px;
@@ -1027,6 +1020,9 @@ footer {
   display: flex; align-items: center; gap: 7px;
 }
 .instr-small::before { content: '📋'; font-size: 13px; }
+@media (max-width: 900px) {
+  .instr-featured { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 640px) {
   .instr-featured { grid-template-columns: 1fr; }
   .instr-all.open { grid-template-columns: 1fr; }
@@ -1486,16 +1482,19 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 ============================= -->
 <section class="section app-section" id="app">
   <div class="container">
+    <div class="app-head">
+      <span class="label">Обучающее приложение</span>
+      <h2 class="reveal">Все инструменты — в одном месте</h2>
+      <p style="color:var(--muted);margin:16px 0 0;font-size:16px;max-width:720px" class="reveal">
+        В комплекте с книгой вы получаете полноценное приложение с готовыми инструментами, которые не нужно придумывать с нуля. Берёте, адаптируете под свой проект и работаете.<br><br>
+        Удобный формат на выбор: Telegram и МАХ
+      </p>
+    </div>
     <div class="app-grid">
       <div class="app-phone">
         <img src="app-screen.jpg" alt="Скриншот библиотеки материалов к книге">
       </div>
       <div>
-        <span class="label">Обучающее приложение</span>
-        <h2 class="reveal">Все инструменты — в одном месте</h2>
-        <p style="color:var(--muted);margin:16px 0 24px;font-size:16px" class="reveal">
-          В комплекте с книгой вы получаете приложение с 15 готовыми инструментами, которые не нужно придумывать с нуля.
-        </p>
         <!-- Featured 5 instruments -->
         <div class="instr-featured">
           <div class="instr-card">
@@ -1544,22 +1543,6 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
           <div class="instr-small">Гайд «Скрипт продаж по телефону»</div>
           <div class="instr-small">Шаблон финансового анализа</div>
           <div class="instr-small">Шаблон управленческого баланса</div>
-        </div>
-        <div class="messenger-badges">
-          <!-- Telegram official icon -->
-          <span class="mb-badge">
-            <svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-              <defs><linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2AABEE"/><stop offset="1" stop-color="#229ED9"/></linearGradient></defs>
-              <circle cx="25" cy="25" r="25" fill="url(#tg1)"/>
-              <path fill="white" d="M37.6 13.4L6.8 25.3c-.9.4-.8 1.7.2 1.9l8.1 2.6 3.1 9.9c.2.8 1.3 1 1.8.3l4.4-4.5 8.7 6.5c.8.6 2 .1 2.2-.9l5.7-26c.3-1.4-1-2.5-2.4-1.7zm-4.6 5.2L18.9 31.1c-.3.2-.4.5-.3.9l1.3 5.4-2.9-2.2c-.3-.2-.7-.2-1 .1l-2.4 2.4-2.2-7L32 18.6c.5-.3.5-1-.6-1z"/>
-            </svg>
-            Telegram
-          </span>
-          <!-- MAX logo -->
-          <span class="mb-badge">
-            <img src="max-logo.png" alt="MAX" style="width:20px;height:20px;object-fit:contain">
-            MAX
-          </span>
         </div>
       </div>
     </div>
