@@ -1161,6 +1161,58 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   transition: background .2s;
 }
 .modal-close:hover { background: rgba(15,27,45,.16); }
+
+/* ══ Video preview & modal ══════════════════════════════════════ */
+.video-preview { background: var(--navy); padding: 32px 0; }
+.video-thumb {
+  display: flex; align-items: center; gap: 20px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 22px 26px; cursor: pointer;
+  transition: background .2s, transform .18s;
+  -webkit-tap-highlight-color: transparent;
+}
+.video-thumb:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); }
+.video-thumb:active { transform: scale(.98); }
+.video-thumb__play {
+  width: 60px; height: 60px; flex-shrink: 0;
+  background: var(--orange); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 18px rgba(241,116,38,.5);
+  transition: transform .18s;
+}
+.video-thumb:hover .video-thumb__play { transform: scale(1.08); }
+.video-thumb__play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+.video-thumb__body { flex: 1; min-width: 0; }
+.video-thumb__eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+.video-thumb__title { font-family: 'Forum', serif; font-size: clamp(16px, 2.5vw, 22px); color: #fff; line-height: 1.25; }
+.video-thumb__hint { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 5px; }
+
+.video-modal {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,.92); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.video-modal.open { opacity: 1; pointer-events: all; }
+.video-modal__inner {
+  position: relative; width: 100%; max-width: 960px;
+  margin: 0 16px;
+}
+.video-modal__inner video {
+  width: 100%; max-height: 90vh; border-radius: 10px;
+  display: block; background: #000;
+}
+.video-modal__close {
+  position: absolute; top: -44px; right: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3);
+  color: #fff; font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.video-modal__close:hover { background: rgba(255,255,255,.32); }
 </style>
 </head>
 <body>
@@ -1698,6 +1750,32 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   </div>
 </section>
 
+<!-- =============================
+     VIDEO SECTION
+============================= -->
+<section class="video-preview" id="video-section">
+  <div class="container">
+    <div class="video-thumb reveal" id="videoThumb">
+      <div class="video-thumb__play">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="video-thumb__body">
+        <div class="video-thumb__eyebrow">Видео</div>
+        <div class="video-thumb__title">Путь клиента по книге + розыгрыш</div>
+        <div class="video-thumb__hint">Нажмите, чтобы посмотреть</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal__inner">
+    <button class="video-modal__close" id="videoModalClose">✕</button>
+    <video id="videoPlayer" controls playsinline preload="none"></video>
+  </div>
+</div>
+
 <!-- PAYMENT MODAL -->
 <div class="modal-overlay" id="payModal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
@@ -2083,7 +2161,32 @@ function closeModal() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeVideoModal(); }
+});
+
+// ---- Video modal ----
+const VIDEO_SRC = encodeURI('Путь клиента по книге+ розыгрыш.mp4');
+
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const player = document.getElementById('videoPlayer');
+  if (!modal || !player) return;
+  player.src = VIDEO_SRC;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const player = document.getElementById('videoPlayer');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  if (player) { player.pause(); player.src = ''; }
+}
+document.getElementById('videoThumb').addEventListener('click', openVideoModal);
+document.getElementById('videoModalClose').addEventListener('click', closeVideoModal);
+document.getElementById('videoModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeVideoModal(); });
 
 // ---- Top nav burger ----
 const tnBurger = document.getElementById('topnavBurger');
