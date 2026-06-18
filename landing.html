@@ -1199,9 +1199,13 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   position: relative; width: 100%; max-width: 960px;
   margin: 0 16px;
 }
-.video-modal__inner video {
-  width: 100%; max-height: 90vh; border-radius: 10px;
-  display: block; background: #000;
+.video-modal__iframe-wrap {
+  position: relative; padding-top: 56.25%; width: 100%;
+  border-radius: 10px; overflow: hidden; background: #000;
+}
+.video-modal__iframe-wrap iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border: none;
 }
 .video-modal__close {
   position: absolute; top: -44px; right: 0;
@@ -1772,7 +1776,11 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 <div class="video-modal" id="videoModal">
   <div class="video-modal__inner">
     <button class="video-modal__close" id="videoModalClose">✕</button>
-    <video id="videoPlayer" controls playsinline preload="none"></video>
+    <div class="video-modal__iframe-wrap">
+      <iframe id="videoPlayer"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+        allowfullscreen></iframe>
+    </div>
   </div>
 </div>
 
@@ -2166,7 +2174,7 @@ document.addEventListener('keydown', e => {
 });
 
 // ---- Video modal ----
-const VIDEO_SRC = 'client-path-video.mp4';
+const VIDEO_SRC = 'https://kinescope.io/embed/4Sa3fnf8M6vCYoraVSjHMD';
 
 function openVideoModal() {
   const modal = document.getElementById('videoModal');
@@ -2182,7 +2190,7 @@ function closeVideoModal() {
   if (!modal) return;
   modal.classList.remove('open');
   document.body.style.overflow = '';
-  if (player) { player.pause(); player.src = ''; }
+  if (player) { player.src = ''; }
 }
 document.getElementById('videoThumb').addEventListener('click', openVideoModal);
 document.getElementById('videoModalClose').addEventListener('click', closeVideoModal);
