@@ -418,6 +418,7 @@
     const inMax      = Boolean(max?.initData);
 
     if (inTelegram) { tg.ready(); tg.expand(); applyScheme(tg.colorScheme); tg.onEvent("themeChanged", () => applyScheme(tg.colorScheme)); }
+    if (inMax)      { max.ready?.(); max.expand?.(); }
 
     function applyScheme(s) {
       document.documentElement.classList.toggle("dark",  s === "dark");
