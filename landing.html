@@ -1258,7 +1258,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     <div class="topnav__links">
       <a class="topnav__link" href="#about">Что входит</a>
       <a class="topnav__link" href="#contents">Содержание</a>
-      <a class="topnav__link" href="#gifts">Спецпредложение</a>
+      <a class="topnav__link" href="#reviews">Отзывы</a>
       <a class="topnav__link" href="#pricing">Стоимость</a>
       <a class="topnav__link" href="#author">Об авторе</a>
       <a class="topnav__link" href="#reviews">Отзывы</a>
@@ -1273,7 +1273,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
   <div class="topnav__mobile" id="topnavMobile">
     <a class="topnav__mlink" href="#about">Что входит в продукт</a>
     <a class="topnav__mlink" href="#contents">Содержание</a>
-    <a class="topnav__mlink" href="#gifts">Спецпредложение</a>
+    <a class="topnav__mlink" href="#reviews">Отзывы</a>
     <a class="topnav__mlink" href="#pricing">Стоимость</a>
     <a class="topnav__mlink" href="#author">Об Авторе</a>
     <a class="topnav__mlink" href="#reviews">Отзывы</a>
@@ -1654,65 +1654,21 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
 </section>
 
 <!-- =============================
-     GIFTS / LOTTERY
+     REVIEWS
 ============================= -->
-<section class="section gifts" id="gifts">
+<section class="section reviews" id="reviews">
   <div class="container">
-    <div class="lottery-badge">🎁 Беспроигрышная лотерея</div>
-    <h2 class="reveal">В подарок — курс или личная консультация Екатерины</h2>
-    <p style="color:var(--muted);margin:14px 0 24px;font-size:16px;max-width:680px" class="reveal">
-      После покупки учебника вы автоматически участвуете в программе подарков. Каждый покупатель из первых 100 получает один из 6 бонусов.
-    </p>
-
-    <!-- Lottery mechanic steps -->
-    <div class="lottery-how reveal">
-      <div class="lottery-how__title">🎲 Как работает лотерея — 4 шага</div>
-      <div class="lottery-steps">
-        <div class="lstep">
-          <div class="lstep__emoji">🛒</div>
-          <div class="lstep__n">1</div>
-          <div class="lstep__text">Оплачиваете учебник</div>
-        </div>
-        <div class="lstep">
-          <div class="lstep__emoji">📧</div>
-          <div class="lstep__n">2</div>
-          <div class="lstep__text">Получаете письмо со ссылкой в приложение</div>
-        </div>
-        <div class="lstep">
-          <div class="lstep__emoji">🎰</div>
-          <div class="lstep__n">3</div>
-          <div class="lstep__text">Нажимаете кнопку — система рандомно выдаёт 1 из 6 бонусов</div>
-        </div>
-        <div class="lstep">
-          <div class="lstep__emoji">🎁</div>
-          <div class="lstep__n">4</div>
-          <div class="lstep__text">В течение 3 дней вам подключают курс или назначают консультацию</div>
-        </div>
+    <h2 class="section-title" style="color:#fff;">Отзывы читателей</h2>
+    <div class="reviews__grid">
+      <div class="reviews__card reveal">
+        <img src="review1.jpg" alt="Отзыв читателя">
       </div>
-    </div>
-
-    <!-- Spots counter -->
-    <div class="spots-row">
-      <div class="spots-badge">
-        Осталось мест:&nbsp;<span class="spots-badge__num" id="spotsNum">45</span>&nbsp;из 100
+      <div class="reviews__card reveal">
+        <img src="review2.jpg" alt="Отзыв читателя">
       </div>
-      <div class="spots-bar-wrap">
-        <div class="spots-bar" id="spotsBar" style="width:45%"></div>
+      <div class="reviews__card reveal">
+        <img src="review3.jpg" alt="Отзыв читателя">
       </div>
-    </div>
-
-    <div class="gifts-grid">
-      <div class="gift reveal"><div class="gift__ico">🏆</div><div class="gift__cross">21 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Курс «Создание финансовых моделей с 0»</div><div class="gift__note">Полный практический курс</div></div>
-      <div class="gift reveal" style="transition-delay:.08s"><div class="gift__ico">📊</div><div class="gift__cross">17 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Практикум по финансовому анализу</div><div class="gift__note">Разбор реальных компаний</div></div>
-      <div class="gift reveal" style="transition-delay:.16s"><div class="gift__ico">🎯</div><div class="gift__cross">14 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Курс «Клиенты за 14 дней»</div><div class="gift__note">Система привлечения клиентов</div></div>
-      <div class="gift reveal" style="transition-delay:.24s"><div class="gift__ico">🛠️</div><div class="gift__cross">4 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">«Первые деньги без паники»</div><div class="gift__note">Пакет инструментов для старта</div></div>
-      <div class="gift reveal" style="transition-delay:.32s"><div class="gift__ico">🌱</div><div class="gift__cross">4 900 ₽</div><div class="gift__free">в подарок</div><div class="gift__name">Мини-курс «Фундамент роста финансиста»</div><div class="gift__note">База для уверенного старта</div></div>
-      <div class="gift reveal" style="transition-delay:.40s;border-color:var(--orange);background:rgba(200,95,24,.04)"><div class="gift__ico">💎</div><div class="gift__cross">15 000 ₽</div><div class="gift__free" style="color:var(--orange)">бесплатно</div><div class="gift__name">Личная консультация Екатерины</div><div class="gift__note">1 на 1 — разбор вашей ситуации</div></div>
-    </div>
-
-    <div class="gifts-footer">
-      <strong>Как забрать подарок?</strong> После оплаты книги на почту придёт письмо со ссылкой на приложение, где вам выпадет 1 из бонусов. В течение 3 дней с момента покупки вам подключают курс или назначают консультацию.<br>
-      <em>* Доступ к каждому курсу — 90 дней. Бонусы только для первых 100 покупателей.</em>
     </div>
   </div>
 </section>
@@ -1894,26 +1850,6 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     «Эксперт по оцифровке бизнеса» — не про «узнать что-то новое», а про «изменить то, кем и как вы работаете».</p>
     <button class="btn btn--gold btn--lg" onclick="scrollToPricing()">Купить учебник</button>
     <p class="final-cta__note">После покупки вы получите доступ к обучающему приложению, библиотеке инструментов и подарочному курсу на выбор</p>
-  </div>
-</section>
-
-<!-- =============================
-     REVIEWS
-============================= -->
-<section class="section reviews" id="reviews">
-  <div class="container">
-    <h2 class="section-title" style="color:#fff;">Отзывы читателей</h2>
-    <div class="reviews__grid">
-      <div class="reviews__card reveal">
-        <img src="review1.jpg" alt="Отзыв читателя">
-      </div>
-      <div class="reviews__card reveal">
-        <img src="review2.jpg" alt="Отзыв читателя">
-      </div>
-      <div class="reviews__card reveal">
-        <img src="review3.jpg" alt="Отзыв читателя">
-      </div>
-    </div>
   </div>
 </section>
 
