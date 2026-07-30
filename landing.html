@@ -783,6 +783,34 @@ p  { font-size: 16px; line-height: 1.75; }
    CONTACTS
 =========================== */
 .contacts { background: var(--cream); }
+
+/* ── Reviews ── */
+.reviews { background: var(--navy); }
+.reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+.reviews__card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.28);
+  transition: transform .25s ease, box-shadow .25s ease;
+  cursor: pointer;
+}
+.reviews__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+}
+.reviews__card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media(max-width:768px) {
+  .reviews__grid { grid-template-columns: 1fr; gap: 16px; }
+}
 .contacts__top { display: flex; align-items: stretch; gap: 16px; }
 .contacts__text { flex: 1; min-width: 260px; }
 .contacts__photo { width: 140px; flex-shrink: 0; }
@@ -1233,6 +1261,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
       <a class="topnav__link" href="#gifts">Спецпредложение</a>
       <a class="topnav__link" href="#pricing">Стоимость</a>
       <a class="topnav__link" href="#author">Об авторе</a>
+      <a class="topnav__link" href="#reviews">Отзывы</a>
       <a class="topnav__link" href="fragment.pdf" target="_blank" rel="noopener">Фрагмент</a>
       <a class="topnav__link" href="#contacts">Задать вопрос</a>
       <a class="topnav__link topnav__link--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
@@ -1247,6 +1276,7 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     <a class="topnav__mlink" href="#gifts">Спецпредложение</a>
     <a class="topnav__mlink" href="#pricing">Стоимость</a>
     <a class="topnav__mlink" href="#author">Об Авторе</a>
+    <a class="topnav__mlink" href="#reviews">Отзывы</a>
     <a class="topnav__mlink" href="fragment.pdf" target="_blank" rel="noopener">Фрагмент учебника</a>
     <a class="topnav__mlink" href="#contacts">Задать вопрос</a>
     <a class="topnav__mlink topnav__mlink--cta" href="#pricing">Купить — 4&nbsp;900&nbsp;₽</a>
@@ -1864,6 +1894,26 @@ iframe[id*="getcourse"], div[id*="getcourse"], div[class*="getcourse"] { z-index
     «Эксперт по оцифровке бизнеса» — не про «узнать что-то новое», а про «изменить то, кем и как вы работаете».</p>
     <button class="btn btn--gold btn--lg" onclick="scrollToPricing()">Купить учебник</button>
     <p class="final-cta__note">После покупки вы получите доступ к обучающему приложению, библиотеке инструментов и подарочному курсу на выбор</p>
+  </div>
+</section>
+
+<!-- =============================
+     REVIEWS
+============================= -->
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <h2 class="section-title" style="color:#fff;">Отзывы читателей</h2>
+    <div class="reviews__grid">
+      <div class="reviews__card reveal">
+        <img src="review1.jpg" alt="Отзыв читателя">
+      </div>
+      <div class="reviews__card reveal">
+        <img src="review2.jpg" alt="Отзыв читателя">
+      </div>
+      <div class="reviews__card reveal">
+        <img src="review3.jpg" alt="Отзыв читателя">
+      </div>
+    </div>
   </div>
 </section>
 
